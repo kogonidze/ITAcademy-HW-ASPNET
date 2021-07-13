@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Authentication;
-using System.Text;
 
 namespace SimpleAuthorization
 {
@@ -19,14 +17,14 @@ namespace SimpleAuthorization
 
             if (!authDictionary.ContainsKey(login))
             {
-                throw new AuthenticationException();
+                throw new AuthenticationException(Constants.NotExistingUser);
             }
 
             var realPasswd = authDictionary[login];
 
             if (passwd != realPasswd)
             {
-                throw new AuthenticationException();
+                throw new AuthenticationException(Constants.IncorrectPasswd);
             }
 
             return new UserModel() {Username = login};
@@ -34,6 +32,8 @@ namespace SimpleAuthorization
 
         private static void FillAuthDictionary()
         {
+            authDictionary = new Dictionary<string, string>();
+
             authDictionary.Add("admin", "root");
             authDictionary.Add("user1", "kiTTy2001");
         }
