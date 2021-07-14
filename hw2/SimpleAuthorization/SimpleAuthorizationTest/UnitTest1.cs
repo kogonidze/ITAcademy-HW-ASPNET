@@ -15,7 +15,7 @@ namespace SimpleAuthorizationTest
         [Test]
         public void Authorization_CorrectData_ReturnsUserModel()
         {
-            var actualResult = Authorization.Run(new string[]{ "admin", "root" });
+            var actualResult = Authorization.Authorize(new string[]{ "admin", "root" });
 
             var expectedResult = new UserModel() {Username = "admin"};
 
@@ -25,7 +25,7 @@ namespace SimpleAuthorizationTest
         [Test]
         public void Authorization_NotValidUsername_ThrowsAuthException()
         {
-            var ex = Assert.Throws<AuthenticationException>(() => Authorization.Run(new string[] {"vasya", "vasya"}));
+            var ex = Assert.Throws<AuthenticationException>(() => Authorization.Authorize(new string[] {"vasya", "vasya"}));
 
             Assert.That(ex.Message == Constants.NotExistingUser);
         }
@@ -33,7 +33,7 @@ namespace SimpleAuthorizationTest
         [Test]
         public void Authorization_NotValidPasswd_ThrowsAuthException()
         {
-            var ex = Assert.Throws<AuthenticationException>(() => Authorization.Run(new string[] { "admin", "notRoot" }));
+            var ex = Assert.Throws<AuthenticationException>(() => Authorization.Authorize(new string[] { "admin", "notRoot" }));
 
             Assert.That(ex.Message == Constants.IncorrectPasswd);
         }

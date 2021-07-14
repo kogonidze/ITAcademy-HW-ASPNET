@@ -6,7 +6,7 @@ namespace SimpleAuthorization
     {
         static void Main(string[] args)
         {
-            Authorization.Run(args);
+            Authorization.Authorize(args);
         }
     }
 }

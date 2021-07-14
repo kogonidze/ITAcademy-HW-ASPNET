@@ -7,7 +7,7 @@ namespace SimpleAuthorization
     {
         private static Dictionary<string, string> authDictionary;
 
-        public static UserModel Run(string[] args)
+        public static UserModel Authorize(string[] args)
         {
             FillAuthDictionary();
 
