@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Decorator\Developer.cs" />
+    <Compile Include="Decorator\TeamLead.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="EmployeeDecorator.cs" />
+    <Compile Include="Decorator\EmployeeDecorator.cs" />
     <Compile Include="IEmployee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,5 +54,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

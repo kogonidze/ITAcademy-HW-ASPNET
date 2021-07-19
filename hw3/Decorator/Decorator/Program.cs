@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Decorator.Decorator;
 
 namespace Decorator
 {
@@ -10,6 +7,21 @@ namespace Decorator
     {
         static void Main(string[] args)
         {
+            IEmployee employee1 = new Employee();
+            employee1.Hire("Petr", DateTime.Now);
+            Developer developer = new Developer(employee1);
+
+            developer.PerformTask();
+            developer.DrinkTea();
+
+            IEmployee employee2 = new Employee();
+            TeamLead teamLead = new TeamLead(employee2);
+            teamLead.Hire("Oleg", DateTime.Now);
+
+            teamLead.CreateTask();
+            teamLead.DoCodeReview();
+
+            Console.ReadKey();
         }
     }
 }
