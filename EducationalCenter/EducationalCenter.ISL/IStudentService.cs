@@ -10,5 +10,7 @@ namespace EducationalCenter.ISL
     public interface IStudentService
     {
         IEnumerable<StudentDTO> GetAll();
+        void Create(StudentCreationDTO studentCreationDto);
+
     }
 }

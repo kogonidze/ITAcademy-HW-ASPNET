@@ -24,5 +24,12 @@ namespace EducationalCenter.SL
 
             return _mapper.Map<List<StudentDTO>>(students);
         }
+
+        public void Create(StudentCreationDTO studentCreationDto)
+        {
+            var student = _mapper.Map<Student>(studentCreationDto);
+
+            _repository.Create(student);
+        }
     }
 }

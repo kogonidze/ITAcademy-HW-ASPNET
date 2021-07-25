@@ -8,6 +8,7 @@ using EducationalCenter.IBL;
 using EducationalCenter.ISL;
 using EducationalCenter.Model;
 using EducationalCenter.SL;
+using EducationalCenter.SL.DTO;
 
 namespace EducationalCenter.Controllers
 {
@@ -26,9 +27,17 @@ namespace EducationalCenter.Controllers
             return View(obj);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(StudentCreationDTO student)
+        {
+            _service.Create(student);
+            return RedirectToAction("Index");
         }
     }
 }
