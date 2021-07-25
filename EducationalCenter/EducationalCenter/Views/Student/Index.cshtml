@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EducationalCenter.SL.DTO.StudentDTO>
+
+@{
+}
+
+<h2>Students: </h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EnrollmentYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </th>
+    </tr>
+    
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FIO);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentYear);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Faculty);
+            </td>
+        </tr>
+    }
+</table>
