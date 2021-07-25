@@ -13,7 +13,7 @@ namespace EducationalCenter.SL.Mappings
                 
             CreateMap<StudentCreationDTO, Student>();
 
-            CreateMap<StudentUpdationDTO, Student>().ReverseMap();
+            CreateMap<StudentFullInfoDTO, Student>().ReverseMap();
         }
     }
 }

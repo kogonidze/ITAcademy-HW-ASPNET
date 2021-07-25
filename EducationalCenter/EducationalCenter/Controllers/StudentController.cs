@@ -59,17 +59,29 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentUpdationDTO student)
+        public ActionResult Edit(StudentFullInfoDTO student)
         {
             _service.Update(student);
 
             return RedirectToAction("Index");
         }
 
-        [HttpDelete]
+        [HttpGet]
         public IActionResult Delete(int? id)
         {
-            return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = _service.FindById(id.Value);
+
+            if (student != null)
+            {
+                _service.Delete(student);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

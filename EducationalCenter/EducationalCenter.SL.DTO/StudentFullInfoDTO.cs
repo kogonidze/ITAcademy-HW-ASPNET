@@ -3,7 +3,7 @@ using EducationalCenter.Common.Enums;
 
 namespace EducationalCenter.SL.DTO
 {
-    public class StudentUpdationDTO
+    public class StudentFullInfoDTO
     {
         public int StudentId { get; set; }
         public string FirstName { get; set; }

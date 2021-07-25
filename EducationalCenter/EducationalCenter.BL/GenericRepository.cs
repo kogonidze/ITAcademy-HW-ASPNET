@@ -16,6 +16,8 @@ namespace EducationalCenter.BL
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
+
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public IEnumerable<TEntity> GetAll()

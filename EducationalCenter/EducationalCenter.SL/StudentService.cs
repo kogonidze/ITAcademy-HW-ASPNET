@@ -32,18 +32,25 @@ namespace EducationalCenter.SL
             _repository.Create(student);
         }
 
-        public StudentUpdationDTO FindById(int id)
+        public StudentFullInfoDTO FindById(int id)
         {
             var student = _repository.GetById(id);
 
-            return _mapper.Map<StudentUpdationDTO>(student);
+            return _mapper.Map<StudentFullInfoDTO>(student);
         }
 
-        public void Update(StudentUpdationDTO studentUpdationDto)
+        public void Update(StudentFullInfoDTO studentUpdationDto)
         {
             var student = _mapper.Map<Student>(studentUpdationDto);
 
             _repository.Update(student);
+        }
+
+        public void Delete(StudentFullInfoDTO studentDeletionDto)
+        {
+            var student = _mapper.Map<Student>(studentDeletionDto);
+
+            _repository.Delete(student);
         }
     }
 }

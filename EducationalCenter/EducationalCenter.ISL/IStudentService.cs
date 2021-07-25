@@ -7,8 +7,8 @@ namespace EducationalCenter.ISL
     {
         IEnumerable<StudentDTO> GetAll();
         void Create(StudentCreationDTO studentCreationDto);
-        StudentUpdationDTO FindById(int id);
-
-        void Update(StudentUpdationDTO studentUpdationDto);
+        StudentFullInfoDTO FindById(int id);
+        void Update(StudentFullInfoDTO studentUpdationDto);
+        void Delete(StudentFullInfoDTO studentDeletionDto);
     }
 }
