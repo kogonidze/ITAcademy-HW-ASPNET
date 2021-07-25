@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using EducationalCenter.SL.DTO;
 
 namespace EducationalCenter.ISL
@@ -11,6 +7,8 @@ namespace EducationalCenter.ISL
     {
         IEnumerable<StudentDTO> GetAll();
         void Create(StudentCreationDTO studentCreationDto);
+        StudentUpdationDTO FindById(int id);
 
+        void Update(StudentUpdationDTO studentUpdationDto);
     }
 }

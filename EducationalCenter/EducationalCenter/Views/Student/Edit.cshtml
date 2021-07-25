@@ -1,17 +1,17 @@
 ﻿@using EducationalCenter.Common.Enums
-@model EducationalCenter.SL.DTO.StudentCreationDTO
-
+@model EducationalCenter.SL.DTO.StudentUpdationDTO
 @{
 }
 
-<h2>Create new student: </h2>
+<h2>Edit the student: </h2>
 
-@using (Html.BeginForm("Create", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
 {
     @Html.ValidationSummary()
 
     <fieldset>
         <legend>Student</legend>
+        @Html.HiddenFor(m => m.StudentId);
 
         <div class="form-group">
             @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
@@ -53,12 +53,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Save" />
         </p>
-    
     </fieldset>
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 }

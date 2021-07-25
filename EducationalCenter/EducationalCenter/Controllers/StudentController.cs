@@ -39,5 +39,37 @@ namespace EducationalCenter.Controllers
             _service.Create(student);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var student = _service.FindById(id.Value);
+
+            if (student != null)
+            {
+                return View(student);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(StudentUpdationDTO student)
+        {
+            _service.Update(student);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            return NotFound();
+        }
     }
 }

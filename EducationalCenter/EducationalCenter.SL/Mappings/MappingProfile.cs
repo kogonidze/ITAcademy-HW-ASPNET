@@ -10,8 +10,10 @@ namespace EducationalCenter.SL.Mappings
         {
             CreateMap<Student, StudentDTO>()
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
-
+                
             CreateMap<StudentCreationDTO, Student>();
+
+            CreateMap<StudentUpdationDTO, Student>().ReverseMap();
         }
     }
 }
