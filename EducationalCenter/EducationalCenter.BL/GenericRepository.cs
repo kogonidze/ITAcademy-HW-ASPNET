@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EducationalCenter.Data;
 using EducationalCenter.IBL;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,10 @@ namespace EducationalCenter.BL
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity: class
     {
-        private DbContext _context;
+        private EducationalCenterContext _context;
         private DbSet<TEntity> _dbSet;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(EducationalCenterContext context)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();

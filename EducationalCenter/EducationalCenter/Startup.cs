@@ -8,6 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using EducationalCenter.BL;
+using EducationalCenter.Data;
+using EducationalCenter.IBL;
+using EducationalCenter.ISL;
+using EducationalCenter.Model;
+using EducationalCenter.SL;
+using EducationalCenter.SL.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducationalCenter
 {
@@ -24,6 +33,18 @@ namespace EducationalCenter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<EducationalCenterContext>
+                (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfile<MappingProfile>();
+            });
+
+            var mapper = new Mapper(config);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IGenericRepository<Student>, GenericRepository<Student>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

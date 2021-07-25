@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EducationalCenter.Data\EducationalCenter.Data.csproj" />
     <ProjectReference Include="..\EducationalCenter.IBL\EducationalCenter.IBL.csproj" />
   </ItemGroup>
 
