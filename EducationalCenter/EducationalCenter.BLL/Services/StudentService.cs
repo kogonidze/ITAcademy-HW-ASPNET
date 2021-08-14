@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Dtos.Student;
@@ -9,48 +10,60 @@ namespace EducationalCenter.SL
 {
     public class StudentService : IStudentService
     {
-        private readonly IStudentRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public StudentService(IStudentRepository repository, IMapper mapper)
+        public StudentService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public IEnumerable<StudentDTO> GetAll()
+        public async Task<IEnumerable<StudentDTO>> GetAllAsync()
         {
-            var students = _repository.GetAll();
+            var students = await _unitOfWork.Students.GetAllAsync();
 
             return _mapper.Map<List<StudentDTO>>(students);
         }
 
-        public void Create(StudentCreationDTO studentCreationDto)
+        public async Task CreateAsync(StudentCreationDTO studentCreationDto)
         {
             var student = _mapper.Map<Student>(studentCreationDto);
 
-            _repository.Create(student);
+            _unitOfWork.Students.Create(student);
+            await _unitOfWork.Complete();
         }
 
-        public StudentFullInfoDTO FindById(int id)
+        public async Task<StudentFullInfoDTO> FindByIdAsync(int id)
         {
-            var student = _repository.GetById(id);
+            var student = await _unitOfWork.Students.GetByIdAsync(id);
 
             return _mapper.Map<StudentFullInfoDTO>(student);
         }
 
-        public void Update(StudentFullInfoDTO studentUpdationDto)
+        public async Task UpdateAsync(StudentFullInfoDTO studentUpdationDto)
         {
             var student = _mapper.Map<Student>(studentUpdationDto);
 
-            _repository.Update(student);
+            _unitOfWork.Students.Update(student);
+            await _unitOfWork.Complete();
         }
 
-        public void Delete(StudentFullInfoDTO studentDeletionDto)
-        {
-            var student = _mapper.Map<Student>(studentDeletionDto);
+        //public async Task DeleteAsync(StudentFullInfoDTO studentDeletionDto)
+        //{
+        //    var student = _mapper.Map<Student>(studentDeletionDto);
 
-            _repository.Delete(student);
+        //    _unitOfWork.Students.Delete(student);
+        //    await _unitOfWork.Complete();
+        //}
+
+        public async Task DeleteAsync(int id)
+        {
+            
+           // var student = _mapper.Map<Student>(studentDeletionDto);
+
+            _unitOfWork.Students.Delete(id);
+            await _unitOfWork.Complete();
         }
     }
 }

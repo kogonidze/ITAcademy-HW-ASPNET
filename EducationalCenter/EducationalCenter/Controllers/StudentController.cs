@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.BLL.Interfaces;
+using System.Threading.Tasks;
 
 namespace EducationalCenter.Controllers
 {
@@ -13,9 +14,9 @@ namespace EducationalCenter.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var obj = _service.GetAll();
+            var obj = await _service.GetAllAsync();
             return View(obj);
         }
 
@@ -26,21 +27,21 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(StudentCreationDTO student)
+        public async Task<IActionResult> Create(StudentCreationDTO student)
         {
-            _service.Create(student);
+            await _service.CreateAsync(student);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = _service.FindById(id.Value);
+            var student = await _service.FindByIdAsync(id.Value);
 
             if (student != null)
             {
@@ -51,27 +52,29 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentFullInfoDTO student)
+        public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            _service.Update(student);
+            await _service.UpdateAsync(student);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = _service.FindById(id.Value);
+            await _service.DeleteAsync(id.Value);
 
-            if (student != null)
-            {
-                _service.Delete(student);
-            }
+            //var student = await _service.FindByIdAsync(id.Value);
+
+            //if (student != null)
+            //{
+            //    await _service.DeleteAsync(student);
+            //}
 
             return RedirectToAction("Index");
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,13 +16,11 @@ namespace EducationalCenter.DataAccess.EF.Repositories
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
-
-            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return _dbSet.AsNoTracking().ToList();
+            return await _dbSet.ToListAsync();
         }
 
         public TEntity GetById(int id)
@@ -29,27 +28,36 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<TEntity> GetByFilter(Func<TEntity, bool> predicate)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            return _dbSet.AsNoTracking().Where(predicate).ToList();
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Func<TEntity, bool> predicate)
+        {
+            return await _dbSet
+                            .Where(predicate)
+                            .AsQueryable()
+                            .ToListAsync();
         }
 
         public void Create(TEntity item)
         {
             _dbSet.Add(item);
-            _context.SaveChanges();
         }
 
         public void Update(TEntity item)
         {
             _context.Entry(item).State = EntityState.Modified;
-            _context.SaveChanges();
         }
 
-        public void Delete(TEntity item)
+        public void Delete(int id)
         {
+            var item = _dbSet.Find(id);
+
             _dbSet.Remove(item);
-            _context.SaveChanges();
         }
+
+        public void Dispose() { }
     }
 }
