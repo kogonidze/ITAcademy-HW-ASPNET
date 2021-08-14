@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EducationalCenter.Common\EducationalCenter.Common.csproj" />
+    <ProjectReference Include="..\EducationalCenter.DataAccess.EF\EducationalCenter.DataAccess.EF.csproj" />
   </ItemGroup>
 
 </Project>

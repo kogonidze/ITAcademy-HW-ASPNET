@@ -1,7 +1,7 @@
 ﻿using System;
 using EducationalCenter.Common.Enums;
 
-namespace EducationalCenter.Model
+namespace EducationalCenter.Common.Models
 {
     public class Student
     {

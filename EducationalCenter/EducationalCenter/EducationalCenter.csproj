@@ -17,12 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EducationalCenter.BL\EducationalCenter.BL.csproj" />
+    <ProjectReference Include="..\EducationalCenter.BLL\EducationalCenter.BLL.csproj" />
     <ProjectReference Include="..\EducationalCenter.Common\EducationalCenter.Common.csproj" />
-    <ProjectReference Include="..\EducationalCenter.Data\EducationalCenter.Data.csproj" />
-    <ProjectReference Include="..\EducationalCenter.IBL\EducationalCenter.IBL.csproj" />
-    <ProjectReference Include="..\EducationalCenter.ISL\EducationalCenter.ISL.csproj" />
-    <ProjectReference Include="..\EducationalCenter.SL\EducationalCenter.SL.csproj" />
+    <ProjectReference Include="..\EducationalCenter.DataAccess.EF\EducationalCenter.DataAccess.EF.csproj" />
   </ItemGroup>
 
 </Project>

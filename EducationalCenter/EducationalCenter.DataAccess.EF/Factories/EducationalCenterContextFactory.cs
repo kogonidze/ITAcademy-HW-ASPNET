@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace EducationalCenter.Data
+namespace EducationalCenter.DataAccess.EF.Factories
 {
     public class EducationalCenterContextFactory : IDesignTimeDbContextFactory<EducationalCenterContext>
     {

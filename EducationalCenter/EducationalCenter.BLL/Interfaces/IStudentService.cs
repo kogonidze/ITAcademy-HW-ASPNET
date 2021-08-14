@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using EducationalCenter.SL.DTO;
+using EducationalCenter.Common.Dtos.Student;
 
-namespace EducationalCenter.ISL
+namespace EducationalCenter.BLL.Interfaces
 {
     public interface IStudentService
     {

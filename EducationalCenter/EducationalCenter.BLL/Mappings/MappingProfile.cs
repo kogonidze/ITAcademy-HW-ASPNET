@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using EducationalCenter.Model;
-using EducationalCenter.SL.DTO;
+using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.Common.Models;
 
-namespace EducationalCenter.SL.Mappings
+namespace EducationalCenter.BLL.Mappings
 {
     public class MappingProfile : Profile
     {
@@ -10,7 +10,7 @@ namespace EducationalCenter.SL.Mappings
         {
             CreateMap<Student, StudentDTO>()
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
-                
+
             CreateMap<StudentCreationDTO, Student>();
 
             CreateMap<StudentFullInfoDTO, Student>().ReverseMap();

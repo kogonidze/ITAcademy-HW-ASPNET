@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EducationalCenter.Common\EducationalCenter.Common.csproj" />
-    <ProjectReference Include="..\EducationalCenter.Model\EducationalCenter.Model.csproj" />
   </ItemGroup>
 
 </Project>

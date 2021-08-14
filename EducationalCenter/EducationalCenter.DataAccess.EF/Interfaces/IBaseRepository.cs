@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EducationalCenter.IBL
+namespace EducationalCenter.DataAccess.EF.Interfaces
 {
-    public interface IGenericRepository<TEntity> where TEntity: class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         IEnumerable<TEntity> GetAll();
         TEntity GetById(int id);

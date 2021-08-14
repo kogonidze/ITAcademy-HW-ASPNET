@@ -1,5 +1,5 @@
 ﻿@using EducationalCenter.Common.Enums
-@model EducationalCenter.SL.DTO.StudentCreationDTO
+@model EducationalCenter.Common.Dtos.Student.StudentCreationDTO
 
 @{
 }
@@ -40,7 +40,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.EnrollmentYear, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(m => m.EnrollmentYear, new { @class = "form-control"})
+                @Html.EditorFor(m => m.EnrollmentYear, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.EnrollmentYear)
             </div>
         </div>
@@ -55,7 +55,7 @@
         <p>
             <input type="submit" value="Create" />
         </p>
-    
+
     </fieldset>
 
     <div>

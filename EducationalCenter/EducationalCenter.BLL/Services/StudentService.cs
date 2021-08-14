@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using EducationalCenter.IBL;
-using EducationalCenter.ISL;
-using EducationalCenter.Model;
-using EducationalCenter.SL.DTO;
+using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.Common.Models;
+using EducationalCenter.DataAccess.EF.Interfaces;
 
 namespace EducationalCenter.SL
 {
     public class StudentService : IStudentService
     {
-        private readonly IGenericRepository<Student> _repository;
+        private readonly IStudentRepository _repository;
         private readonly IMapper _mapper;
 
-        public StudentService(IGenericRepository<Student> repository, IMapper mapper)
+        public StudentService(IStudentRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

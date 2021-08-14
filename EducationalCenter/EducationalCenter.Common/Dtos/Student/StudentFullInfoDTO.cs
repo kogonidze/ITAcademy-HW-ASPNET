@@ -1,7 +1,7 @@
 ﻿using System;
 using EducationalCenter.Common.Enums;
 
-namespace EducationalCenter.SL.DTO
+namespace EducationalCenter.Common.Dtos.Student
 {
     public class StudentFullInfoDTO
     {

@@ -1,14 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EducationalCenter.BL;
-using EducationalCenter.IBL;
-using EducationalCenter.ISL;
-using EducationalCenter.Model;
-using EducationalCenter.SL;
-using EducationalCenter.SL.DTO;
+using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.BLL.Interfaces;
 
 namespace EducationalCenter.Controllers
 {

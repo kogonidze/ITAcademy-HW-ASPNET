@@ -1,22 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using EducationalCenter.BL;
-using EducationalCenter.Data;
-using EducationalCenter.IBL;
-using EducationalCenter.ISL;
-using EducationalCenter.Model;
 using EducationalCenter.SL;
-using EducationalCenter.SL.Mappings;
 using Microsoft.EntityFrameworkCore;
+using EducationalCenter.Common.Models;
+using EducationalCenter.DataAccess.EF;
+using EducationalCenter.BLL.Mappings;
+using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.DataAccess.EF.Interfaces;
+using EducationalCenter.DataAccess.EF.Repositories;
 
 namespace EducationalCenter
 {
@@ -44,7 +40,7 @@ namespace EducationalCenter
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<IGenericRepository<Student>, GenericRepository<Student>>();
+            services.AddScoped<IStudentRepository, StudentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
