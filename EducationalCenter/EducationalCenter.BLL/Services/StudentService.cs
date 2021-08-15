@@ -49,19 +49,8 @@ namespace EducationalCenter.SL
             await _unitOfWork.Complete();
         }
 
-        //public async Task DeleteAsync(StudentFullInfoDTO studentDeletionDto)
-        //{
-        //    var student = _mapper.Map<Student>(studentDeletionDto);
-
-        //    _unitOfWork.Students.Delete(student);
-        //    await _unitOfWork.Complete();
-        //}
-
         public async Task DeleteAsync(int id)
         {
-            
-           // var student = _mapper.Map<Student>(studentDeletionDto);
-
             _unitOfWork.Students.Delete(id);
             await _unitOfWork.Complete();
         }

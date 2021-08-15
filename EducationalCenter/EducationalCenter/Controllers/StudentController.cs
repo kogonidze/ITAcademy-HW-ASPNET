@@ -69,13 +69,6 @@ namespace EducationalCenter.Controllers
 
             await _service.DeleteAsync(id.Value);
 
-            //var student = await _service.FindByIdAsync(id.Value);
-
-            //if (student != null)
-            //{
-            //    await _service.DeleteAsync(student);
-            //}
-
             return RedirectToAction("Index");
         }
     }
