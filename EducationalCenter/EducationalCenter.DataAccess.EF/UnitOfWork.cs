@@ -10,6 +10,7 @@ namespace EducationalCenter.DataAccess.EF
         private readonly EducationalCenterContext _context;
         private IStudentRepository _studentRepository;
         private ITeacherRepository _teacherRepository;
+        private IStudentGroupRepository _studentGroupRepository;
 
         private bool disposed = false;
 
@@ -41,6 +42,19 @@ namespace EducationalCenter.DataAccess.EF
                 }
 
                 return _teacherRepository;
+            }
+        }
+
+        public IStudentGroupRepository StudentGroups
+        {
+            get
+            {
+                if (_studentGroupRepository == null)
+                {
+                    _studentGroupRepository = new StudentGroupRepository(_context);
+                }
+
+                return _studentGroupRepository;
             }
         }
 

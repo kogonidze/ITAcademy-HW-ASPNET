@@ -6,6 +6,7 @@ namespace EducationalCenter.DataAccess.EF.Interfaces
     {
         IStudentRepository Students { get; }
         ITeacherRepository Teachers { get; }
+        IStudentGroupRepository StudentGroups { get; }
         Task Complete();
         void Dispose();
     }
