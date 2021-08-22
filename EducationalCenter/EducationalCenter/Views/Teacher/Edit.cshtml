@@ -9,87 +9,90 @@
 {
     @Html.ValidationSummary()
 
-<fieldset>
-    <legend>@ViewData["Title"]</legend>
+    <fieldset>
+        <legend>@ViewData["Title"]</legend>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FirstName)
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.LastName)
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.DateOfBirth, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.DateOfBirth)
+        <div class="form-group">
+            @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.DateOfBirth, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.EMail, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.EMail, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.EMail)
+        <div class="form-group">
+            @Html.LabelFor(m => m.EMail, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.EMail, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EMail, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        <div class="form-group">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.PhoneNumber, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Category, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Category, new SelectList(Enum.GetValues(typeof(Category))), new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Category, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Category, new SelectList(Enum.GetValues(typeof(Category))), new { @class = "form-control" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Formation, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.Formation, new SelectList(Enum.GetValues(typeof(Formation))), new { @class = "form-control" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Formation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Formation, new SelectList(Enum.GetValues(typeof(Formation))), new { @class = "form-control" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Experience, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Experience, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Experience)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Experience, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Experience, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Experience, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.Salary, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Salary)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Salary, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "alert-danger" })
+            </div>
         </div>
-    </div>
 
-    <p>
-        <input type="submit" value="Save" />
-    </p>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
 
-</fieldset>
+    </fieldset>
 
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
 }
 
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}

@@ -1,5 +1,7 @@
-﻿using EducationalCenter.Common.Dtos.Teacher;
+﻿using EducationalCenter.Common.Constants;
+using EducationalCenter.Common.Dtos.Teacher;
 using EducationalCenter.Common.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EducationalCenter.Common.Dtos.StudentGroup
 {

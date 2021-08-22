@@ -27,7 +27,7 @@ namespace EducationalCenter.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Groups = await _studentGroupService.GetAllAsync();
-            var newStudent = new StudentFullInfoDTO() {DateOfBirth = DateTime.Now };
+            var newStudent = new StudentFullInfoDTO() { DateOfBirth = DateTime.Now };
 
             return View("Edit", newStudent);
         }
@@ -52,10 +52,13 @@ namespace EducationalCenter.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            if (student.Id > 0)
-                await _studentService.UpdateAsync(student);
-            else
-                await _studentService.CreateAsync(student);
+            if (ModelState.IsValid)
+            {
+                if (student.Id > 0)
+                    await _studentService.UpdateAsync(student);
+                else
+                    await _studentService.CreateAsync(student);
+            }
 
             return RedirectToAction("Index");
         }
