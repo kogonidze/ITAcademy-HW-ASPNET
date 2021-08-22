@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalCenter.DataAcces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalCenter.BLL", "EducationalCenter.BLL\EducationalCenter.BLL.csproj", "{B9FD342C-72B1-448A-B675-EBEC3FD3A09C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCenter.WebApi", "EducationalCenter.WebApi\EducationalCenter.WebApi.csproj", "{771A8C77-0816-4BB7-BC2B-267097024070}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B9FD342C-72B1-448A-B675-EBEC3FD3A09C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9FD342C-72B1-448A-B675-EBEC3FD3A09C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9FD342C-72B1-448A-B675-EBEC3FD3A09C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771A8C77-0816-4BB7-BC2B-267097024070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771A8C77-0816-4BB7-BC2B-267097024070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771A8C77-0816-4BB7-BC2B-267097024070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771A8C77-0816-4BB7-BC2B-267097024070}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

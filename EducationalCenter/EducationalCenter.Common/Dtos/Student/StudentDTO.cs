@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos.StudentGroup;
 
 namespace EducationalCenter.Common.Dtos.Student
