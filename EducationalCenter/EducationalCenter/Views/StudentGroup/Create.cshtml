@@ -1,0 +1,75 @@
+﻿@using EducationalCenter.Common.Enums
+@using EducationalCenter.Common.Dtos.Teacher
+@model EducationalCenter.Common.Dtos.StudentGroup.StudentGroupCreationDTO
+
+@{
+}
+
+<h2>Create new student: </h2>
+
+@using (Html.BeginForm("Create", "StudentGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>StudentGroup</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.StartYear, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.StartYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.StartYear)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EndingYear, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.EndingYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EndingYear)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Faculty, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Faculty, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="TeacherId"></label>
+            <select class="form-control" asp-for="TeacherId">
+                @foreach (var teacher in (List<TeacherDTO>)ViewData["Teachers"])
+                {
+                    <option value="@teacher.Id">@teacher.FIO </option>
+                    @*if (teacher.Id == Model.TeacherId)
+                        {
+                            <option value="@teacher.Id" selected>@teacher.FIO </option>
+                        }
+                        else
+                        {
+                            <option value="@teacher.Id">@teacher.FIO </option>
+                        }*@
+                }
+            </select>
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+
+    </fieldset>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

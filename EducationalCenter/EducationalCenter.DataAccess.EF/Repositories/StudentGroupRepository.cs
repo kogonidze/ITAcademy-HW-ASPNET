@@ -1,5 +1,8 @@
 ﻿using EducationalCenter.Common.Models;
 using EducationalCenter.DataAccess.EF.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationalCenter.DataAccess.EF.Repositories
 {
@@ -9,6 +12,11 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             base(context)
         {
 
+        }
+
+        public async Task<IEnumerable<StudentGroup>> GetAllAsync()
+        {
+            return await _dbSet.Include(x => x.Teacher).ToListAsync();
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿@model IEnumerable<EducationalCenter.Common.Dtos.Student.StudentDTO>
+﻿@model IEnumerable<EducationalCenter.Common.Dtos.Teacher.TeacherDTO>
 
 @{
 }
 
-<h2>Students: </h2>
+<h2>Teachers: </h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,10 +18,16 @@
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Group)
+            @Html.DisplayNameFor(model => model.Formation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Experience)
         </th>
     </tr>
-    
+
     @foreach (var item in Model)
     {
         <tr>
@@ -32,10 +38,16 @@
                 @Html.DisplayFor(modelItem => item.DateOfBirth);
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Group.Title);
+                @Html.DisplayFor(modelItem => item.Formation);
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.DisplayFor(modelItem => item.Category);
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Experience);
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>

@@ -38,17 +38,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.EnrollmentYear, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.Group, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.EditorFor(m => m.EnrollmentYear, new { @class = "form-control"})
-                @Html.ValidationMessageFor(m => m.EnrollmentYear)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Faculty, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Faculty, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.Group, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
             </div>
         </div>
 

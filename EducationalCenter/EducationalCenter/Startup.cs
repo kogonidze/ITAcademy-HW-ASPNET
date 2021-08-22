@@ -13,6 +13,7 @@ using EducationalCenter.BLL.Mappings;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.DataAccess.EF.Repositories;
+using EducationalCenter.BLL.Services;
 
 namespace EducationalCenter
 {
@@ -41,7 +42,11 @@ namespace EducationalCenter
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ITeacherService, TeacherService>();
+            services.AddScoped<IStudentGroupService, StudentGroupService>();
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddScoped<IStudentGroupRepository, StudentGroupRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

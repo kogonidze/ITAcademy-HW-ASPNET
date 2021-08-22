@@ -7,29 +7,32 @@ namespace EducationalCenter.Controllers
 {
     public class StudentController : Controller
     {
-        private IStudentService _service;
+        private IStudentService _studentService;
+        private IStudentGroupService _studentGroupService;
 
-        public StudentController(IStudentService service)
+        public StudentController(IStudentService service, IStudentGroupService studentGroupService)
         {
-            _service = service;
+            _studentService = service;
+            _studentGroupService = studentGroupService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var obj = await _service.GetAllAsync();
+            var obj = await _studentService.GetAllAsync();
             return View(obj);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Groups = await _studentGroupService.GetAllAsync();
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(StudentCreationDTO student)
         {
-            await _service.CreateAsync(student);
+            await _studentService.CreateAsync(student);
             return RedirectToAction("Index");
         }
 
@@ -41,7 +44,7 @@ namespace EducationalCenter.Controllers
                 return NotFound();
             }
 
-            var student = await _service.FindByIdAsync(id.Value);
+            var student = await _studentService.FindByIdAsync(id.Value);
 
             if (student != null)
             {
@@ -54,7 +57,7 @@ namespace EducationalCenter.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            await _service.UpdateAsync(student);
+            await _studentService.UpdateAsync(student);
 
             return RedirectToAction("Index");
         }
@@ -67,7 +70,7 @@ namespace EducationalCenter.Controllers
                 return NotFound();
             }
 
-            await _service.DeleteAsync(id.Value);
+            await _studentService.DeleteAsync(id.Value);
 
             return RedirectToAction("Index");
         }

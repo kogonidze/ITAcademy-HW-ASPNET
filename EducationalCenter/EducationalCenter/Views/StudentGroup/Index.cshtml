@@ -1,0 +1,61 @@
+﻿@model IEnumerable<EducationalCenter.Common.Dtos.StudentGroup.StudentGroupDTO>
+
+@{
+}
+
+<h2>Student groups: </h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndingYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Faculty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Teacher)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title);
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Faculty);
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.StartYear);
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EndingYear);
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Faculty);
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Teacher.FIO);
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
+    }
+</table>

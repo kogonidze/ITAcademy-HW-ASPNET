@@ -9,8 +9,8 @@ namespace EducationalCenter.DataAccess.EF.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        private EducationalCenterContext _context;
-        private DbSet<TEntity> _dbSet;
+        protected EducationalCenterContext _context;
+        protected DbSet<TEntity> _dbSet;
 
         public BaseRepository(EducationalCenterContext context)
         {
