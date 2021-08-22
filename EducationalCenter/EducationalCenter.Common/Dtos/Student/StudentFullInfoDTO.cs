@@ -13,8 +13,6 @@ namespace EducationalCenter.Common.Dtos.Student
 
         public DateTime DateOfBirth { get; set; }
 
-        public int EnrollmentYear { get; set; }
-
         public string EMail { get; set; }
 
         public string PhoneNumber { get; set; }

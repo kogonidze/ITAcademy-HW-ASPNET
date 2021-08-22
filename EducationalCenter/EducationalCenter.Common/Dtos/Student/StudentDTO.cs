@@ -12,8 +12,6 @@ namespace EducationalCenter.Common.Dtos.Student
 
         public DateTime DateOfBirth { get; set; }
 
-        public int EnrollmentYear { get; set; }
-
         public int GroupId { get; set; }
 
         public StudentGroupDTO Group { get; set; }
