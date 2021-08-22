@@ -2,16 +2,15 @@
 @model EducationalCenter.Common.Dtos.Teacher.TeacherFullInfoDTO
 
 @{
+    ViewData["Title"] = "Teacher " + Model.LastName;
 }
-
-<h2>Create new teacher: </h2>
 
 @using (Html.BeginForm("Edit", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.ValidationSummary()
 
 <fieldset>
-    <legend>Teacher</legend>
+    <legend>@ViewData["Title"]</legend>
 
     <div class="form-group">
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })

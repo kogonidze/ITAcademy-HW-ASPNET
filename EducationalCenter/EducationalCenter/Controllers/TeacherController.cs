@@ -1,6 +1,7 @@
 ﻿using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Dtos.Teacher;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.Controllers
@@ -23,14 +24,9 @@ namespace EducationalCenter.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
-        }
+            var newTeacher = new TeacherFullInfoDTO() { DateOfBirth = DateTime.Now };
 
-        [HttpPost]
-        public async Task<IActionResult> Create(TeacherCreationDTO teacher)
-        {
-            await _service.CreateAsync(teacher);
-            return RedirectToAction("Index");
+            return View("Edit", newTeacher);
         }
 
         [HttpGet]
@@ -54,7 +50,10 @@ namespace EducationalCenter.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(TeacherFullInfoDTO teacher)
         {
-            await _service.UpdateAsync(teacher);
+            if (teacher.Id > 0)
+                await _service.UpdateAsync(teacher);
+            else
+                await _service.CreateAsync(teacher);
 
             return RedirectToAction("Index");
         }

@@ -13,19 +13,14 @@ namespace EducationalCenter.BLL.Mappings
             CreateMap<Student, StudentDTO>()
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
 
-            CreateMap<StudentCreationDTO, Student>();
-
             CreateMap<StudentFullInfoDTO, Student>().ReverseMap();
 
             CreateMap<Teacher, TeacherDTO>()
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
 
-            CreateMap<TeacherCreationDTO, Teacher>();
-
             CreateMap<TeacherFullInfoDTO, Teacher>().ReverseMap();
 
             CreateMap<StudentGroup, StudentGroupDTO>();
-            CreateMap<StudentGroupCreationDTO, StudentGroup>();
             CreateMap<StudentGroupFullInfoDTO, StudentGroup>().ReverseMap();
         }
     }

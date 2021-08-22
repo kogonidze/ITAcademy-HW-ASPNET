@@ -32,28 +32,22 @@ namespace EducationalCenter.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherDTO>>(await _teacherService.GetAllAsync());
-            return View();
-        }
+            var newStudentGroup = new StudentGroupFullInfoDTO();
 
-        [HttpPost]
-        public async Task<IActionResult> Create(StudentGroupCreationDTO studentGroup)
-        {
-            await _studentGroupService.CreateAsync(studentGroup);
-            return RedirectToAction("Index");
+            return View("Edit", newStudentGroup);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var studentGroup = await _studentGroupService.FindByIdAsync(id.Value);
 
             if (studentGroup != null)
             {
+                ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherDTO>>(await _teacherService.GetAllAsync());
                 return View(studentGroup);
             }
 
@@ -63,7 +57,10 @@ namespace EducationalCenter.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(StudentGroupFullInfoDTO studentGroup)
         {
-            await _studentGroupService.UpdateAsync(studentGroup);
+            if (studentGroup.Id > 0)
+                await _studentGroupService.UpdateAsync(studentGroup);
+            else
+                await _studentGroupService.CreateAsync(studentGroup);
 
             return RedirectToAction("Index");
         }
@@ -80,6 +77,5 @@ namespace EducationalCenter.Controllers
 
             return RedirectToAction("Index");
         }
-
     }
 }

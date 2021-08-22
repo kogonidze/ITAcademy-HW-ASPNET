@@ -18,5 +18,10 @@ namespace EducationalCenter.DataAccess.EF.Repositories
         {
             return await _dbSet.Include(x => x.Teacher).ToListAsync();
         }
+
+        public async Task<StudentGroup> GetByIdAsync(int id)
+        {
+            return await _dbSet.Include(x => x.Teacher).FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

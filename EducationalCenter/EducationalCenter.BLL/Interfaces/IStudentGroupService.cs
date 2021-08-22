@@ -9,7 +9,7 @@ namespace EducationalCenter.BLL.Interfaces
     public interface IStudentGroupService
     {
         Task<IEnumerable<StudentGroupDTO>> GetAllAsync();
-        Task CreateAsync(StudentGroupCreationDTO studentCreationDto);
+        Task CreateAsync(StudentGroupFullInfoDTO studentCreationDto);
         Task<StudentGroupFullInfoDTO> FindByIdAsync(int id);
         Task UpdateAsync(StudentGroupFullInfoDTO studentUpdationDto);
         Task DeleteAsync(int id);

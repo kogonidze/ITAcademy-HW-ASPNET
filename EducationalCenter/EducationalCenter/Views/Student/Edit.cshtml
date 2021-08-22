@@ -1,16 +1,14 @@
-﻿@using EducationalCenter.Common.Enums
-@model EducationalCenter.Common.Dtos.Student.StudentFullInfoDTO
+﻿@model EducationalCenter.Common.Dtos.Student.StudentFullInfoDTO
 @{
+    ViewData["Title"] = "Student " + Model.LastName;
 }
 
-<h2>Edit the student: </h2>
-
-@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.ValidationSummary()
 
     <fieldset>
-        <legend>Student</legend>
+        <legend>@ViewData["Title"]</legend>
         @Html.HiddenFor(m => m.Id);
 
         <div class="form-group">
@@ -40,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Group, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Group, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.GroupId, new SelectList(ViewBag.Groups, "Id", "Title"), new { @class = "form-control" });
             </div>
         </div>
 
@@ -48,4 +46,8 @@
             <input type="submit" value="Save" />
         </p>
     </fieldset>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 }

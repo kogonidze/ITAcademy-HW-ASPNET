@@ -2,6 +2,7 @@
 using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.BLL.Interfaces;
 using System.Threading.Tasks;
+using System;
 
 namespace EducationalCenter.Controllers
 {
@@ -26,28 +27,22 @@ namespace EducationalCenter.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Groups = await _studentGroupService.GetAllAsync();
-            return View();
-        }
+            var newStudent = new StudentFullInfoDTO() {DateOfBirth = DateTime.Now };
 
-        [HttpPost]
-        public async Task<IActionResult> Create(StudentCreationDTO student)
-        {
-            await _studentService.CreateAsync(student);
-            return RedirectToAction("Index");
+            return View("Edit", newStudent);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var student = await _studentService.FindByIdAsync(id.Value);
 
             if (student != null)
             {
+                ViewBag.Groups = await _studentGroupService.GetAllAsync();
                 return View(student);
             }
 
@@ -57,7 +52,10 @@ namespace EducationalCenter.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            await _studentService.UpdateAsync(student);
+            if (student.Id > 0)
+                await _studentService.UpdateAsync(student);
+            else
+                await _studentService.CreateAsync(student);
 
             return RedirectToAction("Index");
         }

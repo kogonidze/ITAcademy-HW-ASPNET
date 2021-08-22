@@ -19,7 +19,7 @@ namespace EducationalCenter.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(TeacherCreationDTO teacherCreationDto)
+        public async Task CreateAsync(TeacherFullInfoDTO teacherCreationDto)
         {
             var teacher = _mapper.Map<Teacher>(teacherCreationDto);
 

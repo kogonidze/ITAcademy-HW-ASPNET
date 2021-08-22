@@ -26,7 +26,7 @@ namespace EducationalCenter.SL
             return _mapper.Map<List<StudentDTO>>(students);
         }
 
-        public async Task CreateAsync(StudentCreationDTO studentCreationDto)
+        public async Task CreateAsync(StudentFullInfoDTO studentCreationDto)
         {
             var student = _mapper.Map<Student>(studentCreationDto);
 
