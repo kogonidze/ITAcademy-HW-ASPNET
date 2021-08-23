@@ -1,0 +1,66 @@
+﻿@using EducationalCenter.Common.Enums
+@model EducationalCenter.Common.Dtos.StudentGroup.StudentGroupFullInfoDTO
+
+@{
+    ViewData["Title"] = "StudentGroup " + Model.Title;
+}
+
+@using (Html.BeginForm("Edit", "StudentGroup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>@ViewData["Title"]</legend>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "alert-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.StartYear, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.StartYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.StartYear, "", new { @class = "alert-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.EndingYear, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.EndingYear, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.EndingYear, "", new { @class = "alert-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Faculty, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Faculty, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Teacher, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.TeacherId, new SelectList(ViewBag.Teachers, "Id", "FIO"), new { @class = "form-control" });
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+
+    </fieldset>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}

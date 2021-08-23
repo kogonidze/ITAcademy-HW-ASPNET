@@ -1,57 +1,48 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.BLL.Interfaces;
 using System.Threading.Tasks;
-using EducationalCenter.BL;
-using EducationalCenter.IBL;
-using EducationalCenter.ISL;
-using EducationalCenter.Model;
-using EducationalCenter.SL;
-using EducationalCenter.SL.DTO;
+using System;
 
 namespace EducationalCenter.Controllers
 {
     public class StudentController : Controller
     {
-        private IStudentService _service;
+        private IStudentService _studentService;
+        private IStudentGroupService _studentGroupService;
 
-        public StudentController(IStudentService service)
+        public StudentController(IStudentService service, IStudentGroupService studentGroupService)
         {
-            _service = service;
+            _studentService = service;
+            _studentGroupService = studentGroupService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var obj = _service.GetAll();
+            var obj = await _studentService.GetAllAsync();
             return View(obj);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
-        }
+            ViewBag.Groups = await _studentGroupService.GetAllAsync();
+            var newStudent = new StudentFullInfoDTO() { DateOfBirth = DateTime.Now };
 
-        [HttpPost]
-        public IActionResult Create(StudentCreationDTO student)
-        {
-            _service.Create(student);
-            return RedirectToAction("Index");
+            return View("Edit", newStudent);
         }
 
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var student = _service.FindById(id.Value);
+            var student = await _studentService.FindByIdAsync(id.Value);
 
             if (student != null)
             {
+                ViewBag.Groups = await _studentGroupService.GetAllAsync();
                 return View(student);
             }
 
@@ -59,27 +50,28 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentFullInfoDTO student)
+        public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            _service.Update(student);
+            if (ModelState.IsValid)
+            {
+                if (student.Id > 0)
+                    await _studentService.UpdateAsync(student);
+                else
+                    await _studentService.CreateAsync(student);
+            }
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = _service.FindById(id.Value);
-
-            if (student != null)
-            {
-                _service.Delete(student);
-            }
+            await _studentService.DeleteAsync(id.Value);
 
             return RedirectToAction("Index");
         }

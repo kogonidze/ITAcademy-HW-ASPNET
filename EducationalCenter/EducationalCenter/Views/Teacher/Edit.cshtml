@@ -1,15 +1,16 @@
-﻿@model EducationalCenter.Common.Dtos.Student.StudentFullInfoDTO
+﻿@using EducationalCenter.Common.Enums
+@model EducationalCenter.Common.Dtos.Teacher.TeacherFullInfoDTO
+
 @{
-    ViewData["Title"] = "Student " + Model.LastName;
+    ViewData["Title"] = "Teacher " + Model.LastName;
 }
 
-@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Edit", "Teacher", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.ValidationSummary()
 
     <fieldset>
         <legend>@ViewData["Title"]</legend>
-        @Html.HiddenFor(m => m.Id);
 
         <div class="form-group">
             @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
@@ -52,15 +53,39 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Group, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.Category, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.GroupId, new SelectList(ViewBag.Groups, "Id", "Title"), new { @class = "form-control" });
+                @Html.DropDownListFor(m => m.Category, new SelectList(Enum.GetValues(typeof(Category))), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Formation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.Formation, new SelectList(Enum.GetValues(typeof(Formation))), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Experience, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Experience, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Experience, "", new { @class = "alert-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Salary, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Salary, "", new { @class = "alert-danger" })
             </div>
         </div>
 
         <p>
             <input type="submit" value="Save" />
         </p>
+
     </fieldset>
 
     <div>
