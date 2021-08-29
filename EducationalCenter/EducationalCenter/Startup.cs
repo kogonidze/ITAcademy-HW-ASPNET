@@ -14,6 +14,7 @@ using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.DataAccess.EF.Repositories;
 using EducationalCenter.BLL.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace EducationalCenter
 {
@@ -32,6 +33,9 @@ namespace EducationalCenter
             services.AddControllersWithViews();
             services.AddDbContext<EducationalCenterContext>
                 (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<EducationalCenterContext>();
 
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingProfile>();
@@ -67,6 +71,7 @@ namespace EducationalCenter
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -74,6 +79,8 @@ namespace EducationalCenter
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

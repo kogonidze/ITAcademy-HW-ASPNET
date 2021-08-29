@@ -1,9 +1,10 @@
 ﻿using EducationalCenter.Common.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EducationalCenter.DataAccess.EF
 {
-    public sealed class EducationalCenterContext : DbContext
+    public sealed class EducationalCenterContext : IdentityDbContext
     {
         public DbSet<Student> Students { get; set; }
 
