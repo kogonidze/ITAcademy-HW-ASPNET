@@ -16,6 +16,9 @@ using EducationalCenter.DataAccess.EF.Repositories;
 using EducationalCenter.BLL.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using EducationalCenter.Common.Configuration;
+using EducationalCenter.Common.Constants;
+using Microsoft.Extensions.Options;
 
 namespace EducationalCenter
 {
@@ -32,8 +35,9 @@ namespace EducationalCenter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<EducationalCenterContext>
-                (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+                (options => options.UseSqlServer(Configuration.GetConnectionString(ConfigurationSectionNames.DefaultConnectionString)));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddDefaultUI()
@@ -54,10 +58,14 @@ namespace EducationalCenter
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<IStudentGroupRepository, StudentGroupRepository>();
+
+            services.Configure<SecurityOptions>(
+                Configuration.GetSection(ConfigurationSectionNames.Security));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
+            IOptions<SecurityOptions> securityOptions)
         {
             if (env.IsDevelopment())
             {
@@ -86,10 +94,10 @@ namespace EducationalCenter
                 endpoints.MapRazorPages();
             });
 
-            CreateRoles(serviceProvider).Wait();
+            CreateRoles(serviceProvider, securityOptions).Wait();
         }
 
-        private async Task CreateRoles(IServiceProvider serviceProvider)
+        private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -106,14 +114,14 @@ namespace EducationalCenter
 
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            var adminUser = await userManager.FindByEmailAsync(Configuration["AdminUserEmail"]);
+            var adminUser = await userManager.FindByEmailAsync(securityOptions.Value.AdminUserEmail);
 
             if (adminUser != null)
             {
                 await userManager.AddToRoleAsync(adminUser, "admin");
             }
 
-            var managerUser = await userManager.FindByEmailAsync(Configuration["ManagerUserEmail"]);
+            var managerUser = await userManager.FindByEmailAsync(securityOptions.Value.ManagerUserEmail);
 
             if (managerUser != null)
             {
