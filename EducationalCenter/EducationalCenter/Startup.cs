@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using EducationalCenter.Common.Configuration;
 using EducationalCenter.Common.Constants;
 using Microsoft.Extensions.Options;
+using ElmahCore.Mvc;
 
 namespace EducationalCenter
 {
@@ -61,6 +62,8 @@ namespace EducationalCenter
 
             services.Configure<SecurityOptions>(
                 Configuration.GetSection(ConfigurationSectionNames.Security));
+
+            services.AddElmah();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,6 +98,9 @@ namespace EducationalCenter
             });
 
             CreateRoles(serviceProvider, securityOptions).Wait();
+
+            app.UseStatusCodePages("text/html", "<h1 style='color:red;'>Error. Code: {0} </h1>");
+            app.UseElmah();
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)

@@ -1,8 +1,11 @@
 ﻿using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Dtos.Teacher;
+using EducationalCenter.Models;
+using ElmahCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.Controllers
@@ -19,62 +22,109 @@ namespace EducationalCenter.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var obj = await _service.GetAllAsync();
-            return View(obj);
+            try
+            {
+                var obj = await _service.GetAllAsync();
+                return View(obj);
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
         [Authorize(Roles = "admin, manager")]
         public IActionResult Create()
         {
-            var newTeacher = new TeacherFullInfoDTO() { DateOfBirth = DateTime.Now };
+            try
+            {
+                var newTeacher = new TeacherFullInfoDTO() { DateOfBirth = DateTime.Now };
 
-            return View("Edit", newTeacher);
+                return View("Edit", newTeacher);
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
         [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var teacher = await _service.FindByIdAsync(id.Value);
+
+                if (teacher != null)
+                {
+                    return View(teacher);
+                }
+
+                return RedirectToAction("Index");
             }
-
-            var teacher = await _service.FindByIdAsync(id.Value);
-
-            if (teacher != null)
+            catch (Exception e)
             {
-                return View(teacher);
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
             }
-
-            return RedirectToAction("Index");
         }
 
         [HttpPost]
         [Authorize(Roles = "admin,manager")]
         public async Task<ActionResult> Edit(TeacherFullInfoDTO teacher)
         {
-            if (teacher.Id > 0)
-                await _service.UpdateAsync(teacher);
-            else
-                await _service.CreateAsync(teacher);
+            try
+            {
+                if (teacher.Id > 0)
+                    await _service.UpdateAsync(teacher);
+                else
+                    await _service.CreateAsync(teacher);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                await _service.DeleteAsync(id.Value);
+
+                return RedirectToAction("Index");
             }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
+        }
 
-            await _service.DeleteAsync(id.Value);
-
-            return RedirectToAction("Index");
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
