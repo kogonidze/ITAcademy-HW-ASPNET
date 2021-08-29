@@ -3,9 +3,11 @@ using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.BLL.Interfaces;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EducationalCenter.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentService _studentService;
@@ -24,6 +26,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Create()
         {
             ViewBag.Groups = await _studentGroupService.GetAllAsync();
@@ -33,6 +36,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -50,6 +54,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
             if (ModelState.IsValid)
@@ -62,8 +67,9 @@ namespace EducationalCenter.Controllers
 
             return RedirectToAction("Index");
         }
-
+        
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -1,11 +1,13 @@
 ﻿using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Dtos.Teacher;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.Controllers
 {
+    [Authorize]
     public class TeacherController : Controller
     {
         private ITeacherService _service;
@@ -22,6 +24,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public IActionResult Create()
         {
             var newTeacher = new TeacherFullInfoDTO() { DateOfBirth = DateTime.Now };
@@ -30,6 +33,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -48,6 +52,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin,manager")]
         public async Task<ActionResult> Edit(TeacherFullInfoDTO teacher)
         {
             if (teacher.Id > 0)
@@ -59,6 +64,7 @@ namespace EducationalCenter.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
