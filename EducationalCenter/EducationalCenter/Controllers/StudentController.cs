@@ -3,9 +3,14 @@ using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.BLL.Interfaces;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Authorization;
+using ElmahCore;
+using EducationalCenter.Models;
+using System.Diagnostics;
 
 namespace EducationalCenter.Controllers
 {
+    [Authorize]
     public class StudentController : Controller
     {
         private IStudentService _studentService;
@@ -19,61 +24,112 @@ namespace EducationalCenter.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var obj = await _studentService.GetAllAsync();
-            return View(obj);
+            try
+            {
+                var obj = await _studentService.GetAllAsync();
+                return View(obj);
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Groups = await _studentGroupService.GetAllAsync();
-            var newStudent = new StudentFullInfoDTO() { DateOfBirth = DateTime.Now };
+            try
+            {
+                ViewBag.Groups = await _studentGroupService.GetAllAsync();
+                var newStudent = new StudentFullInfoDTO() { DateOfBirth = DateTime.Now };
 
-            return View("Edit", newStudent);
+                return View("Edit", newStudent);
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-                return NotFound();
-
-            var student = await _studentService.FindByIdAsync(id.Value);
-
-            if (student != null)
+            try
             {
-                ViewBag.Groups = await _studentGroupService.GetAllAsync();
-                return View(student);
-            }
+                if (id == null)
+                    return NotFound();
 
-            return RedirectToAction("Index");
+                var student = await _studentService.FindByIdAsync(id.Value);
+
+                if (student != null)
+                {
+                    ViewBag.Groups = await _studentGroupService.GetAllAsync();
+                    return View(student);
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Edit(StudentFullInfoDTO student)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (student.Id > 0)
-                    await _studentService.UpdateAsync(student);
-                else
-                    await _studentService.CreateAsync(student);
+                if (ModelState.IsValid)
+                {
+                    if (student.Id > 0)
+                        await _studentService.UpdateAsync(student);
+                    else
+                        await _studentService.CreateAsync(student);
+                }
+
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
         }
-
+        
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                await _studentService.DeleteAsync(id.Value);
+
+                return RedirectToAction("Index");
+
             }
+            catch (Exception e)
+            {
+                ElmahExtensions.RiseError(new Exception(e.Message));
+                return RedirectToAction("Error");
+            }
+        }
 
-            await _studentService.DeleteAsync(id.Value);
-
-            return RedirectToAction("Index");
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

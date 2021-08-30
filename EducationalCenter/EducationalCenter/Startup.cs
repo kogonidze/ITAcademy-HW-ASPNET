@@ -14,6 +14,12 @@ using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.DataAccess.EF.Repositories;
 using EducationalCenter.BLL.Services;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using EducationalCenter.Common.Configuration;
+using EducationalCenter.Common.Constants;
+using Microsoft.Extensions.Options;
+using ElmahCore.Mvc;
 
 namespace EducationalCenter
 {
@@ -30,8 +36,14 @@ namespace EducationalCenter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<EducationalCenterContext>
-                (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+                (options => options.UseSqlServer(Configuration.GetConnectionString(ConfigurationSectionNames.DefaultConnectionString)));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<EducationalCenterContext>()
+                .AddDefaultTokenProviders();
 
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingProfile>();
@@ -47,10 +59,16 @@ namespace EducationalCenter
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<IStudentGroupRepository, StudentGroupRepository>();
+
+            services.Configure<SecurityOptions>(
+                Configuration.GetSection(ConfigurationSectionNames.Security));
+
+            services.AddElmah();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
+            IOptions<SecurityOptions> securityOptions)
         {
             if (env.IsDevelopment())
             {
@@ -67,6 +85,7 @@ namespace EducationalCenter
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -74,7 +93,46 @@ namespace EducationalCenter
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
+
+            CreateRoles(serviceProvider, securityOptions).Wait();
+
+            app.UseStatusCodePages("text/html", "<h1 style='color:red;'>Error. Code: {0} </h1>");
+            app.UseElmah();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var roles = new[] { "admin", "manager", "student" };
+
+            foreach (var rolename in roles)
+            {
+                await roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = rolename,
+                    NormalizedName = rolename.ToUpper()
+                });
+            }
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            var adminUser = await userManager.FindByEmailAsync(securityOptions.Value.AdminUserEmail);
+
+            if (adminUser != null)
+            {
+                await userManager.AddToRoleAsync(adminUser, "admin");
+            }
+
+            var managerUser = await userManager.FindByEmailAsync(securityOptions.Value.ManagerUserEmail);
+
+            if (managerUser != null)
+            {
+                await userManager.AddToRoleAsync(managerUser, "manager");
+            }
         }
     }
 }
