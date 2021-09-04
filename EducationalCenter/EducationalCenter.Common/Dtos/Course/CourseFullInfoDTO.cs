@@ -1,8 +1,9 @@
-﻿using EducationalCenter.Common.Enums;
+﻿using EducationalCenter.Common.Dtos.Teacher;
+using EducationalCenter.Common.Enums;
 
-namespace EducationalCenter.Common.Models
+namespace EducationalCenter.Common.Dtos.Course
 {
-    public class Course
+    public class CourseFullInfoDTO
     {
         public int Id { get; set; }
 
@@ -16,6 +17,6 @@ namespace EducationalCenter.Common.Models
 
         public int? TeacherId { get; set; }
 
-        public Teacher Teacher { get; set; }
+        public TeacherDTO Teacher { get; set; }
     }
 }

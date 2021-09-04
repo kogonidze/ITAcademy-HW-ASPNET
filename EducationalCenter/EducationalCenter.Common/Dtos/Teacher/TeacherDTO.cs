@@ -1,8 +1,6 @@
-﻿using EducationalCenter.Common.Constants;
-using EducationalCenter.Common.Enums;
+﻿using EducationalCenter.Common.Enums;
 using EducationalCenter.Common.Models;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace EducationalCenter.Common.Dtos.Teacher
 {

@@ -56,6 +56,7 @@ namespace EducationalCenter
             services.AddScoped<IStudentGroupService, StudentGroupService>();
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             services.Configure<SecurityOptions>(
                 Configuration.GetSection(ConfigurationSectionNames.Security));

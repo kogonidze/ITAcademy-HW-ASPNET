@@ -13,6 +13,7 @@ namespace EducationalCenter.DataAccess.EF
         private IStudentGroupRepository _studentGroupRepository;
         private IFacultyRepository _facultyRepository;
         private IDepartmentRepository _departmentRepository;
+        private ICourseRepository _courseRepository;
 
         private bool disposed = false;
 
@@ -83,6 +84,19 @@ namespace EducationalCenter.DataAccess.EF
                 }
 
                 return _departmentRepository;
+            }
+        }
+
+        public ICourseRepository Courses
+        {
+            get
+            {
+                if (_courseRepository == null)
+                {
+                    _courseRepository = new CourseRepository(_context);
+                }
+
+                return _courseRepository;
             }
         }
 
