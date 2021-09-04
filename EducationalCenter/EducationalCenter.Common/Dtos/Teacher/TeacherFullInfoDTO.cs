@@ -1,5 +1,6 @@
 ﻿using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Enums;
+using EducationalCenter.Common.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,6 +30,10 @@ namespace EducationalCenter.Common.Dtos.Teacher
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = ErrorMessages.MobilePhone)]
         public string PhoneNumber { get; set; }
+
+        public int? DepartmentId { get; set; }
+
+        public Department Department { get; set; }
 
         [Required]
         [Range(0, 50, ErrorMessage = ErrorMessages.IncorrectExperience)]

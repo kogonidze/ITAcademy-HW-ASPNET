@@ -30,7 +30,7 @@ namespace EducationalCenter.Common.Dtos.Student
         [RegularExpression(@"^(\d{10})$", ErrorMessage = ErrorMessages.MobilePhone)]
         public string PhoneNumber { get; set; }
 
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
 
         public StudentGroupDTO Group { get; set; }
     }

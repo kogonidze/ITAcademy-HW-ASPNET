@@ -7,12 +7,10 @@ using System;
 using AutoMapper;
 using EducationalCenter.SL;
 using Microsoft.EntityFrameworkCore;
-using EducationalCenter.Common.Models;
 using EducationalCenter.DataAccess.EF;
 using EducationalCenter.BLL.Mappings;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.DataAccess.EF.Interfaces;
-using EducationalCenter.DataAccess.EF.Repositories;
 using EducationalCenter.BLL.Services;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
@@ -56,9 +54,9 @@ namespace EducationalCenter
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<IStudentGroupService, StudentGroupService>();
-            services.AddScoped<IStudentRepository, StudentRepository>();
-            services.AddScoped<ITeacherRepository, TeacherRepository>();
-            services.AddScoped<IStudentGroupRepository, StudentGroupRepository>();
+            services.AddScoped<IFacultyService, FacultyService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<ICourseService, CourseService>();
 
             services.Configure<SecurityOptions>(
                 Configuration.GetSection(ConfigurationSectionNames.Security));

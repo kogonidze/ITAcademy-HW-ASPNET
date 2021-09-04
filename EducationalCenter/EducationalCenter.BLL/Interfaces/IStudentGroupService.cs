@@ -1,7 +1,5 @@
 ﻿using EducationalCenter.Common.Dtos.StudentGroup;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.BLL.Interfaces

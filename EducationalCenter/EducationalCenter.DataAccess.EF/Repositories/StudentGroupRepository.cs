@@ -16,12 +16,12 @@ namespace EducationalCenter.DataAccess.EF.Repositories
 
         public async Task<IEnumerable<StudentGroup>> GetAllAsync()
         {
-            return await _dbSet.Include(x => x.Teacher).ToListAsync();
+            return await _dbSet.Include(x => x.Faculty).ToListAsync();
         }
 
         public async Task<StudentGroup> GetByIdAsync(int id)
         {
-            return await _dbSet.Include(x => x.Teacher).FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbSet.Include(x => x.Faculty).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

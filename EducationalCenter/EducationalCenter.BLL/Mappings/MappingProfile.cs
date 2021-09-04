@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.Common.Dtos.StudentGroup;
 using EducationalCenter.Common.Dtos.Teacher;
@@ -22,6 +23,9 @@ namespace EducationalCenter.BLL.Mappings
 
             CreateMap<StudentGroup, StudentGroupDTO>();
             CreateMap<StudentGroupFullInfoDTO, StudentGroup>().ReverseMap();
+
+            CreateMap<Faculty, FacultyDTO>();
+            CreateMap<Department, DepartmentDTO>();
         }
     }
 }

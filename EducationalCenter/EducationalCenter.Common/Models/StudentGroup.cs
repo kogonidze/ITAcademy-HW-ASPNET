@@ -8,11 +8,9 @@ namespace EducationalCenter.Common.Models
 
         public string Title { get; set; }
 
+        public int? FacultyId { get; set; }
+
         public Faculty Faculty { get; set; }
-
-        public int TeacherId { get; set; }
-
-        public Teacher Teacher { get; set; }
 
         public int StartYear { get; set; }
 

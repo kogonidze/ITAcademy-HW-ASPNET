@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.StudentGroup;
-using EducationalCenter.Common.Dtos.Teacher;
-using EducationalCenter.Common.Models;
 using EducationalCenter.Models;
 using ElmahCore;
 using Microsoft.AspNetCore.Authorization;
@@ -18,13 +17,13 @@ namespace EducationalCenter.Controllers
     public class StudentGroupController : Controller
     {
         private IStudentGroupService _studentGroupService;
-        private ITeacherService _teacherService;
+        private IFacultyService _facultyService;
         private IMapper _mapper;
 
-        public StudentGroupController(IStudentGroupService studentGroupService, ITeacherService teacherService, IMapper mapper)
+        public StudentGroupController(IStudentGroupService studentGroupService, IFacultyService facultyService, IMapper mapper)
         {
             _studentGroupService = studentGroupService;
-            _teacherService = teacherService;
+            _facultyService = facultyService;
             _mapper = mapper;
         }
 
@@ -48,7 +47,7 @@ namespace EducationalCenter.Controllers
         {
             try
             {
-                ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherDTO>>(await _teacherService.GetAllAsync());
+                ViewBag.Faculties = _mapper.Map<IEnumerable<FacultyDTO>>(await _facultyService.GetAllAsync());
                 var newStudentGroup = new StudentGroupFullInfoDTO();
 
                 return View("Edit", newStudentGroup);
@@ -73,7 +72,7 @@ namespace EducationalCenter.Controllers
 
                 if (studentGroup != null)
                 {
-                    ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherDTO>>(await _teacherService.GetAllAsync());
+                    ViewBag.Faculties = _mapper.Map<IEnumerable<FacultyDTO>>(await _facultyService.GetAllAsync());
                     return View(studentGroup);
                 }
 

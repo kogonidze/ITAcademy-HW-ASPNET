@@ -11,6 +11,9 @@ namespace EducationalCenter.DataAccess.EF
         private IStudentRepository _studentRepository;
         private ITeacherRepository _teacherRepository;
         private IStudentGroupRepository _studentGroupRepository;
+        private IFacultyRepository _facultyRepository;
+        private IDepartmentRepository _departmentRepository;
+        private ICourseRepository _courseRepository;
 
         private bool disposed = false;
 
@@ -55,6 +58,45 @@ namespace EducationalCenter.DataAccess.EF
                 }
 
                 return _studentGroupRepository;
+            }
+        }
+
+        public IFacultyRepository Faculties
+        {
+            get
+            {
+                if (_facultyRepository == null)
+                {
+                    _facultyRepository = new FacultyRepository(_context);
+                }
+
+                return _facultyRepository;
+            }
+        }
+
+        public IDepartmentRepository Departments
+        {
+            get
+            {
+                if (_departmentRepository == null)
+                {
+                    _departmentRepository = new DepartmentRepository(_context);
+                }
+
+                return _departmentRepository;
+            }
+        }
+
+        public ICourseRepository Courses
+        {
+            get
+            {
+                if (_courseRepository == null)
+                {
+                    _courseRepository = new CourseRepository(_context);
+                }
+
+                return _courseRepository;
             }
         }
 

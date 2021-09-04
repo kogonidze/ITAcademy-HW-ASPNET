@@ -4,14 +4,16 @@ using EducationalCenter.DataAccess.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EducationalCenter.Data.Migrations
 {
     [DbContext(typeof(EducationalCenterContext))]
-    partial class EducationalCenterContextModelSnapshot : ModelSnapshot
+    [Migration("20210904171822_AddFacultyAndCourseEntities")]
+    partial class AddFacultyAndCourseEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +47,7 @@ namespace EducationalCenter.Data.Migrations
 
                     b.HasIndex("TeacherId");
 
-                    b.ToTable("Courses");
-                });
-
-            modelBuilder.Entity("EducationalCenter.Common.Models.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("EducationalCenter.Common.Models.Faculty", b =>
@@ -70,48 +57,17 @@ namespace EducationalCenter.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Faculties");
-                });
-
-            modelBuilder.Entity("EducationalCenter.Common.Models.Lecture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuditoriumNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BuildingName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("StudentGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("StudentGroupId");
-
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("Lectures");
+                    b.ToTable("Faculty");
                 });
 
             modelBuilder.Entity("EducationalCenter.Common.Models.Student", b =>
@@ -156,7 +112,7 @@ namespace EducationalCenter.Data.Migrations
                     b.Property<int>("EndingYear")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FacultyId")
+                    b.Property<int>("FacultyId")
                         .HasColumnType("int");
 
                     b.Property<int>("StartYear")
@@ -169,7 +125,7 @@ namespace EducationalCenter.Data.Migrations
 
                     b.HasIndex("FacultyId");
 
-                    b.ToTable("StudentGroups");
+                    b.ToTable("StudentGroup");
                 });
 
             modelBuilder.Entity("EducationalCenter.Common.Models.Teacher", b =>
@@ -184,9 +140,6 @@ namespace EducationalCenter.Data.Migrations
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
 
                     b.Property<string>("EMail")
                         .HasColumnType("nvarchar(max)");
@@ -211,9 +164,7 @@ namespace EducationalCenter.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Teachers");
+                    b.ToTable("Teacher");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -421,25 +372,13 @@ namespace EducationalCenter.Data.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("EducationalCenter.Common.Models.Lecture", b =>
+            modelBuilder.Entity("EducationalCenter.Common.Models.Faculty", b =>
                 {
                     b.HasOne("EducationalCenter.Common.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId");
 
-                    b.HasOne("EducationalCenter.Common.Models.StudentGroup", "StudentGroup")
-                        .WithMany()
-                        .HasForeignKey("StudentGroupId");
-
-                    b.HasOne("EducationalCenter.Common.Models.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId");
-
                     b.Navigation("Course");
-
-                    b.Navigation("StudentGroup");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("EducationalCenter.Common.Models.Student", b =>
@@ -455,18 +394,11 @@ namespace EducationalCenter.Data.Migrations
                 {
                     b.HasOne("EducationalCenter.Common.Models.Faculty", "Faculty")
                         .WithMany()
-                        .HasForeignKey("FacultyId");
+                        .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Faculty");
-                });
-
-            modelBuilder.Entity("EducationalCenter.Common.Models.Teacher", b =>
-                {
-                    b.HasOne("EducationalCenter.Common.Models.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId");
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

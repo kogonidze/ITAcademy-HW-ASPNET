@@ -18,6 +18,7 @@ namespace EducationalCenter.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         public async Task CreateAsync(StudentGroupFullInfoDTO studentGroupCreationDto)
         {
             var studentGroup = _mapper.Map<StudentGroup>(studentGroupCreationDto);
