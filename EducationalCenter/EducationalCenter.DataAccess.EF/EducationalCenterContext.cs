@@ -26,9 +26,15 @@ namespace EducationalCenter.DataAccess.EF
             Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            optionsBuilder.EnableSensitiveDataLogging();
+            base.OnModelCreating(builder);
+
+            builder.Entity<Department>().HasData(new Department { Id = 1, Name = "Philology" });
+            builder.Entity<Department>().HasData(new Department { Id = 2, Name = "Algebras" });
+
+            builder.Entity<Faculty>().HasData(new Faculty { Id = 1, Name = "Applied Math" });
+            builder.Entity<Faculty>().HasData(new Faculty { Id = 2, Name = "Information technologies" });
         }
     }
 }

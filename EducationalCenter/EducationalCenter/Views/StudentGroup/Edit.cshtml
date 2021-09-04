@@ -1,5 +1,4 @@
-﻿@using EducationalCenter.Common.Enums
-@model EducationalCenter.Common.Dtos.StudentGroup.StudentGroupFullInfoDTO
+﻿@model EducationalCenter.Common.Dtos.StudentGroup.StudentGroupFullInfoDTO
 
 @{
     ViewData["Title"] = "StudentGroup " + Model.Title;
@@ -39,14 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(m => m.Faculty, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.Faculty, new SelectList(Enum.GetValues(typeof(Faculty))), new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(m => m.Teacher, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.TeacherId, new SelectList(ViewBag.Teachers, "Id", "FIO"), new { @class = "form-control" });
+                @Html.DropDownListFor(m => m.FacultyId, new SelectList(ViewBag.Faculties, "Id", "Name"), new { @class = "form-control" })
             </div>
         </div>
 

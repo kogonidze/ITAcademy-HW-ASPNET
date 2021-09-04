@@ -1,10 +1,13 @@
-﻿using EducationalCenter.BLL.Interfaces;
+﻿using AutoMapper;
+using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Teacher;
 using EducationalCenter.Models;
 using ElmahCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -13,18 +16,22 @@ namespace EducationalCenter.Controllers
     [Authorize]
     public class TeacherController : Controller
     {
-        private ITeacherService _service;
+        private ITeacherService _teacherService;
+        private IDepartmentService _departmentService;
+        private IMapper _mapper;
 
-        public TeacherController(ITeacherService service)
+        public TeacherController(ITeacherService teacherService, IDepartmentService departmentService, IMapper mapper)
         {
-            _service = service;
+            _teacherService = teacherService;
+            _departmentService = departmentService;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
             try
             {
-                var obj = await _service.GetAllAsync();
+                var obj = await _teacherService.GetAllAsync();
                 return View(obj);
             }
             catch (Exception e)
@@ -36,10 +43,11 @@ namespace EducationalCenter.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin, manager")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             try
             {
+                ViewBag.Departments = _mapper.Map<IEnumerable<DepartmentDTO>>(await _departmentService.GetAllAsync());
                 var newTeacher = new TeacherFullInfoDTO() { DateOfBirth = DateTime.Now };
 
                 return View("Edit", newTeacher);
@@ -62,10 +70,11 @@ namespace EducationalCenter.Controllers
                     return NotFound();
                 }
 
-                var teacher = await _service.FindByIdAsync(id.Value);
+                var teacher = await _teacherService.FindByIdAsync(id.Value);
 
                 if (teacher != null)
                 {
+                    ViewBag.Departments = _mapper.Map<IEnumerable<DepartmentDTO>>(await _departmentService.GetAllAsync());
                     return View(teacher);
                 }
 
@@ -85,9 +94,9 @@ namespace EducationalCenter.Controllers
             try
             {
                 if (teacher.Id > 0)
-                    await _service.UpdateAsync(teacher);
+                    await _teacherService.UpdateAsync(teacher);
                 else
-                    await _service.CreateAsync(teacher);
+                    await _teacherService.CreateAsync(teacher);
 
                 return RedirectToAction("Index");
 
@@ -110,7 +119,7 @@ namespace EducationalCenter.Controllers
                     return NotFound();
                 }
 
-                await _service.DeleteAsync(id.Value);
+                await _teacherService.DeleteAsync(id.Value);
 
                 return RedirectToAction("Index");
             }

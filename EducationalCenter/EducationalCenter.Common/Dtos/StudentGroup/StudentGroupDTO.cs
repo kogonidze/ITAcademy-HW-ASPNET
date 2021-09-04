@@ -1,7 +1,4 @@
-﻿using EducationalCenter.Common.Constants;
-using EducationalCenter.Common.Dtos.Teacher;
-using EducationalCenter.Common.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using EducationalCenter.Common.Models;
 
 namespace EducationalCenter.Common.Dtos.StudentGroup
 {
@@ -11,11 +8,9 @@ namespace EducationalCenter.Common.Dtos.StudentGroup
 
         public string Title { get; set; }
 
+        public int FacultyId { get; set; }
+
         public Faculty Faculty { get; set; }
-
-        public int TeacherId { get; set; }
-
-        public TeacherDTO Teacher { get; set; }
 
         public int StartYear { get; set; }
 
