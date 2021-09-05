@@ -37,7 +37,7 @@ namespace EducationalCenter.WebApi
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IStudentGroupService, StudentGroupService>();
-
+            services.AddScoped<ICourseService, CourseService>();
 
             services.AddSwaggerGen();
             services.AddMvc();
