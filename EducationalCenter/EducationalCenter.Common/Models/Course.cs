@@ -13,9 +13,5 @@ namespace EducationalCenter.Common.Models
         public int HoursCount { get; set; }
 
         public ControlForm ControlForm { get; set; }
-
-        public int? TeacherId { get; set; }
-
-        public Teacher Teacher { get; set; }
     }
 }

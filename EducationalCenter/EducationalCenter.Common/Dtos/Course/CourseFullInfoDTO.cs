@@ -1,5 +1,4 @@
-﻿using EducationalCenter.Common.Dtos.Teacher;
-using EducationalCenter.Common.Enums;
+﻿using EducationalCenter.Common.Enums;
 
 namespace EducationalCenter.Common.Dtos.Course
 {
@@ -14,9 +13,5 @@ namespace EducationalCenter.Common.Dtos.Course
         public int HoursCount { get; set; }
 
         public ControlForm ControlForm { get; set; }
-
-        public int? TeacherId { get; set; }
-
-        public TeacherDTO Teacher { get; set; }
     }
 }
