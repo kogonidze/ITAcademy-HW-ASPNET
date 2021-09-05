@@ -39,6 +39,13 @@ namespace EducationalCenter.WebApi
             services.AddScoped<IStudentGroupService, StudentGroupService>();
             services.AddScoped<ICourseService, CourseService>();
 
+            services.AddCors(options =>
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200")));
+
             services.AddSwaggerGen();
             services.AddMvc();
         }
@@ -46,6 +53,8 @@ namespace EducationalCenter.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

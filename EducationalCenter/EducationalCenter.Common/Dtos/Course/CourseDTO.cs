@@ -13,6 +13,6 @@ namespace EducationalCenter.Common.Dtos.Course
 
         public int HoursCount { get; set; }
 
-        public ControlForm ControlForm { get; set; }
+        public string ControlForm { get; set; }
     }
 }

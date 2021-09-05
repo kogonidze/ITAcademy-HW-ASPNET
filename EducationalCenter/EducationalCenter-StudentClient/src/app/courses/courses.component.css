@@ -1,0 +1,25 @@
+.mat-spinner {
+    position: relative;
+    margin-left: 50%;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-column-title {
+    font-size: 16px;
+}
+
+.mat-column-description {
+    font-style: italic;
+}
+
+.mat-column-hoursCount {
+    text-align: center;
+}
+
+.mat-column-controlForm {
+    text-align: center;
+    font-weight: bold;
+}

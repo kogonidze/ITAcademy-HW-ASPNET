@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseDTO } from '../shared/models/courseDTO.model';
+import { CoursesService } from './courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private coursesService: CoursesService) { }
+
+  courses: CourseDTO[] | undefined;
+  columnsToDisplay = ['title', 'description', 'hoursCount', 'controlForm'];
 
   ngOnInit(): void {
+    this.coursesService.get().subscribe((courses: CourseDTO[]) => {
+      this.courses = courses;
+    });
   }
 
 }
