@@ -1,10 +1,18 @@
+using AutoMapper;
+using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.BLL.Mappings;
+using EducationalCenter.BLL.Services;
+using EducationalCenter.DataAccess.EF;
+using EducationalCenter.DataAccess.EF.Interfaces;
+using EducationalCenter.SL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace EducationalCenter.Angular
 {
@@ -26,6 +34,21 @@ namespace EducationalCenter.Angular
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddDbContext<EducationalCenterContext>
+    (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
+            var config = new MapperConfiguration(cfg => {
+                cfg.AddProfile<MappingProfile>();
+            });
+
+            var mapper = new Mapper(config);
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<ICourseService, CourseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
