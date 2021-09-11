@@ -9,6 +9,7 @@ import { CoursesComponent } from "./courses/courses.component";
 import { MaterialModule } from "./material/material.module";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.com
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
