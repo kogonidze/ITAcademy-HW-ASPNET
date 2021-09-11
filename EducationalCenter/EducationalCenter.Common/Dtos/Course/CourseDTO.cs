@@ -14,9 +14,5 @@ namespace EducationalCenter.Common.Dtos.Course
         public int HoursCount { get; set; }
 
         public ControlForm ControlForm { get; set; }
-
-        public int? TeacherId { get; set; }
-
-        public TeacherDTO Teacher { get; set; }
     }
 }
