@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalCenter", "EducationalCenter\EducationalCenter.csproj", "{20F02B48-065C-4197-85F0-1CB17DB28496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalCenter.MVC", "EducationalCenter\EducationalCenter.MVC.csproj", "{20F02B48-065C-4197-85F0-1CB17DB28496}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationalCenter.Common", "EducationalCenter.Common\EducationalCenter.Common.csproj", "{36AC567F-66D2-492B-85D4-4C2C11D61486}"
 EndProject
