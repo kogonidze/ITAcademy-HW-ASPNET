@@ -27,7 +27,7 @@ namespace EducationalCenter.Common.Dtos.Student
 
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^(\d{10})$", ErrorMessage = ErrorMessages.MobilePhone)]
+        [RegularExpression(@"^(\d{11})$", ErrorMessage = ErrorMessages.MobilePhone)]
         public string PhoneNumber { get; set; }
 
         public int? GroupId { get; set; }
