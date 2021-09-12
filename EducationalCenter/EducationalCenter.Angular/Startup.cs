@@ -2,6 +2,7 @@ using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.BLL.Mappings;
 using EducationalCenter.BLL.Services;
+using EducationalCenter.Common.Constants;
 using EducationalCenter.DataAccess.EF;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.SL;
@@ -35,8 +36,7 @@ namespace EducationalCenter.Angular
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddDbContext<EducationalCenterContext>
-    (options => options.UseSqlServer("Server=localhost;Database=EducationalCenterDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            services.AddDbContext<EducationalCenterContext>(options => options.UseSqlServer(Configuration.GetConnectionString(ConfigurationSectionNames.DefaultConnectionString)));
 
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingProfile>();
