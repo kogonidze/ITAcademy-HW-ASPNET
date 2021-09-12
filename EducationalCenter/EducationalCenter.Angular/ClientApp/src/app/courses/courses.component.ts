@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CourseDTO } from "../shared/models/courseDTO.model";
+import { Course } from "../shared/models/course.model";
 import { CoursesService } from "./courses.service";
 
 @Component({
@@ -10,11 +10,11 @@ import { CoursesService } from "./courses.service";
 export class CoursesComponent implements OnInit {
   constructor(private coursesService: CoursesService) {}
 
-  courses: CourseDTO[] | undefined;
+  courses: Course[] | undefined;
   columnsToDisplay = ["title", "description", "hoursCount", "controlForm"];
 
   ngOnInit(): void {
-    this.coursesService.get().subscribe((courses: CourseDTO[]) => {
+    this.coursesService.get().subscribe((courses: Course[]) => {
       this.courses = courses;
     });
   }

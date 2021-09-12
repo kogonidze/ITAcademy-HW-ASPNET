@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { CourseDTO } from "../shared/models/courseDTO.model";
+import { Course } from "../shared/models/course.model";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +12,7 @@ export class CoursesService {
 
   private apiUrl = environment.apiUrl + "courses";
 
-  get(): Observable<CourseDTO[]> {
-    return this.http.get<CourseDTO[]>(this.apiUrl);
+  get(): Observable<Course[]> {
+    return this.http.get<Course[]>(this.apiUrl);
   }
 }
