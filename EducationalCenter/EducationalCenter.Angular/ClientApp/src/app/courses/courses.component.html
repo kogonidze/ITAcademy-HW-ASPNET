@@ -1,0 +1,32 @@
+<h2>Courses</h2>>
+<div *ngIf="!courses">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="courses?.length === 0">There are no records to display</div>
+
+<ng-container *ngIf="courses && courses.length > 0" content>
+    <table mat-table [dataSource]="courses" class="mat-elevation-z8 table-index">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let element">{{element.title}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">{{element.description}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="hoursCount">
+            <th mat-header-cell *matHeaderCellDef>HoursCount</th>
+            <td mat-cell *matCellDef="let element">{{element.hoursCount}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="controlForm">
+            <th mat-header-cell *matHeaderCellDef>ControlForm</th>
+            <td mat-cell *matCellDef="let element">{{element.controlForm}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+</ng-container>

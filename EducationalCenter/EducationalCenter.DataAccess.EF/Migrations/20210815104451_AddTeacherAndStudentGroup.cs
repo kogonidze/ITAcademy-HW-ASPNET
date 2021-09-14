@@ -7,10 +7,11 @@ namespace EducationalCenter.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Faculty",
+            migrationBuilder.AddColumn<int>(
+                name: "GroupId",
                 table: "Students",
-                newName: "GroupId");
+                type: "int",
+                nullable: true);
 
             migrationBuilder.AddColumn<string>(
                 name: "EMail",
