@@ -2,18 +2,24 @@ using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.BLL.Mappings;
 using EducationalCenter.BLL.Services;
+using EducationalCenter.Common.Configuration;
 using EducationalCenter.Common.Constants;
+using EducationalCenter.Common.Models;
 using EducationalCenter.DataAccess.EF;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.SL;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System;
+using System.Threading.Tasks;
 
 namespace EducationalCenter.Angular
 {
@@ -38,6 +44,25 @@ namespace EducationalCenter.Angular
 
             services.AddDbContext<EducationalCenterContext>(options => options.UseSqlServer(Configuration.GetConnectionString(ConfigurationSectionNames.DefaultConnectionString)));
 
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredLength = 8;
+            })
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<EducationalCenterContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, EducationalCenterContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+
+
             var config = new MapperConfiguration(cfg => {
                 cfg.AddProfile<MappingProfile>();
             });
@@ -49,10 +74,14 @@ namespace EducationalCenter.Angular
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICourseService, CourseService>();
+
+            services.Configure<SecurityOptions>(
+               Configuration.GetSection(ConfigurationSectionNames.Security));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
+            IOptions<SecurityOptions> securityOptions)
         {
             if (env.IsDevelopment())
             {
@@ -74,6 +103,10 @@ namespace EducationalCenter.Angular
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -93,6 +126,40 @@ namespace EducationalCenter.Angular
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            CreateRoles(serviceProvider, securityOptions).Wait();
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            var roles = new[] { "admin", "manager", "student" };
+
+            foreach (var rolename in roles)
+            {
+                await roleManager.CreateAsync(new IdentityRole()
+                {
+                    Name = rolename,
+                    NormalizedName = rolename.ToUpper()
+                });
+            }
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            var adminUser = await userManager.FindByEmailAsync(securityOptions.Value.AdminUserEmail);
+
+            if (adminUser != null)
+            {
+                await userManager.AddToRoleAsync(adminUser, "admin");
+            }
+
+            var managerUser = await userManager.FindByEmailAsync(securityOptions.Value.ManagerUserEmail);
+
+            if (managerUser != null)
+            {
+                await userManager.AddToRoleAsync(managerUser, "manager");
+            }
         }
     }
 }
