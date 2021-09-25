@@ -4,6 +4,7 @@ using EducationalCenter.Common.Dtos.Course;
 using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.Common.Dtos.StudentGroup;
 using EducationalCenter.Common.Dtos.Teacher;
+using EducationalCenter.Common.Dtos.User;
 using EducationalCenter.Common.Models;
 
 namespace EducationalCenter.BLL.Mappings
@@ -29,6 +30,9 @@ namespace EducationalCenter.BLL.Mappings
             CreateMap<Department, DepartmentDTO>();
 
             CreateMap<Course, CourseDTO>();
+
+            CreateMap<UserRegistrationDto, ApplicationUser>()
+                .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.EMail));
         }
     }
 }
