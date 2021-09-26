@@ -16,3 +16,7 @@ mat-toolbar {
     border-radius: 0px;
   }
 }
+
+.space {
+  flex: 1 1 auto;
+}

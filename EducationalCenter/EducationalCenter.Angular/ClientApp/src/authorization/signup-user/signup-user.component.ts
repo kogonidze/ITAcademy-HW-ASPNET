@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { PasswordConfirmationValidatorService } from "src/app/shared/custom-validators/password-confirmation-validator.service";
 import { UserRegistration } from "src/app/shared/models/user/userRegistration.model";
 import { AuthorizationService } from "../authorization.service";
 
@@ -10,8 +11,13 @@ import { AuthorizationService } from "../authorization.service";
 })
 export class SignupUserComponent implements OnInit {
   public registerForm: FormGroup;
+  public errorMessage: string = "";
+  public showError: boolean;
 
-  constructor(private authService: AuthorizationService) {}
+  constructor(
+    private authService: AuthorizationService,
+    private passConfValidator: PasswordConfirmationValidatorService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -19,6 +25,15 @@ export class SignupUserComponent implements OnInit {
       password: new FormControl("", Validators.required),
       confirmPassword: new FormControl("", Validators.required),
     });
+
+    this.registerForm
+      .get("confirmPassword")
+      .setValidators([
+        Validators.required,
+        this.passConfValidator.validateConfirmPassword(
+          this.registerForm.get("password")
+        ),
+      ]);
   }
 
   public validateControl = (controlName: string) => {
@@ -33,6 +48,7 @@ export class SignupUserComponent implements OnInit {
   };
 
   public registerUser = (registerFormValue) => {
+    this.showError = false;
     const formValues = { ...registerFormValue };
     const user: UserRegistration = {
       email: formValues.email,
@@ -45,7 +61,8 @@ export class SignupUserComponent implements OnInit {
         console.log("Successful registration");
       },
       (error) => {
-        console.log(error.error.errors);
+        this.errorMessage = error;
+        this.showError = true;
       }
     );
   };
@@ -79,6 +96,10 @@ export class SignupUserComponent implements OnInit {
 
     if (field.hasError("required")) {
       return "Confirm password is required";
+    }
+
+    if (field.hasError("mustMatch")) {
+      return "Passwords must match!";
     }
 
     return "";
