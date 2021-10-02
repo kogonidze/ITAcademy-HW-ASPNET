@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Configuration;
 using EducationalCenter.Common.Dtos.Api.Responses;
 using EducationalCenter.Common.Dtos.User;
@@ -6,6 +7,7 @@ using EducationalCenter.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,12 +20,14 @@ namespace EducationalCenter.Angular.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IOptions<SecurityOptions> _securityOptions;
+        private readonly IJwtHandlerService _jwtHandlerService;
 
-        public AuthorizationController(UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SecurityOptions> securityOptions)
+        public AuthorizationController(UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SecurityOptions> securityOptions, IJwtHandlerService jwtHandlerService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _securityOptions = securityOptions;
+            _jwtHandlerService = jwtHandlerService;
         }
 
         [HttpPost("signup")]
@@ -48,6 +52,25 @@ namespace EducationalCenter.Angular.Controllers
             await AddUserToRole(userForRegistration.EMail, user);
             
             return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = true });
+        }
+
+        [HttpPost("signin")]
+        public async Task<IActionResult> SignIn([FromBody] UserForAuthenticationDto userForAuthentication)
+        {
+            var user = await _userManager.FindByNameAsync(userForAuthentication.EMail);
+
+            if (user == null || !await _userManager.CheckPasswordAsync(user, userForAuthentication.Password))
+            {
+                return Unauthorized(new AuthResponseDto { ErrorMessage = "Invalid Authentication" });
+            }
+
+            var signingCredentials = _jwtHandlerService.GetSigningCredentials();
+            var claims = _jwtHandlerService.GetClaims(user);
+            var tokenOptions = _jwtHandlerService.GenerateTokenOptions(signingCredentials, claims);
+
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token });
         }
 
         private async Task AddUserToRole(string email, ApplicationUser user)

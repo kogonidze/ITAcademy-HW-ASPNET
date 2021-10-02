@@ -9,6 +9,7 @@ using EducationalCenter.DataAccess.EF;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using EducationalCenter.SL;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +19,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.Angular
@@ -56,6 +59,26 @@ namespace EducationalCenter.Angular
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<EducationalCenterContext>();
 
+            var jwtSettings = Configuration.GetSection("JwtSettings");
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
+                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.GetSection("securityKey").Value))
+                };
+            });
+
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, EducationalCenterContext>();
 
@@ -74,6 +97,7 @@ namespace EducationalCenter.Angular
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICourseService, CourseService>();
+            services.AddScoped<IJwtHandlerService, JwtHandlerService>();
 
             services.Configure<SecurityOptions>(
                Configuration.GetSection(ConfigurationSectionNames.Security));
