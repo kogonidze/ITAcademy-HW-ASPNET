@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { PasswordConfirmationValidatorService } from "src/app/shared/custom-validators/password-confirmation-validator.service";
 import { UserRegistration } from "src/app/shared/models/user/userRegistration.model";
 import { AuthorizationService } from "../authorization.service";
@@ -16,7 +17,8 @@ export class SignupUserComponent implements OnInit {
 
   constructor(
     private authService: AuthorizationService,
-    private passConfValidator: PasswordConfirmationValidatorService
+    private passConfValidator: PasswordConfirmationValidatorService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,7 @@ export class SignupUserComponent implements OnInit {
 
     this.authService.registerUser(user).subscribe(
       (_) => {
-        console.log("Successful registration");
+        this._router.navigate(["authorization/login"]);
       },
       (error) => {
         this.errorMessage = error;

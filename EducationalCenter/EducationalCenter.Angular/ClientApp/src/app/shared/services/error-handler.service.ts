@@ -32,8 +32,11 @@ export class ErrorHandlerService implements HttpInterceptor {
       return this.handleNotFound(error);
     } else if (error.status === 400) {
       return this.handleBadRequest(error);
+    } else if (error.status === 401) {
+      return this.handleUnauthorized(error);
     }
   };
+
   private handleNotFound = (error: HttpErrorResponse): string => {
     this._router.navigate(["/NotFound"]);
     return error.message;
@@ -48,6 +51,14 @@ export class ErrorHandlerService implements HttpInterceptor {
       return message.slice(0, -4);
     } else {
       return error.error ? error.error : error.message;
+    }
+  };
+  private handleUnauthorized = (error: HttpErrorResponse): string => {
+    if (this._router.url === "/authorization/signin") {
+      return "Authentication failed. Wrong Username or Password!";
+    } else {
+      this._router.navigate(["/authorization/signin"]);
+      return error.message;
     }
   };
 }

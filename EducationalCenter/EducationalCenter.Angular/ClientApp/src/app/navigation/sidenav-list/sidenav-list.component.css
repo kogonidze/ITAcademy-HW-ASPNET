@@ -12,3 +12,7 @@ a:active {
   display: inline-block;
   padding-left: 6px;
 }
+
+.space {
+  flex: 1 1 auto;
+}

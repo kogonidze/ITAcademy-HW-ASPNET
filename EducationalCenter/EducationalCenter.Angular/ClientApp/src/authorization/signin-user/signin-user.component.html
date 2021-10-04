@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Login</h2>
+
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+            {{errorMessage}}
+        </div>
+
+        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)">
+            <mat-form-field appearance="outline">
+                <mat-label>Email: </mat-label>
+                <input formControlName="email" matInput />
+                <mat-error>{{getEmailErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password: </mat-label>
+                <input type="password" formControlName="password" matInput />
+                <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="loginForm.invalid">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
