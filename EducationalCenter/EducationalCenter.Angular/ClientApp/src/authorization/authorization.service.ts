@@ -4,6 +4,7 @@ import { environment } from "src/environments/environment";
 import { UserRegistration } from "src/app/shared/models/user/userRegistration.model";
 import { UserAuthentication } from "src/app/shared/models/user/userAuthentication.model";
 import { Subject } from "rxjs";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: "root",
@@ -12,7 +13,7 @@ export class AuthorizationService {
   private _authChangeSub = new Subject<boolean>();
   public authChanged = this._authChangeSub.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   private apiUrl = environment.apiUrl + "authorization";
 
@@ -31,5 +32,11 @@ export class AuthorizationService {
   logout = () => {
     localStorage.removeItem("token");
     this.sendAuthStateChangeNotification(false);
+  };
+
+  isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("token");
+
+    return token && !this.jwtHelper.isTokenExpired(token);
   };
 }

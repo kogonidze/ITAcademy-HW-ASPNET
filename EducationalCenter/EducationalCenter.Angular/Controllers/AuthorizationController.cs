@@ -65,7 +65,7 @@ namespace EducationalCenter.Angular.Controllers
             }
 
             var signingCredentials = _jwtHandlerService.GetSigningCredentials();
-            var claims = _jwtHandlerService.GetClaims(user);
+            var claims = await _jwtHandlerService.GetClaims(user);
             var tokenOptions = _jwtHandlerService.GenerateTokenOptions(signingCredentials, claims);
 
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);

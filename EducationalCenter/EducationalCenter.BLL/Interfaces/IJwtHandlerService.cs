@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EducationalCenter.BLL.Interfaces
 {
@@ -10,7 +11,7 @@ namespace EducationalCenter.BLL.Interfaces
     {
         SigningCredentials GetSigningCredentials();
 
-        List<Claim> GetClaims(IdentityUser user);
+        Task<List<Claim>> GetClaims(IdentityUser user);
 
         JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims);
     }

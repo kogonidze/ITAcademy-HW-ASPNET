@@ -10,8 +10,14 @@ import { MaterialModule } from "./material/material.module";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { JwtModule } from "@auth0/angular-jwt";
+
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
 import { ErrorHandlerService } from "./shared/services/error-handler.service";
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -28,6 +34,13 @@ import { ErrorHandlerService } from "./shared/services/error-handler.service";
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["localhost:5001"],
+        blacklistedRoutes: [],
+      },
+    }),
   ],
   providers: [
     {
