@@ -39,4 +39,28 @@ export class AuthorizationService {
 
     return token && !this.jwtHelper.isTokenExpired(token);
   };
+
+  isUserAdmin = (): boolean => {
+    const role = this.getRoleFromToken();
+
+    return role === "Administrator";
+  };
+
+  isUserManager = (): boolean => {
+    const role = this.getRoleFromToken();
+
+    return role === "Manager";
+  };
+
+  private getRoleFromToken = (): string => {
+    const token = localStorage.getItem("token");
+    const decodedToken = this.jwtHelper.decodeToken(token);
+
+    const role =
+      decodedToken[
+        "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+      ];
+
+    return role;
+  };
 }

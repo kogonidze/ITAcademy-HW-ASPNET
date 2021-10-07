@@ -1,4 +1,5 @@
 ﻿using EducationalCenter.BLL.Interfaces;
+using EducationalCenter.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -15,9 +16,9 @@ namespace EducationalCenter.BLL.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public JwtHandlerService(IConfiguration configuration, UserManager<IdentityUser> userManager)
+        public JwtHandlerService(IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             _configuration = configuration;
             _jwtSettings = _configuration.GetSection("JwtSettings");
@@ -30,7 +31,7 @@ namespace EducationalCenter.BLL.Services
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
         }
 
-        public async Task<List<Claim>> GetClaims(IdentityUser user)
+        public async Task<List<Claim>> GetClaims(ApplicationUser user)
         {
             var claims = new List<Claim>
             {

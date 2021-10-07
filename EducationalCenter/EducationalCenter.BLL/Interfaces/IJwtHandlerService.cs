@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EducationalCenter.Common.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,7 +11,7 @@ namespace EducationalCenter.BLL.Interfaces
     {
         SigningCredentials GetSigningCredentials();
 
-        Task<List<Claim>> GetClaims(IdentityUser user);
+        Task<List<Claim>> GetClaims(ApplicationUser user);
 
         JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims);
     }

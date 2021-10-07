@@ -64,11 +64,6 @@ export class SigninUserComponent implements OnInit {
     );
   };
 
-  public logout = () => {
-    this._authService.logout();
-    this._router.navigate(["/"]);
-  };
-
   getEmailErrorMessage() {
     var field = this.loginForm.get("email");
 

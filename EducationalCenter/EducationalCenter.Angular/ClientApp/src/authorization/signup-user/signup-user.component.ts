@@ -60,7 +60,7 @@ export class SignupUserComponent implements OnInit {
 
     this.authService.registerUser(user).subscribe(
       (_) => {
-        this._router.navigate(["authorization/login"]);
+        this._router.navigate(["authorization/signin"]);
       },
       (error) => {
         this.errorMessage = error;

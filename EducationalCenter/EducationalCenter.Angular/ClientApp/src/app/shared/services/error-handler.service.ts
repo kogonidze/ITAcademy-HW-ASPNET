@@ -34,6 +34,7 @@ export class ErrorHandlerService implements HttpInterceptor {
       return this.handleBadRequest(error);
     } else if (error.status === 401) {
       return this.handleUnauthorized(error);
+    } else if (error.status === 403) {
     }
   };
 
@@ -41,6 +42,7 @@ export class ErrorHandlerService implements HttpInterceptor {
     this._router.navigate(["/NotFound"]);
     return error.message;
   };
+
   private handleBadRequest = (error: HttpErrorResponse): string => {
     if (this._router.url === "/authorization/signup") {
       let message = "";
@@ -53,12 +55,24 @@ export class ErrorHandlerService implements HttpInterceptor {
       return error.error ? error.error : error.message;
     }
   };
+
   private handleUnauthorized = (error: HttpErrorResponse): string => {
     if (this._router.url === "/authorization/signin") {
       return "Authentication failed. Wrong Username or Password!";
     } else {
-      this._router.navigate(["/authorization/signin"]);
+      this._router.navigate(["/authorization/signin"], {
+        queryParams: { returnUrl: this._router.url },
+      });
+
       return error.message;
     }
+  };
+
+  private handleForbidden = (error: HttpErrorResponse): string => {
+    this._router.navigate(["/forbidden"], {
+      queryParams: { returnUrl: this._router.url },
+    });
+
+    return "Forbidden";
   };
 }
