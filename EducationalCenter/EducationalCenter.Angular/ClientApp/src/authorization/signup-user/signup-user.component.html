@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Register</h2>
+
+        <div *ngIf="showError" class="alert alert-danger" role="alert">
+            <span [innerHTML]="errorMessage"></span>
+        </div>
+
+        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)">
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput />
+                <mat-error> {{getEmailErrorMessage()}} </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" formControlName="password" matInput />
+                <mat-error> {{getPasswordErrorMessage()}} </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm password</mat-label>
+                <input type="password" formControlName="confirmPassword" matInput />
+                <mat-error> {{getConfirmPasswordErrorMessage()}} </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="registerForm.invalid">
+                    Register
+                </button>
+
+                <a mat-stroked-button routerLink="/">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

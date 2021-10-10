@@ -8,6 +8,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTableModule } from "@angular/material/table";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
   declarations: [],
@@ -21,6 +23,8 @@ import { MatTableModule } from "@angular/material/table";
     MatListModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   exports: [
     MatTabsModule,
@@ -31,6 +35,8 @@ import { MatTableModule } from "@angular/material/table";
     MatListModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
 })
 export class MaterialModule {}

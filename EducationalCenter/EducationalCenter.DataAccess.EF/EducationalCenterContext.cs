@@ -1,11 +1,14 @@
 ﻿using EducationalCenter.Common.Models;
 using EducationalCenter.DataAccess.EF.Extensions;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace EducationalCenter.DataAccess.EF
 {
-    public sealed class EducationalCenterContext : IdentityDbContext
+    public sealed class EducationalCenterContext : ApiAuthorizationDbContext<ApplicationUser>
     {
         public DbSet<Student> Students { get; set; }
 
@@ -21,8 +24,9 @@ namespace EducationalCenter.DataAccess.EF
 
         public DbSet<Lecture> Lectures { get; set; }
 
-        public EducationalCenterContext(DbContextOptions<EducationalCenterContext> options)
-            : base(options)
+        public EducationalCenterContext(DbContextOptions<EducationalCenterContext> options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions)
+            : base(options, operationalStoreOptions)
         {
         }
 

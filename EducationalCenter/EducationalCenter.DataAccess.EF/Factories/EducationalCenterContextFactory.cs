@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EducationalCenter.DataAccess.EF.Factories
 {
@@ -18,7 +20,9 @@ namespace EducationalCenter.DataAccess.EF.Factories
             var connString = configuration.GetConnectionString("DefaultConnection");
             dbContextBuilder.UseSqlServer(connString);
 
-            return new EducationalCenterContext(dbContextBuilder.Options);
+            var storeOptions = Options.Create(new OperationalStoreOptions());
+
+            return new EducationalCenterContext(dbContextBuilder.Options, storeOptions);
         }
     }
 }

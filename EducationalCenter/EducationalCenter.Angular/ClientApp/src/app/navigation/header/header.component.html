@@ -8,4 +8,16 @@
         <a routerLink="/home"> Home </a>
         <a routerLink="/courses"> Courses </a>
     </div>
+    <div class="space">
+
+    </div>
+
+    <div *ngIf="!isUserAuthenticated">
+        <a routerLink="/authorization/signup"> Register </a>
+        <a routerLink="/authorization/signin"> Login </a>
+    </div>
+
+    <div *ngIf="isUserAuthenticated">
+        <a (click)="logout()">Logout</a>
+    </div>
 </mat-toolbar>
