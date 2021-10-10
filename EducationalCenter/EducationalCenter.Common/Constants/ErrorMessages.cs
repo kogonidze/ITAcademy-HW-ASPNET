@@ -1,6 +1,6 @@
 ﻿namespace EducationalCenter.Common.Constants
 {
-    public class ErrorMessages
+    public static class ErrorMessages
     {
         public const string NameLength = "Name length must be from 2 to 50";
 

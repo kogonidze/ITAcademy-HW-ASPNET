@@ -25,6 +25,7 @@ namespace EducationalCenter.BLL.Mappings
 
             CreateMap<StudentGroup, StudentGroupDTO>();
             CreateMap<StudentGroupFullInfoDTO, StudentGroup>().ReverseMap();
+            CreateMap<StudentGroupCreationDTO, StudentGroupFullInfoDTO>();
 
             CreateMap<Faculty, FacultyDTO>();
             CreateMap<Department, DepartmentDTO>();
