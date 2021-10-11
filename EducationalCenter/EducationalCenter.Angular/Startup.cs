@@ -99,6 +99,7 @@ namespace EducationalCenter.Angular
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IStudentGroupService, StudentGroupService>();
             services.AddScoped<IFacultyService, FacultyService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
             services.AddScoped<IJwtHandlerService, JwtHandlerService>();
 

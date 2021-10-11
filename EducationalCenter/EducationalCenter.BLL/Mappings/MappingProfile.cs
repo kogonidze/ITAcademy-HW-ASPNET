@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Course;
+using EducationalCenter.Common.Dtos.Department;
+using EducationalCenter.Common.Dtos.Faculty;
 using EducationalCenter.Common.Dtos.Student;
 using EducationalCenter.Common.Dtos.StudentGroup;
 using EducationalCenter.Common.Dtos.Teacher;
@@ -28,7 +30,10 @@ namespace EducationalCenter.BLL.Mappings
             CreateMap<StudentGroupCreationDTO, StudentGroupFullInfoDTO>();
 
             CreateMap<Faculty, FacultyDTO>();
+            CreateMap<FacultyCreationDTO, FacultyDTO>();
+
             CreateMap<Department, DepartmentDTO>();
+            CreateMap<DepartmentCreationDTO, DepartmentDTO>();
 
             CreateMap<Course, CourseDTO>();
 

@@ -54,9 +54,9 @@ namespace EducationalCenter.Angular.Controllers
             return Ok(OperationResultMessages.StudentGroupCreated);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut]
         [Authorize(Roles = "admin, manager")]
-        public async Task<IActionResult> Edit(int id, StudentGroupFullInfoDTO studentGroupFullInfoDTO)
+        public async Task<IActionResult> Edit(StudentGroupFullInfoDTO studentGroupFullInfoDTO)
         {
             await _studentGroupService.UpdateAsync(studentGroupFullInfoDTO);
 
