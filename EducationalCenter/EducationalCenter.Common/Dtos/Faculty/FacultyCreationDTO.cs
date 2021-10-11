@@ -1,4 +1,4 @@
-﻿namespace EducationalCenter.Common.Dtos.Faculty
+﻿namespace EducationalCenter.Common.Dtos
 {
     public class FacultyCreationDTO
     {

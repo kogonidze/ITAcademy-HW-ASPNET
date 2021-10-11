@@ -1,5 +1,4 @@
 ﻿using System;
-using EducationalCenter.Common.Dtos.StudentGroup;
 
 namespace EducationalCenter.Common.Dtos.Student
 {

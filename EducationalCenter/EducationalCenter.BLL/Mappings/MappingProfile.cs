@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Course;
-using EducationalCenter.Common.Dtos.Department;
-using EducationalCenter.Common.Dtos.Faculty;
 using EducationalCenter.Common.Dtos.Student;
-using EducationalCenter.Common.Dtos.StudentGroup;
 using EducationalCenter.Common.Dtos.Teacher;
 using EducationalCenter.Common.Dtos.User;
 using EducationalCenter.Common.Models;

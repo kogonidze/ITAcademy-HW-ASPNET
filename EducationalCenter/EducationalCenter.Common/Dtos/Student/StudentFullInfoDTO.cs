@@ -1,5 +1,4 @@
 ﻿using EducationalCenter.Common.Constants;
-using EducationalCenter.Common.Dtos.StudentGroup;
 using System;
 using System.ComponentModel.DataAnnotations;
 

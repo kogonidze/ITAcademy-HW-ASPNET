@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
-using EducationalCenter.Common.Dtos.StudentGroup;
+using EducationalCenter.Common.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

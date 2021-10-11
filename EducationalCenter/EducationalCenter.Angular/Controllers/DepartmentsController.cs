@@ -2,7 +2,6 @@
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos;
-using EducationalCenter.Common.Dtos.Department;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
