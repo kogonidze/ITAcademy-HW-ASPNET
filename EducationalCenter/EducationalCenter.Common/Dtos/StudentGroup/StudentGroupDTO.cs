@@ -1,6 +1,6 @@
 ﻿using EducationalCenter.Common.Models;
 
-namespace EducationalCenter.Common.Dtos.StudentGroup
+namespace EducationalCenter.Common.Dtos
 {
     public class StudentGroupDTO
     {

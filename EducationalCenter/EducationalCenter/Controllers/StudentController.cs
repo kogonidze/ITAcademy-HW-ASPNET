@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.Common.Dtos;
 using EducationalCenter.BLL.Interfaces;
 using System.Threading.Tasks;
 using System;

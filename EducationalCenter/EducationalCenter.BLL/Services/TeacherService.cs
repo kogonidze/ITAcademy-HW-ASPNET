@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
-using EducationalCenter.Common.Dtos.Teacher;
+using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Models;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using System.Collections.Generic;

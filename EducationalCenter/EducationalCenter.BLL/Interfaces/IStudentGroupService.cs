@@ -1,4 +1,4 @@
-﻿using EducationalCenter.Common.Dtos.StudentGroup;
+﻿using EducationalCenter.Common.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

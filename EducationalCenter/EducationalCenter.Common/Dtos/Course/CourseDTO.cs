@@ -1,4 +1,4 @@
-﻿namespace EducationalCenter.Common.Dtos.Course
+﻿namespace EducationalCenter.Common.Dtos
 {
     public class CourseDTO
     {

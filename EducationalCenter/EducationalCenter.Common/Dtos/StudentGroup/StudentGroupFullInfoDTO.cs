@@ -2,7 +2,7 @@
 using EducationalCenter.Common.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace EducationalCenter.Common.Dtos.StudentGroup
+namespace EducationalCenter.Common.Dtos
 {
     public class StudentGroupFullInfoDTO
     {

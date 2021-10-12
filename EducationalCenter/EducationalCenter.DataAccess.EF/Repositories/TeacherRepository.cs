@@ -14,12 +14,12 @@ namespace EducationalCenter.DataAccess.EF.Repositories
 
         }
 
-        public async Task<IEnumerable<Teacher>> GetAllAsync()
+        public async new Task<IEnumerable<Teacher>> GetAllAsync()
         {
             return await _dbSet.Include(x => x.Department).ToListAsync();
         }
 
-        public async Task<Teacher> GetByIdAsync(int id)
+        public async new Task<Teacher> GetByIdAsync(int id)
         {
             return await _dbSet.Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
         }

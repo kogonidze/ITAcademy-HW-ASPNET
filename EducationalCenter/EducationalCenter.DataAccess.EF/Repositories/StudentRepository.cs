@@ -14,7 +14,7 @@ namespace EducationalCenter.DataAccess.EF.Repositories
 
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync()
+        public async new Task<IEnumerable<Student>> GetAllAsync()
         {
             return await _dbSet.Include(x => x.Group).ToListAsync();
         }
