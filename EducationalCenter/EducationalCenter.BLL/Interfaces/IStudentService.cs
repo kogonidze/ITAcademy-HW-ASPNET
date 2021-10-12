@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EducationalCenter.Common.Dtos.Student;
+using EducationalCenter.Common.Dtos;
 
 namespace EducationalCenter.BLL.Interfaces
 {

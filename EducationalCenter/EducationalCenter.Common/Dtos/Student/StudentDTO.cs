@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EducationalCenter.Common.Dtos.Student
+namespace EducationalCenter.Common.Dtos
 {
     public class StudentDTO
     {

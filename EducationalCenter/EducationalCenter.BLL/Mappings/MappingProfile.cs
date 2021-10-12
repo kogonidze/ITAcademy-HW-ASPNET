@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using EducationalCenter.Common.Dtos;
-using EducationalCenter.Common.Dtos.Course;
-using EducationalCenter.Common.Dtos.Student;
-using EducationalCenter.Common.Dtos.Teacher;
 using EducationalCenter.Common.Dtos.User;
 using EducationalCenter.Common.Models;
 
@@ -16,11 +13,13 @@ namespace EducationalCenter.BLL.Mappings
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
 
             CreateMap<StudentFullInfoDTO, Student>().ReverseMap();
+            CreateMap<StudentCreationDTO, StudentFullInfoDTO>();
 
             CreateMap<Teacher, TeacherDTO>()
                 .ForMember(dest => dest.FIO, opts => opts.MapFrom(src => src.FirstName + ' ' + src.LastName));
 
             CreateMap<TeacherFullInfoDTO, Teacher>().ReverseMap();
+            CreateMap<TeacherCreationDTO, TeacherFullInfoDTO>();
 
             CreateMap<StudentGroup, StudentGroupDTO>();
             CreateMap<StudentGroupFullInfoDTO, StudentGroup>().ReverseMap();
@@ -33,6 +32,7 @@ namespace EducationalCenter.BLL.Mappings
             CreateMap<DepartmentCreationDTO, DepartmentDTO>();
 
             CreateMap<Course, CourseDTO>();
+            CreateMap<CourseCreationDTO, CourseFullInfoDTO>();
 
             CreateMap<UserRegistrationDto, ApplicationUser>()
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.EMail));

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Dtos;
-using EducationalCenter.Common.Dtos.Teacher;
 using EducationalCenter.Models;
 using ElmahCore;
 using Microsoft.AspNetCore.Authorization;

@@ -2,7 +2,7 @@
 using EducationalCenter.Common.Models;
 using System;
 
-namespace EducationalCenter.Common.Dtos.Teacher
+namespace EducationalCenter.Common.Dtos
 {
     public class TeacherDTO
     {

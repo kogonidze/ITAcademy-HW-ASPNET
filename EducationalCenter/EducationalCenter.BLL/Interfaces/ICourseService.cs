@@ -1,4 +1,4 @@
-﻿using EducationalCenter.Common.Dtos.Course;
+﻿using EducationalCenter.Common.Dtos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
