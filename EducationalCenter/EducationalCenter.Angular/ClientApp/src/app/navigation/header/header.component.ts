@@ -10,6 +10,8 @@ import { AuthorizationService } from "src/authorization/authorization.service";
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   public isUserAuthenticated: boolean;
+  public isUserAdmin: boolean;
+  public isUserManager: boolean;
 
   constructor(
     private _authService: AuthorizationService,
@@ -18,12 +20,24 @@ export class HeaderComponent implements OnInit {
     this._authService.authChanged.subscribe((res) => {
       this.isUserAuthenticated = res;
     });
+    this._authService.authIsAdminRole.subscribe((res) => {
+      this.isUserAdmin = res;
+    });
+    this._authService.authIsManagerRole.subscribe((res) => {
+      this.isUserManager = res;
+    })
   }
 
   ngOnInit(): void {
     this._authService.authChanged.subscribe((res) => {
       this.isUserAuthenticated = res;
     });
+    this._authService.authIsAdminRole.subscribe((res) => {
+      this.isUserAdmin = res;
+    });
+    this._authService.authIsManagerRole.subscribe((res) => {
+      this.isUserManager = res;
+    })
   }
 
   public onToggleSidenav = () => {

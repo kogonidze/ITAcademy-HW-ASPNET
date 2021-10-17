@@ -14,6 +14,10 @@ import { JwtModule } from "@auth0/angular-jwt";
 
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
 import { ErrorHandlerService } from "./shared/services/error-handler.service";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { AdminGuard } from "./shared/guards/admin.guard";
+import { ManagerGuard } from "./shared/guards/manager.guard";
+import { IndexStudentsComponent } from "./students/index-students/index-students.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -24,6 +28,7 @@ export function tokenGetter() {
     AppComponent,
     HomeComponent,
     CoursesComponent,
+    IndexStudentsComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,
@@ -48,6 +53,9 @@ export function tokenGetter() {
       useClass: ErrorHandlerService,
       multi: true,
     },
+    [AuthGuard],
+    [AdminGuard],
+    [ManagerGuard]
   ],
   bootstrap: [AppComponent],
 })

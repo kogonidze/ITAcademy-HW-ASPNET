@@ -14,5 +14,11 @@ export class AppComponent {
   ngOnInit(): void {
     if (this.authService.isUserAuthenticated())
       this.authService.sendAuthStateChangeNotification(true);
+
+    if (this.authService.isUserAdmin())
+      this.authService.sendAuthIsAdminRoleNotification(true);
+
+    if (this.authService.isUserManager())
+      this.authService.sendAuthIsManagerRoleNotification(true);
   }
 }
