@@ -101,6 +101,8 @@ namespace EducationalCenter.Angular
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
 
+            services.AddScoped<IStudentService, StudentService>();
+
             services.AddScoped<IJwtHandlerService, JwtHandlerService>();
 
             services.Configure<SecurityOptions>(
