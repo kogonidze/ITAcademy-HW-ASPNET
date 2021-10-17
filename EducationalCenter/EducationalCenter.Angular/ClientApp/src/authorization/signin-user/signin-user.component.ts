@@ -55,6 +55,9 @@ export class SigninUserComponent implements OnInit {
       (res: any) => {
         localStorage.setItem("token", res.token);
         this._authService.sendAuthStateChangeNotification(res.isAuthSuccessful);
+        this._authService.sendAuthIsAdminRoleNotification(this._authService.isUserAdmin());
+        this._authService.sendAuthIsManagerRoleNotification(this._authService.isUserManager());
+        
         this._router.navigate([this._returnUrl]);
       },
       (error) => {
