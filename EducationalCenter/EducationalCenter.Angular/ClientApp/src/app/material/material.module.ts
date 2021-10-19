@@ -10,6 +10,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatTableModule } from "@angular/material/table";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -25,6 +27,8 @@ import { MatInputModule } from "@angular/material/input";
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatTabsModule,
@@ -37,6 +41,7 @@ import { MatInputModule } from "@angular/material/input";
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule
   ],
 })
 export class MaterialModule {}

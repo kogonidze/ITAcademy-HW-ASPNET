@@ -18,6 +18,9 @@ import { AuthGuard } from "./shared/guards/auth.guard";
 import { AdminGuard } from "./shared/guards/admin.guard";
 import { ManagerGuard } from "./shared/guards/manager.guard";
 import { IndexStudentsComponent } from "./students/index-students/index-students.component";
+import { CreateStudentsComponent } from "./students/create-students/create-students.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { MAT_DATE_LOCALE } from "@angular/material";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -29,6 +32,7 @@ export function tokenGetter() {
     HomeComponent,
     CoursesComponent,
     IndexStudentsComponent,
+    CreateStudentsComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,
@@ -37,6 +41,7 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
     JwtModule.forRoot({

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Student } from '../shared/models/student/student.model';
+import { StudentCreation } from '../shared/models/student/studentCreation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,9 @@ export class StudentsService {
   
   getAll(): Observable<Student[]> {
     return this.http.get<Student[]>(this.apiUrl, {headers: this.headers});
+  }
+
+  create(studentCreation: StudentCreation) {
+    return this.http.post(this.apiUrl, studentCreation, {headers: this.headers});
   }
 }
