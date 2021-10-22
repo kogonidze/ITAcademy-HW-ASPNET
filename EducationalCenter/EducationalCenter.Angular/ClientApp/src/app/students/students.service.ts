@@ -22,4 +22,8 @@ export class StudentsService {
   create(studentCreation: StudentCreation) {
     return this.http.post(this.apiUrl, studentCreation, {headers: this.headers});
   }
+
+  delete(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.headers});
+  }
 }

@@ -36,8 +36,8 @@ export class CreateStudentsComponent implements OnInit {
     });
   }
 
-  saveChanges(studentCreation: StudentCreation) {
-    this.studentsService.create(studentCreation).subscribe(() => {
+  saveChanges() {
+    this.studentsService.create(this.createStudentForm.value).subscribe(() => {
       this.router.navigate(['students']);
     })
   }

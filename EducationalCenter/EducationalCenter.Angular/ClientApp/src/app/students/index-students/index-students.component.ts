@@ -12,12 +12,20 @@ export class IndexStudentsComponent implements OnInit {
   constructor(private studentsService: StudentsService) { }
 
   students: Student[] | undefined;
-  columnsToDisplay = ["fio", "dateOfBirth", "group"];
+  columnsToDisplay = ["fio", "dateOfBirth", "group", "actions"];
   
   ngOnInit() : void {
+    this.loadStudents();
+  }
+
+  loadStudents() {
     this.studentsService.getAll().subscribe((students: Student[]) => {
       this.students = students;
     })
+  }
+
+  delete(id: number) {
+    this.studentsService.delete(id).subscribe(() => this.loadStudents());
   }
 
 }

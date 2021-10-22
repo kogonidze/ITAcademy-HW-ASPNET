@@ -41,6 +41,21 @@
                     <span *ngIf="createStudentForm.controls.phoneNumber.errors.required">This field is required</span>
                 </mat-error>
             </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Student`s group: </mat-label>
+                <mat-select formControlName="groupId">
+                    <mat-option *ngFor="let group of studentGroups" [value]="group.id">
+                        {{group.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="createStudentForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/students">Cancel</a>
+            </div>
+
         </form>
     </div>
 </div>
