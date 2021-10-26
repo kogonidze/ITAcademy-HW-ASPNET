@@ -5,7 +5,7 @@
     <a mat-list-item routerLink="/courses" (click)="onSidenavClose()">
         <mat-icon>table_view</mat-icon> <span class="nav-caption">Courses</span>
     </a>
-    <div *ngIf="isUserManager || isUserAdmin" >
+    <div *ngIf="isUserAuthenticated && (isUserManager || isUserAdmin)" >
         <a mat-list-item routerLink="/students" (click)="onSidenavClose()"> 
             <mat-icon>person</mat-icon> <span class="nav-caption"> Students </span>
         </a>

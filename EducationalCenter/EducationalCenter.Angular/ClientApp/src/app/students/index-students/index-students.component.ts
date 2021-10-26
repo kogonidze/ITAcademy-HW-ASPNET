@@ -25,7 +25,8 @@ export class IndexStudentsComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.studentsService.delete(id).subscribe(() => this.loadStudents());
+    this.studentsService.delete(id).subscribe(response => {
+        this.loadStudents()
+      });
   }
-
 }

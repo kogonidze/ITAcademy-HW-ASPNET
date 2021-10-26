@@ -7,10 +7,14 @@
     <div>
         <a routerLink="/home"> Home </a>
         <a routerLink="/courses"> Courses </a>
-        <a *ngIf="isUserManager || isUserAdmin" routerLink="/students"> Students </a>
     </div>
-    <div class="space">
 
+    <div *ngIf="isUserManager || isUserAdmin">
+        <a routerLink="/students"> Students </a>
+    </div>
+
+
+    <div class="space">
     </div>
 
     <div *ngIf="!isUserAuthenticated">

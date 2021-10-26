@@ -17,4 +17,8 @@ export class StudentGroupsService {
   getAll(): Observable<StudentGroup[]> {
     return this.http.get<StudentGroup[]>(this.apiUrl, {headers: this.headers});
   }
+
+  getById(id: number): Observable<StudentGroup> {
+    return this.http.get<StudentGroup>(`${this.apiUrl}/${id}`, {headers: this.headers});
+  }
 }
