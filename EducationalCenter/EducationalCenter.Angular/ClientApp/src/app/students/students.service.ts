@@ -28,6 +28,10 @@ export class StudentsService {
     return this.http.post(this.apiUrl, studentCreation, {headers: this.headers, responseType: 'text'});
   }
 
+  edit(studentEdition: StudentFullInfo) {
+    return this.http.put(this.apiUrl, studentEdition, {headers: this.headers, responseType: 'text'});
+  }
+
   delete(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.headers, responseType: 'text'});
   }

@@ -3,7 +3,7 @@ export interface StudentFullInfo {
     firstName: string,
     lastName: string,
     dateOfBirth: Date,
-    email: string,
+    eMail: string,
     phoneNumber: string,
     groupId: number | null
 }
