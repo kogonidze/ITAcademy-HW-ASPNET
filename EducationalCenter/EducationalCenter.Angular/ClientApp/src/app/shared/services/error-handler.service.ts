@@ -35,6 +35,7 @@ export class ErrorHandlerService implements HttpInterceptor {
     } else if (error.status === 401) {
       return this.handleUnauthorized(error);
     } else if (error.status === 403) {
+      return this.handleForbidden(error);
     }
   };
 

@@ -1,40 +1,50 @@
 .mat-spinner {
     position: relative;
     margin-left: 50%;
-  }
-
-  table {
+}
+  
+table {
     width: 100%;
     margin-top: 10px;
-  }
+}
 
-  .mat-column-fio {
+.mat-row:nth-child(even){
+    background-color: #e4f0ec;
+}
+        
+.mat-row:nth-child(odd){
+    background-color: #ffffff;;
+}
+
+.mat-column {
     height: 80px;
     font-size: 20px;
+}
+
+.mat-column-fio {
     font-weight: bold;
-  }
+}
 
-  .mat-column-dateOfBirth {
-    font-size: 20px;
+.mat-column-dateOfBirth {
     font-style: italic;
-  }
+}
 
-  .mat-column-department {
-    font-size: 20px;
-  }
+.mat-column-department {
+}
 
-  .mat-column-experience {
-    font-size: 20px;
-  }
+.mat-column-experience {
+}
 
-  .mat-column-category {
-    font-size: 20px;
-  }
+.mat-column-category {
+}
 
-  .mat-column-formation {
-    font-size: 20px;
-  }
+.mat-column-formation {
+}
     
-  .delete-button {
+.mat-column-actions {
+    text-align: center;
+}
+
+.delete-button {
     float: right;
-  }
+}
