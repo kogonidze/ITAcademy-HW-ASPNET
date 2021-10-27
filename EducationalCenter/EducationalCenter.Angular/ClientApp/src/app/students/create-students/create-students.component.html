@@ -1,0 +1,61 @@
+<h2>Create new student: </h2>
+
+<div>
+    <div>
+        <form [formGroup]="createStudentForm" (submit)="saveChanges()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>FirstName: </mat-label>
+                <input matInput formControlName="firstName" required>
+                <mat-error *ngIf="createStudentForm.controls.firstName.touched && createStudentForm.controls.firstName.invalid">
+                    <span *ngIf="createStudentForm.controls.firstName.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>LastName: </mat-label>
+                <input matInput formControlName="lastName" required>
+                <mat-error *ngIf="createStudentForm.controls.lastName.touched && createStudentForm.controls.lastName.invalid">
+                    <span *ngIf="createStudentForm.controls.lastName.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Date of birth: </mat-label>
+                <input matInput [matDatepicker]="dp" formControlName="dateOfBirth">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Email: </mat-label>
+                <input matInput formControlName="email" type="email" required>
+                <mat-error *ngIf="createStudentForm.controls.email.touched && createStudentForm.controls.email.invalid">
+                    <span *ngIf="createStudentForm.controls.email.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Phone number: </mat-label>
+                <input matInput formControlName="phoneNumber" type="tel" required>
+                <mat-error *ngIf="createStudentForm.controls.phoneNumber.touched && createStudentForm.controls.phoneNumber.invalid">
+                    <span *ngIf="createStudentForm.controls.phoneNumber.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Student`s group: </mat-label>
+                <mat-select formControlName="groupId">
+                    <mat-option *ngFor="let group of studentGroups" [value]="group.id">
+                        {{group.title}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="createStudentForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/students">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>

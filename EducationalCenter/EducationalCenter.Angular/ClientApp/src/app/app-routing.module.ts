@@ -4,6 +4,11 @@ import { RouterModule, Routes } from "@angular/router";
 import { CoursesComponent } from "./courses/courses.component";
 import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
+import { AuthGuard } from "./shared/guards/auth.guard";
+import { ManagerGuard } from "./shared/guards/manager.guard";
+import { CreateStudentsComponent } from "./students/create-students/create-students.component";
+import { EditStudentComponent } from "./students/edit-student/edit-student.component";
+import { IndexStudentsComponent } from "./students/index-students/index-students.component";
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -15,6 +20,9 @@ const routes: Routes = [
         (m) => m.AuthorizationModule
       ),
   },
+  { path: "students", component: IndexStudentsComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "students/create", component: CreateStudentsComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path: "students/edit/:id", component: EditStudentComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "NotFound", component: NotFoundComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
 ];
@@ -24,4 +32,4 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: [],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

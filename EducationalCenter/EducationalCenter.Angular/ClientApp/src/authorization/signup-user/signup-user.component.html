@@ -1,12 +1,12 @@
-<div class="card">
-    <div class="card-body">
+<div class="register-panel-wrapper">
+    <div class="register-panel">
         <h2 class="card-title">Register</h2>
 
         <div *ngIf="showError" class="alert alert-danger" role="alert">
             <span [innerHTML]="errorMessage"></span>
         </div>
 
-        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)">
+        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)" class="card">
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
                 <input formControlName="email" matInput />

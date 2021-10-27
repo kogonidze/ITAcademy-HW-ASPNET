@@ -11,7 +11,12 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class AuthorizationService {
   private _authChangeSub = new Subject<boolean>();
+  private _authIsAdminRoleSub = new Subject<boolean>();
+  private _authIsManagerRoleSub = new Subject<boolean>();
+
   public authChanged = this._authChangeSub.asObservable();
+  public authIsAdminRole = this._authIsAdminRoleSub.asObservable();
+  public authIsManagerRole = this._authIsManagerRoleSub.asObservable();
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
@@ -20,6 +25,14 @@ export class AuthorizationService {
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
     this._authChangeSub.next(isAuthenticated);
   };
+
+  public sendAuthIsAdminRoleNotification = (isAdminRole: boolean) => {
+    this._authIsAdminRoleSub.next(isAdminRole);
+  };
+
+  public sendAuthIsManagerRoleNotification = (isManagerRole: boolean) => {
+    this._authIsManagerRoleSub.next(isManagerRole);
+  }
 
   registerUser = (newUser: UserRegistration) => {
     return this.http.post(this.apiUrl + "/signup", newUser);
@@ -32,6 +45,8 @@ export class AuthorizationService {
   logout = () => {
     localStorage.removeItem("token");
     this.sendAuthStateChangeNotification(false);
+    this.sendAuthIsAdminRoleNotification(false);
+    this.sendAuthIsManagerRoleNotification(false);
   };
 
   isUserAuthenticated = (): boolean => {
@@ -41,15 +56,25 @@ export class AuthorizationService {
   };
 
   isUserAdmin = (): boolean => {
-    const role = this.getRoleFromToken();
+    if (this.isUserAuthenticated())
+    {
+      const role = this.getRoleFromToken();
 
-    return role === "Administrator";
+      return role === "administrator";
+    }
+    
+    return false;
   };
 
   isUserManager = (): boolean => {
-    const role = this.getRoleFromToken();
+    if (this.isUserAuthenticated())
+    {
+      const role = this.getRoleFromToken();
 
-    return role === "Manager";
+      return role === "manager";
+    }
+
+    return false;
   };
 
   private getRoleFromToken = (): string => {

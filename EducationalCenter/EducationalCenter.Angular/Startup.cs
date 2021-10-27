@@ -101,6 +101,8 @@ namespace EducationalCenter.Angular
             services.AddScoped<IFacultyService, FacultyService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
 
+            services.AddScoped<IStudentService, StudentService>();
+
             services.AddScoped<IJwtHandlerService, JwtHandlerService>();
 
             services.Configure<SecurityOptions>(
@@ -152,6 +154,7 @@ namespace EducationalCenter.Angular
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
 

@@ -1,15 +1,26 @@
 .card {
-  margin-top: 10px;
-  background-color: #fff;
-  box-shadow: 1px 1px 1px #cabcbc;
+  background-color: #d1d7dc;
+  border: 1px solid rgb(65, 50, 50);
+  border-radius: 5px;
+  padding: 15px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.login-panel-wrapper {
+  max-width: 400px;
+  margin: 2em auto;
+}
+
+.login-panel {
+  display: block;
+}
+
+.card-title {
+  text-align: center;
 }
 
 button {
-  margin-right: 2rem;
+}
+
+a {
+  float: right;
 }

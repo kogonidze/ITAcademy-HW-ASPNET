@@ -1,0 +1,41 @@
+.mat-spinner {
+    position: relative;
+    margin-left: 50%;
+  }
+
+  table {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .mat-column-fio {
+    height: 80px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .mat-column-dateOfBirth {
+    font-size: 20px;
+    font-style: italic;
+  }
+  
+  .mat-column-group {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .mat-column-actions {
+    font-size: 20px;
+    width: 20%;
+    text-align: center;
+  }
+
+  .edit-button {
+
+  }
+
+  .delete-button {
+
+    float: right;
+  }
+  
