@@ -22,6 +22,7 @@ import { CreateStudentsComponent } from "./students/create-students/create-stude
 import { ReactiveFormsModule } from "@angular/forms";
 import { MAT_DATE_LOCALE } from "@angular/material";
 import { EditStudentComponent } from "./students/edit-student/edit-student.component";
+import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -35,6 +36,7 @@ export function tokenGetter() {
     IndexStudentsComponent,
     CreateStudentsComponent,
     EditStudentComponent,
+    IndexTeachersComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,

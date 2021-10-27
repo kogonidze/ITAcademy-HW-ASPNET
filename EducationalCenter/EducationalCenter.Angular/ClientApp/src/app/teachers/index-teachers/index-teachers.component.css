@@ -7,29 +7,34 @@
     width: 100%;
     margin-top: 10px;
   }
-  
+
   .mat-column-fio {
     height: 80px;
     font-size: 20px;
     font-weight: bold;
   }
-  
+
   .mat-column-dateOfBirth {
     font-size: 20px;
     font-style: italic;
   }
-  
-  .mat-column-group {
+
+  .mat-column-department {
     font-size: 20px;
-    text-align: center;
   }
 
-  .mat-column-actions {
-    width: 20%;
-    text-align: center;
+  .mat-column-experience {
+    font-size: 20px;
   }
-  
+
+  .mat-column-category {
+    font-size: 20px;
+  }
+
+  .mat-column-formation {
+    font-size: 20px;
+  }
+    
   .delete-button {
     float: right;
   }
-  

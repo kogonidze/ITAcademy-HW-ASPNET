@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EducationalCenter.BLL.Services;
+using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -13,10 +13,10 @@ namespace EducationalCenter.Angular.Controllers
     [Authorize(Roles = "admin, manager")]
     public class TeachersController : ControllerBase
     {
-        private TeacherService _teacherService;
+        private ITeacherService _teacherService;
         private IMapper _mapper;
 
-        public TeachersController(TeacherService teacherService, IMapper mapper)
+        public TeachersController(ITeacherService teacherService, IMapper mapper)
         {
             _teacherService = teacherService;
             _mapper = mapper;
