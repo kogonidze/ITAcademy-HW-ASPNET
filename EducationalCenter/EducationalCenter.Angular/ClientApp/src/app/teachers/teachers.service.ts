@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Teacher } from '../shared/models/teacher/teacher.model';
+import { TeacherCreation } from '../shared/models/teacher/teacherCreation.model';
 import { TeacherFullInfo } from '../shared/models/teacher/teacherFullInfo.model';
 
 @Injectable({
@@ -21,5 +22,9 @@ export class TeachersService {
 
   getById(id: number): Observable<TeacherFullInfo> {
     return this.http.get<TeacherFullInfo>(`${this.apiUrl}/${id}`, {headers: this.headers});
+  }
+
+  create(teacherCreation: TeacherCreation) {
+    return this.http.post(this.apiUrl, teacherCreation, {headers: this.headers, responseType: 'text'});
   }
 }
