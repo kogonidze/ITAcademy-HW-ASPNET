@@ -56,15 +56,25 @@ export class AuthorizationService {
   };
 
   isUserAdmin = (): boolean => {
-    const role = this.getRoleFromToken();
+    if (this.isUserAuthenticated())
+    {
+      const role = this.getRoleFromToken();
 
-    return role === "administrator";
+      return role === "administrator";
+    }
+    
+    return false;
   };
 
   isUserManager = (): boolean => {
-    const role = this.getRoleFromToken();
+    if (this.isUserAuthenticated())
+    {
+      const role = this.getRoleFromToken();
 
-    return role === "manager";
+      return role === "manager";
+    }
+
+    return false;
   };
 
   private getRoleFromToken = (): string => {

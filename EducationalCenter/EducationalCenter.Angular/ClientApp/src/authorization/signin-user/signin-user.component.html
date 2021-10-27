@@ -1,12 +1,12 @@
-<div class="card">
-    <div class="card-body">
+<div class="login-panel-wrapper">
+    <div class="login-panel">
         <h2 class="card-title">Login</h2>
 
         <div *ngIf="showError" class="alert alert-danger" role="alert">
             {{errorMessage}}
         </div>
 
-        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)">
+        <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="loginUser(loginForm.value)" class="card">
             <mat-form-field appearance="outline">
                 <mat-label>Email: </mat-label>
                 <input formControlName="email" matInput />

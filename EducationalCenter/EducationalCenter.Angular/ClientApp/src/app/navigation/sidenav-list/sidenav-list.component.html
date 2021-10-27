@@ -5,24 +5,27 @@
     <a mat-list-item routerLink="/courses" (click)="onSidenavClose()">
         <mat-icon>table_view</mat-icon> <span class="nav-caption">Courses</span>
     </a>
-    <div *ngIf="isUserAuthenticated && (isUserManager || isUserAdmin)" >
+    <div *ngIf="isUserManager || isUserAdmin" >
         <a mat-list-item routerLink="/students" (click)="onSidenavClose()"> 
             <mat-icon>person</mat-icon> <span class="nav-caption"> Students </span>
         </a>
     </div>
     
-    <div *ngIf="!isUserAuthenticated">
-        <a mat-list-item routerLink="/authorization/signup" (click)="onSidenavClose()">
-            <mat-icon>add_circle</mat-icon> <span class="nav-caption">Register</span>
-        </a>
-        <a mat-list-item routerLink="/authorization/signin" (click)="onSidenavClose()">
-            <mat-icon>login</mat-icon> <span class="nav-caption">Login</span>
-        </a>
+    <div class="actions">
+        <div *ngIf="!isUserAuthenticated">
+            <a mat-list-item routerLink="/authorization/signup" (click)="onSidenavClose()">
+                <mat-icon>add_circle</mat-icon> <span class="nav-caption">Register</span>
+            </a>
+            <a mat-list-item routerLink="/authorization/signin" (click)="onSidenavClose()">
+                <mat-icon>login</mat-icon> <span class="nav-caption">Login</span>
+            </a>
+        </div>
+    
+        <div *ngIf="isUserAuthenticated">
+            <a mat-list-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon> <span class="nav-caption">Logout</span>
+            </a>
+        </div>
     </div>
-
-    <div *ngIf="isUserAuthenticated">
-        <a mat-list-item (click)="logout()">
-            <mat-icon>exit_to_app</mat-icon> <span class="nav-caption">Logout</span>
-        </a>
-    </div>
+    
 </mat-nav-list>
