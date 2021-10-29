@@ -51,10 +51,43 @@
                 </mat-select>
             </mat-form-field>
 
-            
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Experience: </mat-label>
+                <input matInput formControlName="experience" type="number" required>
+                <mat-error *ngIf="createTeacherForm.controls.experience.touched && createTeacherForm.controls.experience.invalid">
+                    <span *ngIf="createTeacherForm.controls.experience.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Category: </mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of Category | keyvalue" [value]="+category.key">
+                        {{category.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Formation: </mat-label>
+                <mat-select formControlName="formation">
+                    <mat-option *ngFor="let formation of Formation | keyvalue" [value]="+formation.key">
+                        {{formation.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Salary: </mat-label>
+                <input matInput formControlName="salary" required>
+                <mat-error *ngIf="createTeacherForm.controls.salary.touched && createTeacherForm.controls.salary.invalid">
+                    <span *ngIf="createTeacherForm.controls.salary.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
             <div>
-                <button mat-flat-button color="primary" [disabled]="createStudentForm.invalid">Save Changes</button>
-                <a mat-stroked-button routerLink="/students">Cancel</a>
+                <button mat-flat-button color="primary" [disabled]="createTeacherForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/teachers">Cancel</a>
             </div>
 
         </form>

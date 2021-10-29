@@ -25,7 +25,6 @@ export class IndexTeachersComponent implements OnInit {
 
   loadTeachers() {
     this.teacherService.getAll().subscribe((teachers: Teacher[]) => {
-      console.log(teachers);
       this.teachers = teachers;
     })
   }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DepartmentsService } from 'src/app/departments/departments.service';
+import { Category } from 'src/app/shared/enums/category';
+import { Formation } from 'src/app/shared/enums/formation';
 import { Department } from 'src/app/shared/models/department/department.model';
 import { TeachersService } from '../teachers.service';
 
@@ -11,15 +13,21 @@ import { TeachersService } from '../teachers.service';
   styleUrls: ['./create-teachers.component.css']
 })
 export class CreateTeachersComponent implements OnInit {
-
-  createTeacherForm: FormGroup;
-  departments: Department[] | undefined;
-
   constructor(private teacherService: TeachersService, 
     private departmentService: DepartmentsService, 
     private router: Router,
     private formBuilder: FormBuilder) { }
 
+  createTeacherForm: FormGroup;
+  departments: Department[] | undefined;
+  Category = Object.keys(Category).filter((item) => {
+    return isNaN(Number(item));
+});
+  Formation = Object.keys(Formation).filter((item) => {
+    return isNaN(Number(item));
+});
+  keys = Object.keys;
+  
   ngOnInit(): void {
     this.departmentService.getAll().subscribe((departments: Department[]) => {
       this.departments = departments;
@@ -37,8 +45,10 @@ export class CreateTeachersComponent implements OnInit {
       formation: [null, [Validators.required]],
       salary: [null, [Validators.required]]
     });
-  }
 
+    const keysT = this.keys(this.Category);
+  }
+ 
   saveChanges() {
     this.teacherService.create(this.createTeacherForm.value).subscribe(() => {
       this.router.navigate(['/teachers']);
