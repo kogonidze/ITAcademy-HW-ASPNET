@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StudentGroup } from '../shared/models/studentGroup/studentGroup.model';
+import { StudentGroupCreation } from '../shared/models/studentGroup/studentGroupCreation.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,9 @@ export class StudentGroupsService {
   getById(id: number): Observable<StudentGroup> {
     return this.http.get<StudentGroup>(`${this.apiUrl}/${id}`, {headers: this.headers});
   }
+
+  create(studentGroupCreation: StudentGroupCreation) {
+    return this.http.post(this.apiUrl, studentGroupCreation, {headers: this.headers, responseType: 'text'});
+  }
+
 }
