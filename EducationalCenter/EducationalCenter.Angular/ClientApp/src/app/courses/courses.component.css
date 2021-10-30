@@ -7,6 +7,14 @@ table {
   width: 100%;
 }
 
+.mat-row:nth-child(even){
+  background-color: #e4f0ec;
+}
+      
+.mat-row:nth-child(odd){
+  background-color: #ffffff;;
+}
+
 .mat-column-title {
   height: 80px;
   font-weight: bold;

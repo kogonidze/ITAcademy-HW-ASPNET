@@ -20,7 +20,6 @@ export class EditStudentComponent implements OnInit {
 
   editStudentForm: FormGroup;
   student: StudentFullInfo | undefined;
-  studentGroup: StudentGroup | undefined;
   studentGroups: StudentGroup[] | undefined;
   
   ngOnInit(): void {
@@ -36,12 +35,6 @@ export class EditStudentComponent implements OnInit {
     this.activatedRoutes.params.subscribe(params => {
       this.studentsService.getById(params.id).subscribe((student: StudentFullInfo) => {
         this.student = student;
-        if (student.groupId) {
-          this.studentGroupsService.getById(student.groupId).subscribe((studentGroup: StudentGroup) => {
-            console.log(studentGroup);
-            this.studentGroup = studentGroup;
-          })
-        }
 
         this.editStudentForm.patchValue(this.student);
       });

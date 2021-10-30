@@ -55,7 +55,7 @@ namespace EducationalCenter.Angular.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit(StudentFullInfoDTO studentFullInfoDTO)
         {
-            await _studentService.UpdateAsync(studentFullInfoDTO);
+             await _studentService.UpdateAsync(studentFullInfoDTO);
 
             return Ok(OperationResultMessages.StudentEdited);
         }
