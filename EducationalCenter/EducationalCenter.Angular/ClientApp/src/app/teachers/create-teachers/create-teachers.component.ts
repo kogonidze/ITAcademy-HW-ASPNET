@@ -22,11 +22,10 @@ export class CreateTeachersComponent implements OnInit {
   departments: Department[] | undefined;
   Category = Object.keys(Category).filter((item) => {
     return isNaN(Number(item));
-});
+  });
   Formation = Object.keys(Formation).filter((item) => {
     return isNaN(Number(item));
-});
-  keys = Object.keys;
+  });
   
   ngOnInit(): void {
     this.departmentService.getAll().subscribe((departments: Department[]) => {

@@ -27,4 +27,9 @@ export class TeachersService {
   create(teacherCreation: TeacherCreation) {
     return this.http.post(this.apiUrl, teacherCreation, {headers: this.headers, responseType: 'text'});
   }
+
+  edit(teacherEdition: TeacherFullInfo) {
+    return this.http.put(this.apiUrl, teacherEdition, {headers: this.headers, responseType: 'text'});
+  }
+
 }

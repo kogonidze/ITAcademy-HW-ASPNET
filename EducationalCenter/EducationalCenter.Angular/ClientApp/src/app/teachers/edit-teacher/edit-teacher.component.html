@@ -1,0 +1,95 @@
+<h2>Edit the teacher: </h2>
+
+<div>
+    <div>
+        <form [formGroup]="editTeacherForm" (submit)="saveChanges()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>FirstName: </mat-label>
+                <input matInput formControlName="firstName" required>
+                <mat-error *ngIf="editTeacherForm.controls.firstName.touched && editTeacherForm.controls.firstName.invalid">
+                    <span *ngIf="editTeacherForm.controls.firstName.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>LastName: </mat-label>
+                <input matInput formControlName="lastName" required>
+                <mat-error *ngIf="editTeacherForm.controls.lastName.touched && editTeacherForm.controls.lastName.invalid">
+                    <span *ngIf="editTeacherForm.controls.lastName.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Date of birth: </mat-label>
+                <input matInput [matDatepicker]="dp" formControlName="dateOfBirth">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Email: </mat-label>
+                <input matInput formControlName="eMail" type="email" required>
+                <mat-error *ngIf="editTeacherForm.controls.eMail.touched && editTeacherForm.controls.eMail.invalid">
+                    <span *ngIf="editTeacherForm.controls.eMail.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Phone number: </mat-label>
+                <input matInput formControlName="phoneNumber" type="tel" required>
+                <mat-error *ngIf="editTeacherForm.controls.phoneNumber.touched && editTeacherForm.controls.phoneNumber.invalid">
+                    <span *ngIf="editTeacherForm.controls.phoneNumber.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Teacher`s department: </mat-label>
+                <mat-select formControlName="departmentId">
+                    <mat-option *ngFor="let department of departments" [value]="department.id">
+                        {{department.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Experience: </mat-label>
+                <input matInput formControlName="experience" type="number" required>
+                <mat-error *ngIf="editTeacherForm.controls.experience.touched && editTeacherForm.controls.experience.invalid">
+                    <span *ngIf="editTeacherForm.controls.experience.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Category: </mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of Category | keyvalue" [value]="+category.key">
+                        {{category.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Formation: </mat-label>
+                <mat-select formControlName="formation">
+                    <mat-option *ngFor="let formation of Formation | keyvalue" [value]="+formation.key">
+                        {{formation.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Salary: </mat-label>
+                <input matInput formControlName="salary" required>
+                <mat-error *ngIf="editTeacherForm.controls.salary.touched && editTeacherForm.controls.salary.invalid">
+                    <span *ngIf="editTeacherForm.controls.salary.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="editTeacherForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/teachers">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>

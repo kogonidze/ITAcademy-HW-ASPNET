@@ -24,6 +24,7 @@ import { MAT_DATE_LOCALE } from "@angular/material";
 import { EditStudentComponent } from "./students/edit-student/edit-student.component";
 import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers.component";
 import { CreateTeachersComponent } from "./teachers/create-teachers/create-teachers.component";
+import { EditTeacherComponent } from "./teachers/edit-teacher/edit-teacher.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -39,6 +40,7 @@ export function tokenGetter() {
     EditStudentComponent,
     IndexTeachersComponent,
     CreateTeachersComponent,
+    EditTeacherComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,

@@ -10,6 +10,7 @@ import { CreateStudentsComponent } from "./students/create-students/create-stude
 import { EditStudentComponent } from "./students/edit-student/edit-student.component";
 import { IndexStudentsComponent } from "./students/index-students/index-students.component";
 import { CreateTeachersComponent } from "./teachers/create-teachers/create-teachers.component";
+import { EditTeacherComponent } from "./teachers/edit-teacher/edit-teacher.component";
 import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers.component";
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: "students/edit/:id", component: EditStudentComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "teachers", component: IndexTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "teachers/create", component: CreateTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path: "teachers/edit/:id", component: EditTeacherComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "NotFound", component: NotFoundComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
 ];

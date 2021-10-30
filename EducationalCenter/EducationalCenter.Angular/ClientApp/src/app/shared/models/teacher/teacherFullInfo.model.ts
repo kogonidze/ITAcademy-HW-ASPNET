@@ -6,7 +6,7 @@ export interface TeacherFullInfo {
     firstName: string,
     lastName: string,
     dateOfBirth: Date,
-    email: string,
+    eMail: string,
     phoneNumber: string,
     departmentId: number | null,
     experience: number,
