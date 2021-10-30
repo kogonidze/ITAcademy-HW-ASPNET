@@ -29,4 +29,9 @@ export class IndexTeachersComponent implements OnInit {
     })
   }
 
+  delete(id: number) {
+    this.teacherService.delete(id).subscribe(() => {
+        this.loadTeachers()
+      });
+  }
 }

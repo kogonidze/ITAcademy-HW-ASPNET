@@ -31,5 +31,8 @@ export class TeachersService {
   edit(teacherEdition: TeacherFullInfo) {
     return this.http.put(this.apiUrl, teacherEdition, {headers: this.headers, responseType: 'text'});
   }
-
+  
+  delete(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.headers, responseType: 'text'});
+  }
 }
