@@ -44,8 +44,6 @@ export class CreateTeachersComponent implements OnInit {
       formation: [null, [Validators.required]],
       salary: [null, [Validators.required]]
     });
-
-    const keysT = this.keys(this.Category);
   }
  
   saveChanges() {

@@ -6,6 +6,7 @@ import { HomeComponent } from "./home/home.component";
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { ManagerGuard } from "./shared/guards/manager.guard";
+import { IndexStudentGroupsComponent } from "./studentGroups/index-student-groups/index-student-groups.component";
 import { CreateStudentsComponent } from "./students/create-students/create-students.component";
 import { EditStudentComponent } from "./students/edit-student/edit-student.component";
 import { IndexStudentsComponent } from "./students/index-students/index-students.component";
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: "teachers", component: IndexTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "teachers/create", component: CreateTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "teachers/edit/:id", component: EditTeacherComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path: "studentGroups", component: IndexStudentGroupsComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "NotFound", component: NotFoundComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
 ];

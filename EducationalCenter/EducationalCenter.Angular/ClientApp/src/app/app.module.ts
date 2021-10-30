@@ -25,6 +25,7 @@ import { EditStudentComponent } from "./students/edit-student/edit-student.compo
 import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers.component";
 import { CreateTeachersComponent } from "./teachers/create-teachers/create-teachers.component";
 import { EditTeacherComponent } from "./teachers/edit-teacher/edit-teacher.component";
+import { IndexStudentGroupsComponent } from "./studentGroups/index-student-groups/index-student-groups.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -41,6 +42,7 @@ export function tokenGetter() {
     IndexTeachersComponent,
     CreateTeachersComponent,
     EditTeacherComponent,
+    IndexStudentGroupsComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,
