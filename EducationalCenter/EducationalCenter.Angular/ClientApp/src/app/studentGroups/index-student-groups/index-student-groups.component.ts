@@ -23,4 +23,10 @@ export class IndexStudentGroupsComponent implements OnInit {
       this.studentGroups = studentGroups;
     })
   }
+
+  delete(id: number) {
+    this.studentGroupsService.delete(id).subscribe(response => {
+        this.loadStudentGroups()
+      });
+  }
 }
