@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
-import { CoursesComponent } from "./courses/courses.component";
+import { IndexCoursesComponent } from "./courses/index-courses/index-courses.component";
 import { MaterialModule } from "./material/material.module";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
@@ -39,7 +39,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HomeComponent,
-    CoursesComponent,
+    IndexCoursesComponent,
     IndexStudentsComponent,
     CreateStudentsComponent,
     EditStudentComponent,
