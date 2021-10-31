@@ -16,33 +16,36 @@ table {
     background-color: #ffffff;;
 }
 
-.mat-column {
+.mat-column-fio {
+    font-weight: bold;
     height: 80px;
     font-size: 20px;
 }
 
-.mat-column-fio {
-    font-weight: bold;
-}
-
 .mat-column-dateOfBirth {
     font-style: italic;
+    font-size: 20px
 }
 
 .mat-column-department {
+    font-size: 20px
 }
 
 .mat-column-experience {
+    font-size: 20px
 }
 
 .mat-column-category {
+    font-size: 20px
 }
 
 .mat-column-formation {
+    font-size: 20px
 }
     
 .mat-column-actions {
     text-align: center;
+    font-size: 20px
 }
 
 .delete-button {

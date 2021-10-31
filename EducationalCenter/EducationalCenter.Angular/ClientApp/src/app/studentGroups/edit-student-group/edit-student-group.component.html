@@ -1,0 +1,46 @@
+<h2>Edit the student group: </h2>
+
+<div>
+    <div>
+        <form [formGroup]="editStudentGroupForm" (submit)="saveChanges()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Title: </mat-label>
+                <input matInput formControlName="title" required>
+                <mat-error *ngIf="editStudentGroupForm.controls.title.touched && editStudentGroupForm.controls.title.invalid">
+                    <span *ngIf="editStudentGroupForm.controls.title.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Faculty: </mat-label>
+                <mat-select formControlName="facultyId">
+                    <mat-option *ngFor="let faculty of faculties" [value]="faculty.id">
+                        {{faculty.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Start year: </mat-label>
+                <input matInput formControlName="startYear" type="number" required>
+                <mat-error *ngIf="editStudentGroupForm.controls.startYear.touched && editStudentGroupForm.controls.startYear.invalid">
+                    <span *ngIf="editStudentGroupForm.controls.startYear.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Ending year: </mat-label>
+                <input matInput formControlName="endingYear" type="number" required>
+                <mat-error *ngIf="editStudentGroupForm.controls.endingYear.touched && editStudentGroupForm.controls.endingYear.invalid">
+                    <span *ngIf="editStudentGroupForm.controls.endingYear.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="editStudentGroupForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/studentGroups">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<h2>Student groups</h2>
+
+<button mat-flat-button routerLink="/studentGroups/create" color="primary">Create new</button>
+
+<div *ngIf="!studentGroups">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="studentGroups?.length === 0">There are no records to display</div>
+
+<ng-container *ngIf="studentGroups && studentGroups.length > 0" content>
+    <table mat-table [dataSource]="studentGroups">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Title</th>
+            <td mat-cell *matCellDef="let element">{{element.title}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="faculty">
+            <th mat-header-cell *matHeaderCellDef>Faculty</th>
+            <td mat-cell *matCellDef="let element">{{element.faculty.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="startYear">
+            <th mat-header-cell *matHeaderCellDef>Start year</th>
+            <td mat-cell *matCellDef="let element">{{element.startYear}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="endingYear">
+            <th mat-header-cell *matHeaderCellDef>Ending year</th>
+            <td mat-cell *matCellDef="let element">{{element.endingYear}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions" class="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element;">
+                <a
+                    routerLink="/studentGroups/edit/{{element.id}}"
+                    mat-flat-button color="primary"
+                    class="edit-button">
+                    Edit
+                </a>
+
+                <button mat-flat-button color="warn"
+                (click)="delete(element.id)"
+                class="delete-button">
+                    Delete
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+</ng-container>

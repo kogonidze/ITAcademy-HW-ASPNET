@@ -1,0 +1,46 @@
+<h2>Create new student group: </h2>
+
+<div>
+    <div>
+        <form [formGroup]="createStudentGroupForm" (submit)="saveChanges()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Title: </mat-label>
+                <input matInput formControlName="title" required>
+                <mat-error *ngIf="createStudentGroupForm.controls.title.touched && createStudentGroupForm.controls.title.invalid">
+                    <span *ngIf="createStudentGroupForm.controls.title.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Faculty: </mat-label>
+                <mat-select formControlName="facultyId">
+                    <mat-option *ngFor="let faculty of faculties" [value]="faculty.id">
+                        {{faculty.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Start year: </mat-label>
+                <input matInput formControlName="startYear" type="number" required>
+                <mat-error *ngIf="createStudentGroupForm.controls.startYear.touched && createStudentGroupForm.controls.startYear.invalid">
+                    <span *ngIf="createStudentGroupForm.controls.startYear.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Ending year: </mat-label>
+                <input matInput formControlName="endingYear" type="number" required>
+                <mat-error *ngIf="createStudentGroupForm.controls.endingYear.touched && createStudentGroupForm.controls.endingYear.invalid">
+                    <span *ngIf="createStudentGroupForm.controls.endingYear.errors.required">This field is required</span>
+                </mat-error>
+            </mat-form-field>
+
+            <div>
+                <button mat-flat-button color="primary" [disabled]="createStudentGroupForm.invalid">Save Changes</button>
+                <a mat-stroked-button routerLink="/studentGroups">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
