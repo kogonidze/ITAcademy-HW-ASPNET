@@ -5,7 +5,7 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
-import { CoursesComponent } from "./courses/courses.component";
+import { IndexCoursesComponent } from "./courses/index-courses/index-courses.component";
 import { MaterialModule } from "./material/material.module";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
@@ -28,6 +28,8 @@ import { EditTeacherComponent } from "./teachers/edit-teacher/edit-teacher.compo
 import { IndexStudentGroupsComponent } from "./studentGroups/index-student-groups/index-student-groups.component";
 import { CreateStudentGroupComponent } from "./studentGroups/create-student-group/create-student-group.component";
 import { EditStudentGroupComponent } from "./studentGroups/edit-student-group/edit-student-group.component";
+import { IndexFacultiesComponent } from "./faculties/index-faculties/index-faculties.component";
+import { IndexDepartmentsComponent } from "./departments/index-departments/index-departments.component";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -37,7 +39,7 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HomeComponent,
-    CoursesComponent,
+    IndexCoursesComponent,
     IndexStudentsComponent,
     CreateStudentsComponent,
     EditStudentComponent,
@@ -47,6 +49,8 @@ export function tokenGetter() {
     IndexStudentGroupsComponent,
     CreateStudentGroupComponent,
     EditStudentGroupComponent,
+    IndexFacultiesComponent,
+    IndexDepartmentsComponent,
     HeaderComponent,
     SidenavListComponent,
     NotFoundComponent,
