@@ -4,9 +4,13 @@
     {
         Exception,
 
+        RegistrationRequest,
+
         AuthorizationRequest,
 
         StudentIndexingRequest,
+
+        StudentInfoRequest,
 
         StudentCreationRequest,
 
@@ -16,6 +20,8 @@
 
         TeacherIndexingRequest,
 
+        TeacherInfoRequest,
+
         TeacherCreationRequest,
 
         TeacherEditionRequest,
@@ -23,6 +29,8 @@
         TeacherDeletionRequest,
 
         StudentGroupIndexingRequest,
+
+        StudentGroupInfoRequest,
 
         StudentGroupCreationRequest,
 
