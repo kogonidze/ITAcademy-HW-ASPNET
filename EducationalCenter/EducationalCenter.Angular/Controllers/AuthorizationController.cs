@@ -3,6 +3,7 @@ using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Configuration;
 using EducationalCenter.Common.Dtos.Api.Responses;
 using EducationalCenter.Common.Dtos.User;
+using EducationalCenter.Common.Enums;
 using EducationalCenter.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,18 +22,23 @@ namespace EducationalCenter.Angular.Controllers
         private readonly IMapper _mapper;
         private readonly IOptions<SecurityOptions> _securityOptions;
         private readonly IJwtHandlerService _jwtHandlerService;
+        private readonly ILoggerService _loggerService;
 
-        public AuthorizationController(UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SecurityOptions> securityOptions, IJwtHandlerService jwtHandlerService)
+        public AuthorizationController(UserManager<ApplicationUser> userManager, IMapper mapper, IOptions<SecurityOptions> securityOptions, IJwtHandlerService jwtHandlerService,
+            ILoggerService loggerService)
         {
             _userManager = userManager;
             _mapper = mapper;
             _securityOptions = securityOptions;
             _jwtHandlerService = jwtHandlerService;
+            _loggerService = loggerService;
         }
 
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] UserRegistrationDto userForRegistration)
         {
+            _loggerService.GenerateRequestLog(userForRegistration, LogType.RegistrationRequest);
+
             if (userForRegistration == null || !ModelState.IsValid)
             {
                 return BadRequest();
@@ -50,13 +56,19 @@ namespace EducationalCenter.Angular.Controllers
             }
 
             await AddUserToRole(userForRegistration.EMail, user);
-            
-            return Ok(new RegistrationResponseDto { IsSuccessfulRegistration = true });
+
+            var response = new RegistrationResponseDto { IsSuccessfulRegistration = true };
+
+            _loggerService.GenerateResponseLog(userForRegistration, response, LogType.RegistrationRequest);
+
+            return Ok(response);
         }
 
         [HttpPost("signin")]
         public async Task<IActionResult> SignIn([FromBody] UserForAuthenticationDto userForAuthentication)
         {
+            _loggerService.GenerateRequestLog(userForAuthentication, LogType.AuthorizationRequest);
+
             var user = await _userManager.FindByNameAsync(userForAuthentication.EMail);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, userForAuthentication.Password))
@@ -70,7 +82,11 @@ namespace EducationalCenter.Angular.Controllers
 
             var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-            return Ok(new AuthResponseDto { IsAuthSuccessful = true, Token = token });
+            var response = new AuthResponseDto { IsAuthSuccessful = true, Token = token };
+
+            _loggerService.GenerateResponseLog(userForAuthentication, response, LogType.AuthorizationRequest);
+
+            return Ok(response);
         }
 
         private async Task AddUserToRole(string email, ApplicationUser user)

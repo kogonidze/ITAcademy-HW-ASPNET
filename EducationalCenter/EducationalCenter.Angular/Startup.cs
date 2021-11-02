@@ -96,6 +96,8 @@ namespace EducationalCenter.Angular
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddScoped<ILoggerService, LoggerService>();
+
             services.AddScoped<ICourseService, CourseService>();
             services.AddScoped<IStudentGroupService, StudentGroupService>();
             services.AddScoped<IFacultyService, FacultyService>();
@@ -108,6 +110,8 @@ namespace EducationalCenter.Angular
 
             services.Configure<SecurityOptions>(
                Configuration.GetSection(ConfigurationSectionNames.Security));
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

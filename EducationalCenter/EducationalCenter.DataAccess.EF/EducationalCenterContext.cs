@@ -2,7 +2,6 @@
 using EducationalCenter.DataAccess.EF.Extensions;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -23,6 +22,8 @@ namespace EducationalCenter.DataAccess.EF
         public DbSet<Faculty> Faculties { get; set; }
 
         public DbSet<Lecture> Lectures { get; set; }
+
+        public DbSet<Log> Logs { get; set; }
 
         public EducationalCenterContext(DbContextOptions<EducationalCenterContext> options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)
