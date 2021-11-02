@@ -176,17 +176,53 @@ namespace EducationalCenter.BLL.Services
                     }
 
                 case LogType.DepartmentCreationRequest:
-                    break;
+                    {
+                        var request = newRequest as DepartmentCreationDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to create new department {request.Name}");
+                        break;
+                    }
+
                 case LogType.DepartmentEditionRequest:
-                    break;
+                    {
+                        var request = newRequest as DepartmentDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to edit department with id {request.Id}");
+                        break;
+                    }
+
                 case LogType.DepartmentDeletionRequest:
-                    break;
+                    {
+                        var departmentId = newRequest as int?;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to delete department with id {departmentId}");
+                        break;
+                    }
+
                 case LogType.FacultyCreationRequest:
-                    break;
+                    {
+                        var request = newRequest as FacultyCreationDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to create new faculty {request.Name}");
+                        break;
+                    }
+
                 case LogType.FacultyEditionRequest:
-                    break;
+                    {
+                        var request = newRequest as FacultyDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to edit faculty with id {request.Id}");
+                        break;
+                    }
+
                 case LogType.FacultyDeletionRequest:
-                    break;
+                    {
+                        var facultyId = newRequest as int?;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is trying to delete faculty with id {facultyId}");
+                        break;
+                    }
+
                 default:
                     break;
             }
@@ -327,23 +363,77 @@ namespace EducationalCenter.BLL.Services
                     }
 
                 case LogType.CoursesCreationRequest:
-                    break;
+                    {
+                        var request = newRequest as CourseCreationDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} created new course {request.Title}");
+                        break;
+                    }
+
                 case LogType.CoursesEditionRequest:
-                    break;
+                    {
+                        var request = newRequest as CourseFullInfoDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} edited course with id {request.Id}");
+                        break;
+                    }
+
                 case LogType.CoursesDeletionRequest:
-                    break;
+                    {
+                        var courseId = newRequest as int?;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} deleted course with id {courseId}");
+                        break;
+                    }
+
                 case LogType.DepartmentCreationRequest:
-                    break;
+                    {
+                        var request = newRequest as DepartmentCreationDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} created new department {request.Name}");
+                        break;
+                    }
+
                 case LogType.DepartmentEditionRequest:
-                    break;
+                    {
+                        var request = newRequest as DepartmentDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} edited department with id {request.Id}");
+                        break;
+                    }
+
                 case LogType.DepartmentDeletionRequest:
-                    break;
+                    {
+                        var departmentId = newRequest as int?;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} deleted department with id {departmentId}");
+                        break;
+                    }
+
                 case LogType.FacultyCreationRequest:
-                    break;
+                    {
+                        var request = newRequest as FacultyCreationDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} created new faculty {request.Name}");
+                        break;
+                    }
+
                 case LogType.FacultyEditionRequest:
-                    break;
+                    {
+                        var request = newRequest as FacultyDTO;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} edited faculty with id {request.Id}");
+                        break;
+                    }
+
                 case LogType.FacultyDeletionRequest:
-                    break;
+                    {
+                        var facultyId = newRequest as int?;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} deleted faculty with id {facultyId}");
+                        break;
+                    }
+
                 default:
                     break;
             }
