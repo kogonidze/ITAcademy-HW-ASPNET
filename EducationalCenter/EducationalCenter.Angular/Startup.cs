@@ -1,4 +1,5 @@
 using AutoMapper;
+using EducationalCenter.Angular.Filters;
 using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.BLL.Mappings;
 using EducationalCenter.BLL.Services;
@@ -110,6 +111,11 @@ namespace EducationalCenter.Angular
 
             services.Configure<SecurityOptions>(
                Configuration.GetSection(ConfigurationSectionNames.Security));
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<GlobalExceptionFilter>();
+            });
 
             services.AddHttpContextAccessor();
         }
