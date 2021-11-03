@@ -5,7 +5,9 @@ import { IndexCoursesComponent } from "./courses/index-courses/index-courses.com
 import { IndexDepartmentsComponent } from "./departments/index-departments/index-departments.component";
 import { IndexFacultiesComponent } from "./faculties/index-faculties/index-faculties.component";
 import { HomeComponent } from "./home/home.component";
+import { ForbiddenComponent } from "./shared/components/forbidden/forbidden.component";
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
+import { ServerErrorComponent } from "./shared/components/server-error/server-error.component";
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { ManagerGuard } from "./shared/guards/manager.guard";
 import { CreateStudentGroupComponent } from "./studentGroups/create-student-group/create-student-group.component";
@@ -21,8 +23,8 @@ import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "courses", component: IndexCoursesComponent },
-  { path: "faculties", component: IndexFacultiesComponent},
-  { path: "departments", component: IndexDepartmentsComponent},
+  { path: "faculties", component: IndexFacultiesComponent },
+  { path: "departments", component: IndexDepartmentsComponent },
   {
     path: "authorization",
     loadChildren: () =>
@@ -31,15 +33,17 @@ const routes: Routes = [
       ),
   },
   { path: "students", component: IndexStudentsComponent, canActivate: [AuthGuard, ManagerGuard] },
-  { path: "students/create", component: CreateStudentsComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "students/edit/:id", component: EditStudentComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "teachers", component: IndexTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "teachers/create", component: CreateTeachersComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "teachers/edit/:id", component: EditTeacherComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "studentGroups", component: IndexStudentGroupsComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "studentGroups/create", component: CreateStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard]},
-  { path: "studentGroups/edit/:id", component: EditStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard]},
+  { path: "students/create", component: CreateStudentsComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "students/edit/:id", component: EditStudentComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "teachers", component: IndexTeachersComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "teachers/create", component: CreateTeachersComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "teachers/edit/:id", component: EditTeacherComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "studentGroups", component: IndexStudentGroupsComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "studentGroups/create", component: CreateStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard] },
+  { path: "studentGroups/edit/:id", component: EditStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard] },
   { path: "NotFound", component: NotFoundComponent },
+  { path: "forbidden", component: ForbiddenComponent },
+  { path: "server-error", component: ServerErrorComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
 ];
 
