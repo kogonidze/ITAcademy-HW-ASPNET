@@ -1,12 +1,11 @@
 ﻿using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Enums;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 using Serilog;
 using Serilog.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace EducationalCenter.Angular.Filters
 {
@@ -25,9 +24,29 @@ namespace EducationalCenter.Angular.Filters
 
                 Log.Error(context.Exception, "Exception in method {ErrorMethod}", context.ActionDescriptor.DisplayName);
 
+                var statusCode = (int) HttpStatusCode.InternalServerError;
+                var details = ErrorMessages.InternalServerError;
+
+                SendResponseToClient(context, statusCode, details);
 
                 context.ExceptionHandled = true;
             }
+        }
+
+        private void SendResponseToClient(ExceptionContext context, int statusCode, string errorMessage)
+        {
+            var response = context.HttpContext.Response;
+
+            response.StatusCode = statusCode;
+            response.ContentType = "application/json";
+
+            var result = JsonConvert.SerializeObject(new
+            {
+                details = errorMessage,
+                statusCode = statusCode
+            }, Formatting.None);
+
+            response.WriteAsync(result);
         }
     }
 }

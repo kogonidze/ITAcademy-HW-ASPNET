@@ -17,5 +17,7 @@
         public const string IncorrectYear = "Year value must be between 2000 and 2050";
 
         public const string IncorrectExperience = "Experience value must be between 0 and 50";
+
+        public const string InternalServerError = "Internal server error";
     }
 }
