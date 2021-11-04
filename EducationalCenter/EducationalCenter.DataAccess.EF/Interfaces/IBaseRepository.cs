@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.DataAccess.EF.Interfaces
@@ -9,7 +10,7 @@ namespace EducationalCenter.DataAccess.EF.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         TEntity GetById(int id);
         Task<TEntity> GetByIdAsync(int id);
-        Task<IEnumerable<TEntity>> GetByFilterAsync(Func<TEntity, bool> predicate);
+        Task<IEnumerable<TEntity>> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate);
         void Create(TEntity item);
         void Update(TEntity item);
         void Delete(int id);

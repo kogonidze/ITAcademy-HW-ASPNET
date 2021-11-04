@@ -16,6 +16,8 @@ namespace EducationalCenter.DataAccess.EF.Interfaces
 
         ICourseRepository Courses { get; }
 
+        ILogsRepository Logs { get; }
+
         Task Complete();
 
         void Dispose();
