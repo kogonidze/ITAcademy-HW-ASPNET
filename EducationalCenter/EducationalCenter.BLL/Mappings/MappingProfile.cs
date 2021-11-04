@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using EducationalCenter.Common.Dtos;
+using EducationalCenter.Common.Dtos.Log;
 using EducationalCenter.Common.Dtos.User;
 using EducationalCenter.Common.Models;
+using System;
 
 namespace EducationalCenter.BLL.Mappings
 {
@@ -36,6 +38,9 @@ namespace EducationalCenter.BLL.Mappings
 
             CreateMap<UserRegistrationDto, ApplicationUser>()
                 .ForMember(dest => dest.UserName, opts => opts.MapFrom(src => src.EMail));
+
+            CreateMap<Log, LogDto>()
+                .ForMember(dest => dest.LogDate, opts => opts.MapFrom(src => src.TimeStamp.DateTime));
         }
     }
 }

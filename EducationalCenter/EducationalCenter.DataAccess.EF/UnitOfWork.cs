@@ -14,6 +14,7 @@ namespace EducationalCenter.DataAccess.EF
         private IFacultyRepository _facultyRepository;
         private IDepartmentRepository _departmentRepository;
         private ICourseRepository _courseRepository;
+        private ILogsRepository _logsRepository;
 
         private bool disposed = false;
 
@@ -97,6 +98,19 @@ namespace EducationalCenter.DataAccess.EF
                 }
 
                 return _courseRepository;
+            }
+        }
+
+        public ILogsRepository Logs
+        {
+            get
+            {
+                if (_logsRepository == null)
+                {
+                    _logsRepository = new LogsRepository(_context);
+                }
+
+                return _logsRepository;
             }
         }
 

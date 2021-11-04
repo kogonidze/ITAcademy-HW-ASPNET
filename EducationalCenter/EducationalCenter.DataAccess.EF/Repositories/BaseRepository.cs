@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -33,11 +34,11 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _dbSet
-                            .Where(predicate)
                             .AsQueryable()
+                            .Where(predicate)
                             .ToListAsync();
         }
 
