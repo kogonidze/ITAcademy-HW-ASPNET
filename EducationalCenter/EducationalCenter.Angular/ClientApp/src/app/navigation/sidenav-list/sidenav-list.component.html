@@ -22,6 +22,12 @@
             <mat-icon>school</mat-icon> <span class="nav-caption"> Student groups </span>
         </a>
     </div>
+
+    <div *ngIf="isUserAdmin">
+        <a mat-list-item routerLink="/logs" (click)="onSidenavClose()"> 
+            <mat-icon>assignment</mat-icon> <span class="nav-caption"> Logs </span>
+        </a>
+    </div>
     
     <div class="actions">
         <div *ngIf="!isUserAuthenticated">

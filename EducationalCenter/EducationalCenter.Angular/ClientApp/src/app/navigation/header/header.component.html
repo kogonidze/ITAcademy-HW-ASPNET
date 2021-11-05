@@ -17,6 +17,10 @@
         <a routerLink="/studentGroups"> Student groups </a>
     </div>
 
+    <div *ngIf="isUserAdmin">
+        <a routerLink="/logs"> Logs </a>
+    </div>
+
     <div class="space">
     </div>
 

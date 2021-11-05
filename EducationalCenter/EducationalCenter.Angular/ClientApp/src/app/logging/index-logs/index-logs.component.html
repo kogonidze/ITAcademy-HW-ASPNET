@@ -1,0 +1,43 @@
+<h2>Logs</h2>
+
+<div *ngIf="!logs">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="logs?.length === 0">There are no records to display</div>
+
+<ng-container *ngIf="logs && logs.length > 0" content>
+    <table mat-table [dataSource]="logs" class="mat-elevation-z8 table-index">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="message">
+            <th mat-header-cell *matHeaderCellDef>Message</th>
+            <td mat-cell *matCellDef="let element">{{element.message}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+            <th mat-header-cell *matHeaderCellDef>UserName</th>
+            <td mat-cell *matCellDef="let element">{{element.userName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="ip">
+            <th mat-header-cell *matHeaderCellDef>Ip</th>
+            <td mat-cell *matCellDef="let element">{{element.ip}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="logType">
+            <th mat-header-cell *matHeaderCellDef>LogType</th>
+            <td mat-cell *matCellDef="let element">{{LogType[element.logType]}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="logDate">
+            <th mat-header-cell *matHeaderCellDef>LogDate</th>
+            <td mat-cell *matCellDef="let element">{{element.logDate | date: 'dd.MM.yyyy hh:mm:ss'}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+</ng-container>
