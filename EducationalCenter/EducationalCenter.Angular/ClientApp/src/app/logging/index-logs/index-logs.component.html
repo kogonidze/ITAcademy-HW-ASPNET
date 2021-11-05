@@ -3,7 +3,29 @@
 <div *ngIf="!logs">
     <mat-spinner></mat-spinner>
 </div>
+
 <div *ngIf="logs?.length === 0">There are no records to display</div>
+
+<div class="search">
+    <input class="global" matInput type="text" placeholder="global" [(ngModel)]="globalFilter">
+
+    <input class="date" matInput [matDatepicker]="dateFromDP" [(ngModel)]="dateFrom" placeholder="Date from">
+
+    <mat-datepicker-toggle matSuffix [for]="dateFromDP"></mat-datepicker-toggle>
+    <mat-datepicker #dateFromDP></mat-datepicker>
+
+    <input class="date" matInput [matDatepicker]="dateToDP" [(ngModel)]="dateTo" placeholder="Date to">
+    <mat-datepicker-toggle matSuffix [for]="dateToDP"></mat-datepicker-toggle>
+    <mat-datepicker #dateToDP></mat-datepicker>
+
+    <mat-select [(ngModel)]="chosenLogType" placeholder="Log type">
+        <mat-option *ngFor="let logType of LogTypeKeys | keyvalue" [value]="+logType.key">
+            {{logType.value}}
+        </mat-option>
+    </mat-select>
+
+    <button mat-flat-button color="primary" (click)="mySearch()"> Search </button>
+</div>
 
 <ng-container *ngIf="logs && logs.length > 0" content>
     <table mat-table [dataSource]="logs" class="mat-elevation-z8 table-index">

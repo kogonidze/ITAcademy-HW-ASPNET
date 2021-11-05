@@ -31,6 +31,7 @@ import { EditStudentGroupComponent } from "./studentGroups/edit-student-group/ed
 import { IndexFacultiesComponent } from "./faculties/index-faculties/index-faculties.component";
 import { IndexDepartmentsComponent } from "./departments/index-departments/index-departments.component";
 import { IndexLogsComponent } from "./logging/index-logs/index-logs.component";
+import { FormsModule } from '@angular/forms';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -64,6 +65,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    FormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

@@ -66,7 +66,7 @@ namespace EducationalCenter.BLL.Services
 
             if (!string.IsNullOrWhiteSpace(filter.GlobalFilter))
             {
-                filters.Add(el => el.UserName == filter.GlobalFilter || el.IP == filter.GlobalFilter);
+                filters.Add(el => el.UserName.Contains(filter.GlobalFilter) || el.IP.Contains(filter.GlobalFilter));
             }
 
             if (filter.LogType != null)

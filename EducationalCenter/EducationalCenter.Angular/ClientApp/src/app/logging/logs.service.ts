@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { GetLogsRequest } from '../shared/models/logging/getLogsRequest.model';
 import { Log } from '../shared/models/logging/log.model';
 
 @Injectable({
@@ -16,5 +17,15 @@ export class LogsService {
   
   getAll(): Observable<Log[]> {
     return this.http.get<Log[]>(this.apiUrl, {headers: this.headers});
+  }
+
+  getByFilter(request: GetLogsRequest): Observable<Log[]> {
+    return this.http.get<Log[]>(this.apiUrl, {headers: this.headers, params: {
+      GlobalFilter: request.globalFilter,
+      LogType: request.logType,
+      DateFrom: request.dateFrom,
+      DateTo: request.dateTo
+    },
+  });
   }
 }
