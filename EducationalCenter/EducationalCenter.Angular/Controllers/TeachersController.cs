@@ -57,6 +57,23 @@ namespace EducationalCenter.Angular.Controllers
             return Ok(teacher);
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByFilter([FromQuery] GetFilteredTeachersRequest request)
+        {
+            _loggerService.GenerateRequestLog(request, LogType.TeacherSearchRequest);
+
+            var teachers = await _teacherService.GetByFilterAsync(request);
+
+            _loggerService.GenerateResponseLog(request, teachers, LogType.TeacherSearchRequest);
+
+            if (teachers == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(teachers);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(TeacherCreationDTO teacherCreationDTO)
         {
