@@ -40,9 +40,9 @@ namespace EducationalCenter.BLL.Services
             return _mapper.Map<TeacherFullInfoDTO>(teacher);
         }
 
-        public async Task<IEnumerable<TeacherDTO>> GetAllAsync()
+        public async Task<IEnumerable<TeacherDTO>> GetAllAsync(int page = 1, int pageSize = 20)
         {
-            var teachers = await _unitOfWork.Teachers.GetAllAsync();
+            var teachers = await _unitOfWork.Teachers.GetAllAsync(page, pageSize);
 
             return _mapper.Map<List<TeacherDTO>>(teachers);
         }
@@ -53,6 +53,11 @@ namespace EducationalCenter.BLL.Services
 
             _unitOfWork.Teachers.Update(teacher);
             await _unitOfWork.Complete();
+        }
+
+        public int Count()
+        {
+            return _unitOfWork.Teachers.Count();
         }
     }
 }
