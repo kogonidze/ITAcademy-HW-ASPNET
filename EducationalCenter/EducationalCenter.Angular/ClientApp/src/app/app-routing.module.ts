@@ -5,9 +5,13 @@ import { IndexCoursesComponent } from "./courses/index-courses/index-courses.com
 import { IndexDepartmentsComponent } from "./departments/index-departments/index-departments.component";
 import { IndexFacultiesComponent } from "./faculties/index-faculties/index-faculties.component";
 import { HomeComponent } from "./home/home.component";
-import { IndexLogsComponent } from "./logging/index-logs/index-logs.component";
+
+import { ForbiddenComponent } from "./shared/components/forbidden/forbidden.component";
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
-import { AdminGuard } from "./shared/guards/admin.guard";
+import { ServerErrorComponent } from "./shared/components/server-error/server-error.component";
+import { IndexLogsComponent } from "./logging/index-logs/index-logs.component";
+import { NotFoundCompone  "./shared/guards/admin.guard";
+
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { ManagerGuard } from "./shared/guards/manager.guard";
 import { CreateStudentGroupComponent } from "./studentGroups/create-student-group/create-student-group.component";
@@ -23,8 +27,8 @@ import { IndexTeachersComponent } from "./teachers/index-teachers/index-teachers
 const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "courses", component: IndexCoursesComponent },
-  { path: "faculties", component: IndexFacultiesComponent},
-  { path: "departments", component: IndexDepartmentsComponent},
+  { path: "faculties", component: IndexFacultiesComponent },
+  { path: "departments", component: IndexDepartmentsComponent },
   {
     path: "authorization",
     loadChildren: () =>
@@ -42,7 +46,10 @@ const routes: Routes = [
   { path: "studentGroups/create", component: CreateStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "studentGroups/edit/:id", component: EditStudentGroupComponent, canActivate: [AuthGuard, ManagerGuard]},
   { path: "logs", component: IndexLogsComponent, canActivate: [AuthGuard, AdminGuard]},
+
   { path: "NotFound", component: NotFoundComponent },
+  { path: "forbidden", component: ForbiddenComponent },
+  { path: "server-error", component: ServerErrorComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
 ];
 
