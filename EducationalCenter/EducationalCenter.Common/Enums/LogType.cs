@@ -54,6 +54,8 @@
 
         FacultyEditionRequest,
 
-        FacultyDeletionRequest
+        FacultyDeletionRequest,
+
+        TeacherSearchRequest
     }
 }

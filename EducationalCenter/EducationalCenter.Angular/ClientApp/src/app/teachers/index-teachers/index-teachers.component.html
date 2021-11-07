@@ -1,5 +1,25 @@
 <h2>Teachers</h2>
 
+<div class="search">
+    <input class="fio" matInput type="text" placeholder="fio" [(ngModel)]="fio">
+
+    <input class="experience" matInput type="number" placeholder="Min experience" [(ngModel)]="experience">
+    
+    <mat-select [(ngModel)]="minFormation" placeholder="Min formation">
+        <mat-option *ngFor="let formation of FormationKeys | keyvalue" [value]="+formation.key">
+            {{formation.value}}
+        </mat-option>
+    </mat-select>
+
+    <mat-select [(ngModel)]="minCategory" placeholder="Min category">
+        <mat-option *ngFor="let category of CategoryKeys | keyvalue" [value]="+category.key">
+            {{category.value}}
+        </mat-option>
+    </mat-select>
+
+    <button mat-flat-button color="primary" (click)="search()"> Search </button>
+</div>
+
 <button mat-flat-button routerLink="/teachers/create" color="primary">Create new</button>
 
 <div *ngIf="!teachers">

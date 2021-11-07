@@ -1,6 +1,7 @@
 ﻿using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos;
+using EducationalCenter.Common.Dtos.Api.Request;
 using EducationalCenter.Common.Dtos.User;
 using EducationalCenter.Common.Enums;
 using Microsoft.AspNetCore.Http;
@@ -223,6 +224,17 @@ namespace EducationalCenter.BLL.Services
                         break;
                     }
 
+                case LogType.TeacherSearchRequest:
+                    {
+                        var request = newRequest as GetFilteredTeachersRequest;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is started the search of teachers with criteriums: " +
+                            $"1. fio {request.FIO}, 2. min experience {request.Experience}, 3.min category {request.Category} " +
+                            $"4. min formation {request.Formation}");
+
+                        break;
+                    }
+
                 default:
                     break;
             }
@@ -431,6 +443,12 @@ namespace EducationalCenter.BLL.Services
                         var facultyId = newRequest as int?;
 
                         Log.Information($"User {_accessor.HttpContext.User.Identity.Name} deleted faculty with id {facultyId}");
+                        break;
+                    }
+
+                case LogType.TeacherSearchRequest:
+                    {
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} has got results of the search");
                         break;
                     }
 
