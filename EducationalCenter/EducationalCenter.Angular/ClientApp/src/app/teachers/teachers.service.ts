@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PagedResult } from '../shared/models/pagedResult.model';
 import { Teacher } from '../shared/models/teacher/teacher.model';
 import { TeacherCreation } from '../shared/models/teacher/teacherCreation.model';
 import { TeacherFullInfo } from '../shared/models/teacher/teacherFullInfo.model';
@@ -16,8 +17,8 @@ export class TeachersService {
   private apiUrl = environment.apiUrl + 'teachers';
   headers = new HttpHeaders({ 'Authorization': 'Bearer ' + localStorage.getItem("token") });
 
-  getAll(): Observable<Teacher[]> {
-    return this.http.get<Teacher[]>(this.apiUrl, {headers: this.headers});
+  getAll(page: number, pageSize: number): Observable<PagedResult<Teacher[]>> {
+    return this.http.get<PagedResult<Teacher[]>>(`${this.apiUrl}?page=${page}&pageSize=${pageSize}`, {headers: this.headers});
   }
 
   getById(id: number): Observable<TeacherFullInfo> {
