@@ -13,7 +13,7 @@ namespace EducationalCenter.Common.Models
 
         public string Level { get; set; }
 
-        public DateTimeOffset? TimeStamp { get; set; }
+        public DateTimeOffset TimeStamp { get; set; }
 
         public string Exception { get; set; }
 
@@ -23,7 +23,7 @@ namespace EducationalCenter.Common.Models
 
         public string UserName { get; set; }
 
-        public LogType? LogType { get; set; }
+        public LogType LogType { get; set; }
 
         public string IP { get; set; }
     }

@@ -108,6 +108,7 @@ namespace EducationalCenter.Angular
             services.AddScoped<ITeacherService, TeacherService>();
 
             services.AddScoped<IJwtHandlerService, JwtHandlerService>();
+            services.AddScoped<ILogsService, LogsService>();
 
             services.Configure<SecurityOptions>(
                Configuration.GetSection(ConfigurationSectionNames.Security));

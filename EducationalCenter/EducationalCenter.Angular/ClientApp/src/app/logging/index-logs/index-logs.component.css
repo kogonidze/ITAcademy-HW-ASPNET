@@ -1,0 +1,76 @@
+.mat-spinner {
+    position: relative;
+    margin-left: 50%;
+}
+  
+table {
+    width: 100%;
+}
+  
+.mat-row:nth-child(even){
+    background-color: #e4f0ec;
+}
+        
+.mat-row:nth-child(odd){
+    background-color: #ffffff;;
+}
+
+.mat-column-id {
+    font-size: 20px;
+}
+
+.mat-column-message {
+    height: 80px;
+    font-size: 20px;
+}
+  
+.mat-column-username {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mat-column-ip {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mat-column-logType {
+    font-size: 20px;
+}
+
+.mat-column-logDate {
+    font-size: 20px;
+}
+
+.search {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.mat-select {
+    width: 10%;
+    margin: 20px;
+}
+
+.global{
+    width: 15%;
+    height: 40px;
+    margin-right: 4rem;
+}
+
+.date {
+    width: 10%;
+    height: 40px;
+}
+
+.mat-datepicker-toggle {
+    margin-right: 4rem;
+}
+
+button {
+    margin-left: 2rem;
+    height: 40px;
+    font-size: 20px;
+}
+
+

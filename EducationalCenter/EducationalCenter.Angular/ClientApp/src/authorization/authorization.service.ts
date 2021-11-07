@@ -60,7 +60,7 @@ export class AuthorizationService {
     {
       const role = this.getRoleFromToken();
 
-      return role === "administrator";
+      return role === "admin";
     }
     
     return false;

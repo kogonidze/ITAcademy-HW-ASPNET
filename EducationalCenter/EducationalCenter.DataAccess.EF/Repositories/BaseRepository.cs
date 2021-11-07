@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EducationalCenter.DataAccess.EF.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -18,9 +19,12 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync(int page = 1, int pageSize = 20)
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public TEntity GetById(int id)
@@ -33,11 +37,11 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Func<TEntity, bool> predicate)
+        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate)
         {
             return await _dbSet
-                            .Where(predicate)
                             .AsQueryable()
+                            .Where(predicate)
                             .ToListAsync();
         }
 
@@ -59,5 +63,10 @@ namespace EducationalCenter.DataAccess.EF.Repositories
         }
 
         public void Dispose() { }
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
 }
