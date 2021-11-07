@@ -36,6 +36,8 @@ export class ErrorHandlerService implements HttpInterceptor {
       return this.handleUnauthorized(error);
     } else if (error.status === 403) {
       return this.handleForbidden(error);
+    } else if (error.status === 500) {
+      return this.handleInternalServerError(error);
     }
   };
 
@@ -75,5 +77,13 @@ export class ErrorHandlerService implements HttpInterceptor {
     });
 
     return "Forbidden";
+  };
+
+  private handleInternalServerError = (error: HttpErrorResponse): string => {
+    this._router.navigate(["/server-error"], {
+      queryParams: { returnUrl: this._router.url},
+    });
+
+    return "Internal server error";
   };
 }

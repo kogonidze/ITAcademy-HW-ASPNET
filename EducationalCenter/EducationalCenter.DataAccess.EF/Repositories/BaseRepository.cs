@@ -19,9 +19,12 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync(int page = 1, int pageSize = 20)
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public TEntity GetById(int id)
@@ -60,5 +63,10 @@ namespace EducationalCenter.DataAccess.EF.Repositories
         }
 
         public void Dispose() { }
+
+        public int Count()
+        {
+            return _dbSet.Count();
+        }
     }
 }

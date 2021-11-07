@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/shared/enums/category';
 import { Formation } from 'src/app/shared/enums/formation';
+
 import { GetFilteredTeachersRequest } from 'src/app/shared/models/teacher/getFilteredTeachersRequest.model';
+
+import { PagedResult } from 'src/app/shared/models/pagedResult.model';
+
 import { Teacher } from 'src/app/shared/models/teacher/teacher.model';
 import { TeachersService } from '../teachers.service';
 
@@ -18,6 +22,7 @@ export class IndexTeachersComponent implements OnInit {
   Category = Category;
   Formation = Formation;
 
+
   request: GetFilteredTeachersRequest = {
     fio: "",
     experience: "",
@@ -29,6 +34,13 @@ export class IndexTeachersComponent implements OnInit {
   experience: number;
   minFormation: number;
   minCategory: number;
+
+  countOfTeachers: number;
+  pageSize: number;
+  pageSizeOptions: number[] = [5, 10, 20, 50];
+
+  currentPage: number;
+
   
   columnsToDisplay = ["fio", "dateOfBirth", "department", "experience", "category", "formation", "actions"];
 
@@ -42,12 +54,16 @@ export class IndexTeachersComponent implements OnInit {
 
 
   ngOnInit() {
+    this.pageSize = 10;
+    this.currentPage = 1;
+
     this.loadTeachers();
   }
 
   loadTeachers() {
-    this.teacherService.getAll().subscribe((teachers: Teacher[]) => {
-      this.teachers = teachers;
+    this.teacherService.getAll(this.currentPage + 1, this.pageSize).subscribe((response: PagedResult<Teacher[]>) => {
+      this.teachers = response.data;
+      this.countOfTeachers = response.countAllDocuments
     })
   }
 
@@ -56,6 +72,7 @@ export class IndexTeachersComponent implements OnInit {
         this.loadTeachers()
       });
   }
+
 
   search() {
     if(this.fio)
@@ -83,4 +100,10 @@ export class IndexTeachersComponent implements OnInit {
     });
   }
 
+  handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+
+    this.loadTeachers();
+  }
 }

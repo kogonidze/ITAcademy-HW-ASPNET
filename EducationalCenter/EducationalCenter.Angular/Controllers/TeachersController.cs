@@ -3,6 +3,7 @@ using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Api.Request;
+using EducationalCenter.Common.Dtos.Api.Response;
 using EducationalCenter.Common.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,17 +28,18 @@ namespace EducationalCenter.Angular.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page = 1, int pageSize = 20)
         {
             var request = new IndexTeachersRequest();
 
             _loggerService.GenerateRequestLog(request, LogType.TeacherIndexingRequest);
 
-            var teachers = await _teacherService.GetAllAsync();
+            var teachers = await _teacherService.GetAllAsync(page, pageSize);
+            var countAllTeachers = _teacherService.Count();
 
             _loggerService.GenerateResponseLog(request, teachers, LogType.TeacherIndexingRequest);
 
-            return Ok(teachers);
+            return Ok(new PagedResult<TeacherDTO> { Data = teachers, CountAllDocuments = countAllTeachers });
         }
 
         [HttpGet("{id:int}")]

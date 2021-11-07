@@ -83,3 +83,12 @@
 
     </table>
 </ng-container>
+
+<mat-paginator [length]="countOfTeachers"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              [showFirstLastButtons]="true"
+              [pageIndex]="currentPage"
+              (page)="pageEvent = handlePage($event)"
+              aria-label="Select page">
+</mat-paginator>
