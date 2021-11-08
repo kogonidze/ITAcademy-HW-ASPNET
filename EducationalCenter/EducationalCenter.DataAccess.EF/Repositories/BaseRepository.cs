@@ -37,11 +37,13 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> GetByFilterAsync(Expression<Func<TEntity, bool>> predicate, int page = 1, int pageSize = 20)
         {
             return await _dbSet
                             .AsQueryable()
                             .Where(predicate)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
                             .ToListAsync();
         }
 
@@ -67,6 +69,14 @@ namespace EducationalCenter.DataAccess.EF.Repositories
         public int Count()
         {
             return _dbSet.Count();
+        }
+
+        public async Task<int> CountWithFilter(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet
+                           .AsQueryable()
+                           .Where(predicate)
+                           .CountAsync();
         }
     }
 }

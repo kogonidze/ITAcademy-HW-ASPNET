@@ -2,6 +2,7 @@
 using EducationalCenter.DataAccess.EF.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EducationalCenter.DataAccess.EF.Repositories
@@ -14,9 +15,14 @@ namespace EducationalCenter.DataAccess.EF.Repositories
 
         }
 
-        public async new Task<IEnumerable<Student>> GetAllAsync()
+        public async new Task<IEnumerable<Student>> GetAllAsync(int page = 1, int pageSize = 20)
         {
-            return await _dbSet.Include(x => x.Group).ToListAsync();
+            return await _dbSet
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Include(x => x.Group)
+                .ToListAsync();
         }
+
     }
 }

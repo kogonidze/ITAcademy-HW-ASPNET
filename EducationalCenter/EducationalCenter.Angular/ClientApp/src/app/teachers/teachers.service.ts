@@ -38,12 +38,14 @@ export class TeachersService {
     return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.headers, responseType: 'text'});
   }
 
-  getByFilter(request: GetFilteredTeachersRequest): Observable<Teacher[]> {
-    return this.http.get<Teacher[]>(`${this.apiUrl}/search`, {headers: this.headers, params: {
+  getByFilter(request: GetFilteredTeachersRequest): Observable<PagedResult<Teacher[]>> {
+    return this.http.get<PagedResult<Teacher[]>>(`${this.apiUrl}/search`, {headers: this.headers, params: {
       FIO: request.fio,
       Experience: request.experience,
       Formation: request.formation,
-      Category: request.category
+      Category: request.category,
+      Page: request.page,
+      PageSize: request.pageSize
     },
   });
   }

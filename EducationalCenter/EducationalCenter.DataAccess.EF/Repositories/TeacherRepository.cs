@@ -31,12 +31,14 @@ namespace EducationalCenter.DataAccess.EF.Repositories
             return await _dbSet.Include(x => x.Department).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async new Task<IEnumerable<Teacher>> GetByFilterAsync(Expression<Func<Teacher, bool>> predicate)
+        public async new Task<IEnumerable<Teacher>> GetByFilterAsync(Expression<Func<Teacher, bool>> predicate, int page = 1, int pageSize = 20)
         {
             return await _dbSet
                             .AsQueryable()
                             .Include(x => x.Department)
                             .Where(predicate)
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
                             .ToListAsync();
         }
     }

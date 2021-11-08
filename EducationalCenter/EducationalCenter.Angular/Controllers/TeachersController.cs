@@ -65,6 +65,7 @@ namespace EducationalCenter.Angular.Controllers
             _loggerService.GenerateRequestLog(request, LogType.TeacherSearchRequest);
 
             var teachers = await _teacherService.GetByFilterAsync(request);
+            var countOfTeachers = await _teacherService.CountWithFilter(request);
 
             _loggerService.GenerateResponseLog(request, teachers, LogType.TeacherSearchRequest);
 
@@ -73,7 +74,7 @@ namespace EducationalCenter.Angular.Controllers
                 return NotFound();
             }
 
-            return Ok(teachers);
+            return Ok(new PagedResult<TeacherDTO> { Data = teachers, CountAllDocuments = countOfTeachers });
         }
 
         [HttpPost]

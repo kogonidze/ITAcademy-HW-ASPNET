@@ -48,7 +48,7 @@ namespace EducationalCenter.BLL.Services
         {
             var filters = BuildFilter(filter);
 
-            var teachers = await _unitOfWork.Teachers.GetByFilterAsync(filters);
+            var teachers = await _unitOfWork.Teachers.GetByFilterAsync(filters, (int) filter.Page, (int) filter.PageSize);
 
             var report = _mapper.Map<List<TeacherDTO>>(teachers);
 
@@ -69,6 +69,15 @@ namespace EducationalCenter.BLL.Services
 
             _unitOfWork.Teachers.Update(teacher);
             await _unitOfWork.Complete();
+        }
+
+        public async Task<int> CountWithFilter(GetFilteredTeachersRequest filter)
+        {
+            var filters = BuildFilter(filter);
+
+            var countOfTeachers = await _unitOfWork.Teachers.CountWithFilter(filters);
+
+            return countOfTeachers;
         }
 
         private Expression<Func<Teacher, bool>> BuildFilter(GetFilteredTeachersRequest filter)
@@ -119,6 +128,7 @@ namespace EducationalCenter.BLL.Services
             }
 
             return filters;
+        }
 
         public int Count()
         {

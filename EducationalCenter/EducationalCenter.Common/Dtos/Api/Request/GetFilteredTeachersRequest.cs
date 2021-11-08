@@ -11,5 +11,9 @@ namespace EducationalCenter.Common.Dtos.Api.Request
         public Formation? Formation { get; set; }
 
         public Category? Category { get; set; }
+
+        public int? Page { get; set; }
+
+        public int? PageSize { get; set; }
     }
 }
