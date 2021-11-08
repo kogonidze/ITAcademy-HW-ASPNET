@@ -235,6 +235,16 @@ namespace EducationalCenter.BLL.Services
                         break;
                     }
 
+                case LogType.StudentSearchRequest:
+                    {
+                        var request = newRequest as GetFilteredStudentsRequest;
+
+                        Log.Information($"User {_accessor.HttpContext.User.Identity.Name} is started the search of students with criteriums: " +
+                            $"1. fio {request.FIO}, 2. group id {request.GroupId}");
+
+                        break;
+                    }
+
                 default:
                     break;
             }
@@ -447,6 +457,7 @@ namespace EducationalCenter.BLL.Services
                     }
 
                 case LogType.TeacherSearchRequest:
+                case LogType.StudentSearchRequest:
                     {
                         Log.Information($"User {_accessor.HttpContext.User.Identity.Name} has got results of the search");
                         break;

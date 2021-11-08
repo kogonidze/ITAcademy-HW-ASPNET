@@ -121,6 +121,5 @@ export class IndexTeachersComponent implements OnInit {
     else {
       this.loadTeachers();
     }
-
   }
 }
