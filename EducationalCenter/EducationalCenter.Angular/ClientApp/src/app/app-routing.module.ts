@@ -10,8 +10,8 @@ import { ForbiddenComponent } from "./shared/components/forbidden/forbidden.comp
 import { NotFoundComponent } from "./shared/components/not-found/not-found.component";
 import { ServerErrorComponent } from "./shared/components/server-error/server-error.component";
 import { IndexLogsComponent } from "./logging/index-logs/index-logs.component";
-import { NotFoundCompone  "./shared/guards/admin.guard";
 
+import { AdminGuard} from "./shared/guards/admin.guard";
 import { AuthGuard } from "./shared/guards/auth.guard";
 import { ManagerGuard } from "./shared/guards/manager.guard";
 import { CreateStudentGroupComponent } from "./studentGroups/create-student-group/create-student-group.component";

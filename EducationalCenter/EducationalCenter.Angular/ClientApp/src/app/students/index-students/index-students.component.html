@@ -1,5 +1,17 @@
 <h2>Students</h2>
 
+<div class="search">
+    <input class="fio" matInput type="text" placeholder="fio" [(ngModel)]="fio">
+    
+    <mat-select [(ngModel)]="groupId" placeholder="Student`s group">
+        <mat-option *ngFor="let group of studentGroups" [value]="group.id">
+            {{group.title}}
+        </mat-option>
+    </mat-select>
+
+    <button mat-flat-button color="primary" (click)="search()"> Search </button>
+</div>
+
 <button mat-flat-button routerLink="/students/create" color="primary">Create new</button>
 
 <div *ngIf="!students">
@@ -47,3 +59,13 @@
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
     </table>
 </ng-container>
+
+<mat-paginator [length]="countOfStudents"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              [showFirstLastButtons]="true"
+              [pageIndex]="currentPage"
+              (page)="pageEvent = handlePage($event)"
+              aria-label="Select page">
+</mat-paginator>
+

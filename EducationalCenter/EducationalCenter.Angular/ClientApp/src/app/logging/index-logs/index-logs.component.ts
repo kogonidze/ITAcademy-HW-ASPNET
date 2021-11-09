@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LogType } from 'src/app/shared/enums/logType';
 import { GetLogsRequest } from 'src/app/shared/models/logging/getLogsRequest.model';
 import { Log } from 'src/app/shared/models/logging/log.model';
+import { PagedResult } from 'src/app/shared/models/pagedResult.model';
 import { LogsService } from '../logs.service';
 
 @Component({
@@ -21,54 +22,86 @@ export class IndexLogsComponent implements OnInit {
     globalFilter: "",
     logType: "",
     dateFrom: "",
-    dateTo: ""
+    dateTo: "",
+    page: "",
+    pageSize: ""
   };
+
+  globalFilter: string;
   chosenLogType: number;
   dateFrom: Date;
   dateTo: Date;
 
+  countOfLogs: number;
+  pageSize: number;
+  pageSizeOptions: number[] = [5, 10, 20, 50];
+
+  currentPage: number;
+  IsSearchMode: boolean;
+
   LogTypeKeys = Object.keys(LogType).filter((item) => {
     return isNaN(Number(item));
   });
-  
-
-  globalFilter: string;
-  
 
   ngOnInit() {
+    this.pageSize = 10;
+    this.currentPage = 0;
+    this.IsSearchMode = false;
+
     this.loadLogs();
   }
 
   loadLogs() {
-    this.logsService.getAll().subscribe((logs: Log[]) => {
-      this.logs = logs;
-    })
-  }
-
-  public mySearch() {
-    if(this.globalFilter)
-    {
-      this.request.globalFilter = this.globalFilter;
-    }
-
-    if(this.chosenLogType)
-    {
-      this.request.logType = this.chosenLogType.toString();
-    }
-
-    if(this.dateFrom)
-    {
-      this.request.dateFrom = this.dateFrom.toDateString();
-    }
-
-    if(this.dateTo)
-    {
-      this.request.dateTo = this.dateTo.toDateString();
-    }
-    
-    this.logsService.getByFilter(this.request).subscribe((logs: Log[]) => {
-      this.logs = logs;
+    this.logsService.getAll(this.currentPage + 1, this.pageSize).subscribe((response: PagedResult<Log[]>) => {
+      this.logs = response.data;
+      this.countOfLogs = response.countAllDocuments;
     });
   }
 
+  public mySearch() {
+    if (this.globalFilter) {
+      this.request.globalFilter = this.globalFilter;
+    }
+
+    if (this.chosenLogType !== undefined) {
+      this.request.logType = this.chosenLogType.toString();
+    }
+
+    if (this.dateFrom) {
+      this.request.dateFrom = this.dateFrom.toDateString();
+    }
+
+    if (this.dateTo) {
+      this.request.dateTo = this.dateTo.toDateString();
+    }
+
+    this.request.page = (this.currentPage + 1).toString();
+    this.request.pageSize = this.pageSize.toString();
+
+    this.IsSearchMode = true;
+
+    this.logsService.getByFilter(this.request).subscribe((response: PagedResult<Log[]>) => {
+      this.logs = response.data;
+      this.countOfLogs = response.countAllDocuments;
+    });
+  }
+
+  handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+
+    if (this.IsSearchMode) {
+
+      this.request.page = (this.currentPage + 1).toString();
+      this.request.pageSize = this.pageSize.toString();
+
+      this.logsService.getByFilter(this.request).subscribe((response: PagedResult<Log[]>) => {
+        this.logs = response.data;
+        this.countOfLogs = response.countAllDocuments;
+      });
+    }
+    else {
+      this.loadLogs();
+    }
+  }
 }

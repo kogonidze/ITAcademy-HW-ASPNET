@@ -63,3 +63,12 @@
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
     </table>
 </ng-container>
+
+<mat-paginator [length]="countOfLogs"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              [showFirstLastButtons]="true"
+              [pageIndex]="currentPage"
+              (page)="pageEvent = handlePage($event)"
+              aria-label="Select page">
+</mat-paginator>

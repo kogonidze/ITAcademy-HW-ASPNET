@@ -59,10 +59,10 @@ table {
 
 .mat-select {
     width: 10%;
-    margin: 20px;
+    margin-right: 4rem;
 }
 
-.fio{
+.fio, .experience{
     width: 15%;
     height: 40px;
     margin-right: 4rem;

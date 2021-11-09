@@ -27,7 +27,9 @@ export class IndexTeachersComponent implements OnInit {
     fio: "",
     experience: "",
     formation: "",
-    category: ""
+    category: "",
+    page: "",
+    pageSize: ""
   };
 
   fio: string;
@@ -40,8 +42,8 @@ export class IndexTeachersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 20, 50];
 
   currentPage: number;
+  IsSearchMode: boolean;
 
-  
   columnsToDisplay = ["fio", "dateOfBirth", "department", "experience", "category", "formation", "actions"];
 
   CategoryKeys = Object.keys(Category).filter((item) => {
@@ -55,7 +57,8 @@ export class IndexTeachersComponent implements OnInit {
 
   ngOnInit() {
     this.pageSize = 10;
-    this.currentPage = 1;
+    this.currentPage = 0;
+    this.IsSearchMode = false;
 
     this.loadTeachers();
   }
@@ -69,34 +72,35 @@ export class IndexTeachersComponent implements OnInit {
 
   delete(id: number) {
     this.teacherService.delete(id).subscribe(() => {
-        this.loadTeachers()
-      });
+      this.loadTeachers()
+    });
   }
 
-
   search() {
-    if(this.fio)
-    {
+    if (this.fio) {
       this.request.fio = this.fio;
     }
 
-    if(this.experience  )
-    {
+    if (this.experience !== undefined) {
       this.request.experience = this.experience.toString();
     }
 
-    if(this.minCategory)
-    {
+    if (this.minCategory !== undefined) {
       this.request.category = this.minCategory.toString();
     }
 
-    if(this.minFormation)
-    {
+    if (this.minFormation !== undefined) {
       this.request.formation = this.minFormation.toString();
     }
-    
-    this.teacherService.getByFilter(this.request).subscribe((teachers: Teacher[]) => {
-      this.teachers = teachers;
+
+    this.request.page = (this.currentPage + 1).toString();
+    this.request.pageSize = this.pageSize.toString();
+
+    this.IsSearchMode = true;
+
+    this.teacherService.getByFilter(this.request).subscribe((response: PagedResult<Teacher[]>) => {
+      this.teachers = response.data;
+      this.countOfTeachers = response.countAllDocuments;
     });
   }
 
@@ -104,6 +108,18 @@ export class IndexTeachersComponent implements OnInit {
     this.currentPage = e.pageIndex;
     this.pageSize = e.pageSize;
 
-    this.loadTeachers();
+    if (this.IsSearchMode) {
+
+      this.request.page = (this.currentPage + 1).toString();
+      this.request.pageSize = this.pageSize.toString();
+
+      this.teacherService.getByFilter(this.request).subscribe((response: PagedResult<Teacher[]>) => {
+        this.teachers = response.data;
+        this.countOfTeachers = response.countAllDocuments;
+      });
+    }
+    else {
+      this.loadTeachers();
+    }
   }
 }

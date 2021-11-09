@@ -3,6 +3,7 @@ using EducationalCenter.BLL.Interfaces;
 using EducationalCenter.Common.Constants;
 using EducationalCenter.Common.Dtos;
 using EducationalCenter.Common.Dtos.Api.Request;
+using EducationalCenter.Common.Dtos.Api.Response;
 using EducationalCenter.Common.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,17 +28,18 @@ namespace EducationalCenter.Angular.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page = 1, int pageSize = 20)
         {
             var request = new IndexStudentsRequest();
 
             _loggerService.GenerateRequestLog(request, LogType.StudentIndexingRequest);
 
-            var students = await _studentService.GetAllAsync();
+            var students = await _studentService.GetAllAsync(page, pageSize);
+            var countAllStudents = _studentService.Count();
 
             _loggerService.GenerateResponseLog(request, students, LogType.StudentIndexingRequest);
 
-            return Ok(students);
+            return Ok(new PagedResult<StudentDTO> { Data = students, CountAllDocuments = countAllStudents });
         }
 
         [HttpGet("{id:int}")]
@@ -55,6 +57,24 @@ namespace EducationalCenter.Angular.Controllers
             _loggerService.GenerateResponseLog(id, student, LogType.StudentIndexingRequest);
 
             return Ok(student);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetByFilter([FromQuery] GetFilteredStudentsRequest request)
+        {
+            _loggerService.GenerateRequestLog(request, LogType.StudentSearchRequest);
+
+            var students = await _studentService.GetByFilterAsync(request);
+            var countOfStudents = await _studentService.CountWithFilter(request);
+
+            _loggerService.GenerateResponseLog(request, students, LogType.StudentSearchRequest);
+
+            if (students == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new PagedResult<StudentDTO> { Data = students, CountAllDocuments = countOfStudents });
         }
 
         [HttpPost]

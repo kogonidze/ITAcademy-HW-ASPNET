@@ -9,9 +9,9 @@ namespace EducationalCenter.Common.Dtos.Api.Request
 
         public int? SortOrder { get; set; }
 
-        public int? First { get; set; }
+        public int? Page { get; set; }
 
-        public int? Rows { get; set; }
+        public int? PageSize { get; set; }
 
         public string GlobalFilter { get; set; }
 
