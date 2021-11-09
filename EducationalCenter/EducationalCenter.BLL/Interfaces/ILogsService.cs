@@ -9,5 +9,8 @@ namespace EducationalCenter.BLL.Interfaces
     public interface ILogsService
     {
         Task<IEnumerable<LogDto>> GetLogsAsync(GetLogsRequest filter, CancellationToken cancellationToken);
+        int Count();
+
+        Task<int> CountWithFilter(GetLogsRequest filter);
     }
 }

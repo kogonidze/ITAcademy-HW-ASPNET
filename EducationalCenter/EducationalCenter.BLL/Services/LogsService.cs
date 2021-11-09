@@ -34,11 +34,11 @@ namespace EducationalCenter.BLL.Services
 
             if (filters != null)
             {
-                logs = await _unitOfWork.Logs.GetByFilterAsync(filters);
+                logs = await _unitOfWork.Logs.GetByFilterAsync(filters, (int) filter.Page, (int) filter.PageSize);
             }
             else
             {
-                logs = await _unitOfWork.Logs.GetAllAsync();
+                logs = await _unitOfWork.Logs.GetAllAsync((int)filter.Page, (int)filter.PageSize);
             }
             
             var report = _mapper.Map<List<LogDto>>(logs);
@@ -46,14 +46,38 @@ namespace EducationalCenter.BLL.Services
             return report;
         }
 
+        public int Count()
+        {
+            return _unitOfWork.Logs.Count();
+        }
+
+        public async Task<int> CountWithFilter(GetLogsRequest filter)
+        {
+            var filters = BuildFilter(filter);
+
+            var countOfLogs = await _unitOfWork.Logs.CountWithFilter(filters);
+
+            return countOfLogs;
+        }
+
+
         private Expression<Func<Log, bool>> BuildFilter(GetLogsRequest filter)
         {
-            Expression<Func<Log, bool>> finalFilter = el => el.Id > 1;
+            Expression<Func<Log, bool>> finalFilter = null;
 
             var filters = GetAllFilters(filter);
 
+            var isFirst = true;
+
             foreach (var item in filters)
             {
+                if (isFirst)
+                {
+                    finalFilter = item;
+
+                    isFirst = false;
+                }
+
                 finalFilter = finalFilter.And(item);
             }
 

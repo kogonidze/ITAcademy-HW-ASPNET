@@ -71,6 +71,11 @@ namespace EducationalCenter.BLL.Services
             await _unitOfWork.Complete();
         }
 
+        public int Count()
+        {
+            return _unitOfWork.Teachers.Count();
+        }
+
         public async Task<int> CountWithFilter(GetFilteredTeachersRequest filter)
         {
             var filters = BuildFilter(filter);
@@ -128,11 +133,6 @@ namespace EducationalCenter.BLL.Services
             }
 
             return filters;
-        }
-
-        public int Count()
-        {
-            return _unitOfWork.Teachers.Count();
         }
     }
 }

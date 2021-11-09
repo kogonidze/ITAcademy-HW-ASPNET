@@ -51,5 +51,9 @@ export enum LogType {
 
     FacultyEditionRequest,
 
-    FacultyDeletionRequest
+    FacultyDeletionRequest,
+
+    TeacherSearchRequest,
+
+    StudentSearchRequest
 }
